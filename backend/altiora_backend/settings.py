@@ -3,7 +3,6 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'secret-key')
 
 DEBUG = int(os.getenv('DEBUG', 1))
@@ -14,8 +13,6 @@ ALLOWED_HOSTS = [
     os.getenv('DJANGO_HOST_3'),
     os.getenv('DJANGO_HOST_4'),
 ]
-
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -68,6 +65,7 @@ WSGI_APPLICATION = 'altiora_backend.wsgi.application'
 #     }
 # }
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -76,7 +74,7 @@ DATABASES = {
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', ''),
         'HOST': os.getenv('POSTGRES_HOST', ''),
         'PORT': os.getenv('POSTGRES_PORT', '5432'),
-    }
+    },
 }
 
 
