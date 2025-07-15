@@ -14,3 +14,5 @@ DJANGO_HOST_2=127.0.0.1
 DJANGO_HOST_3=altiora.domain
 # Altiora IP
 DJANGO_HOST_4=0.0.0.0
+CORS_ORIGIN_HOST_1=http://localhost:3000
+CORS_ORIGIN_HOST_2=http://127.0.0.1:3000

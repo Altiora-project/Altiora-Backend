@@ -142,17 +142,15 @@ REST_FRAMEWORK = {
     ],
 }
 
-# CORS settings (for React app)
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React default port
-    "http://127.0.0.1:3000",
+    os.getenv('CORS_ORIGIN_HOST_1'),
+    os.getenv('CORS_ORIGIN_HOST_2'),
 ]
 
 # Optionally allow all origins during development (not for production!)
 # CORS_ALLOW_ALL_ORIGINS = True
 
-# CSRF trusted origins for Django 4.0+
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
+    os.getenv('CORS_ORIGIN_HOST_1'),
+    os.getenv('CORS_ORIGIN_HOST_2'),
 ]
