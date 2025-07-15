@@ -26,6 +26,18 @@ backend/ # Проект Django
 │ └── requirements.txt # Зависимости Python
 ```
 
+## Локальный запуск только postgres в контейнере
+
+```bash
+sudo docker compose -f docker-compose.local.postgres.yml up --build
+```
+
+В .env файле нужно указать:
+```bash
+# для запуска только postgres в контейнере
+POSTGRES_HOST=localhost
+```
+
 ## Запуск Django server
 
 ```bash
