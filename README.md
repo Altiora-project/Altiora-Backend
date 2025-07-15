@@ -1,6 +1,6 @@
 # Altiora-Backend
 
-## Структура проета
+## Структура проекта
 
 ```bash
 backend/ # Проект Django
