@@ -1,0 +1,16 @@
+# Database
+POSTGRES_DB=altiora_db
+POSTGRES_USER=altiora_user
+POSTGRES_PASSWORD=altiora_password
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+
+# Django
+DEBUG=1
+DJANGO_SECRET_KEY=secret-key
+DJANGO_HOST_1=localhost
+DJANGO_HOST_2=127.0.0.1
+# Altiora domain
+DJANGO_HOST_3=altiora.domain
+# Altiora IP
+DJANGO_HOST_4=0.0.0.0
