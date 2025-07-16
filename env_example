@@ -1,0 +1,13 @@
+# Database
+POSTGRES_DB=altiora_db
+POSTGRES_USER=altiora_user
+POSTGRES_PASSWORD=altiora_password
+POSTGRES_HOST=localhost
+# POSTGRES_HOST=postgres  # Docker service name
+POSTGRES_PORT=5432
+
+# Django
+DEBUG=True
+DJANGO_SECRET_KEY=secret-key
+ALLOWED_HOSTS=localhost 127.0.0.1
+CORS_ORIGINS_HOSTS=http://localhost:3000 http://127.0.0.1:3000
