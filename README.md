@@ -26,6 +26,32 @@ backend/ # Проект Django
 │ └── requirements.txt # Зависимости Python
 ```
 
+## Установка виртуального окружения и зависимостей
+
+```bash
+python -m venv venv
+```
+
+```bash
+source venv/bin/activate
+```
+
+```bash
+python -m pip install --upgrade pip
+```
+
+Установка зависимостей
+```bash
+pip install -r backend/requirements.txt
+```
+
+Установка зависимостей для разработки
+```bash
+pip install -r backend/requirements-dev.txt
+```
+
+
+
 ## Локальный запуск только postgres в контейнере
 
 ```bash
