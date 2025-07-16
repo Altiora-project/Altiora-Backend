@@ -74,6 +74,8 @@ RabbitMQ Management UI будет доступен по адресу: http://loc
 # для полной инфраструктуры в контейнерах
 POSTGRES_HOST=localhost
 CELERY_BROKER_URL=amqp://user:pass@localhost:5672//
+RABBITMQ_DEFAULT_USER=user
+RABBITMQ_DEFAULT_PASS=pass
 ```
 
 ### Локальный запуск только PostgreSQL в контейнере
