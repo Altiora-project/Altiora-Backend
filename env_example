@@ -9,11 +9,5 @@ POSTGRES_PORT=5432
 # Django
 DEBUG=1
 DJANGO_SECRET_KEY=secret-key
-DJANGO_HOST_1=localhost
-DJANGO_HOST_2=127.0.0.1
-# Altiora domain
-DJANGO_HOST_3=altiora.domain
-# Altiora IP
-DJANGO_HOST_4=0.0.0.0
-CORS_ORIGIN_HOST_1=http://localhost:3000
-CORS_ORIGIN_HOST_2=http://127.0.0.1:3000
+ALLOWED_HOSTS=localhost 127.0.0.1
+CORS_ORIGINS_HOSTS=http://localhost:3000 http://127.0.0.1:3000
