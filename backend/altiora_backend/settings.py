@@ -7,12 +7,12 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'secret-key')
 
 DEBUG = int(os.getenv('DEBUG', 1))
 
-ALLOWED_HOSTS = [
+ALLOWED_HOSTS = [host for host in [
     os.getenv('DJANGO_HOST_1'),
     os.getenv('DJANGO_HOST_2'),
     os.getenv('DJANGO_HOST_3'),
     os.getenv('DJANGO_HOST_4'),
-]
+] if host is not None]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -117,12 +117,12 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ALLOWED_ORIGINS = [
+CORS_ALLOWED_ORIGINS = [host for host in [
     os.getenv('CORS_ORIGIN_HOST_1'),
     os.getenv('CORS_ORIGIN_HOST_2'),
-]
+] if host is not None]
 
-CSRF_TRUSTED_ORIGINS = [
+CSRF_TRUSTED_ORIGINS = [host for host in [
     os.getenv('CORS_ORIGIN_HOST_1'),
     os.getenv('CORS_ORIGIN_HOST_2'),
-]
+] if host is not None]

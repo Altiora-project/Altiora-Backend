@@ -134,6 +134,7 @@ dmypy.json
 # .idea
 .idea
 .vscode
+.ruff_cache
 
 # static/
 # media/
