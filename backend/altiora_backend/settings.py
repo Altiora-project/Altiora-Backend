@@ -121,7 +121,6 @@ CORS_ALLOWED_ORIGINS = os.getenv('CORS_ORIGINS_HOSTS', '').split(' ')
 
 CSRF_TRUSTED_ORIGINS = os.getenv('CORS_ORIGINS_HOSTS', '').split(' ')
 
-# Настройки логирования
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -188,3 +187,11 @@ LOGGING = {
 
 # Настройки Celery
 CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "amqp://guest:guest@localhost:5672//")
+
+# Настройки SMTP для отправки email
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')
