@@ -50,9 +50,33 @@ pip install -r backend/requirements.txt
 pip install -r backend/requirements-dev.txt
 ```
 
+## Запуск инфраструктуры
 
+### Полная локальная инфраструктура (PostgreSQL + RabbitMQ + Celery)
 
-## Локальный запуск только postgres в контейнере
+Запуск всех необходимых сервисов для разработки:
+
+```bash
+sudo docker compose -f docker-compose.local.yml up --build
+```
+
+Этот compose файл включает:
+- **PostgreSQL** (порт 5433) - база данных
+- **RabbitMQ** (порты 5672, 15672) - брокер сообщений для Celery
+- **Celery Worker** - обработчик асинхронных задач
+
+RabbitMQ Management UI будет доступен по адресу: http://localhost:15672
+- Логин: `user`
+- Пароль: `pass`
+
+В .env файле нужно указать:
+```bash
+# для полной инфраструктуры в контейнерах
+POSTGRES_HOST=localhost
+CELERY_BROKER_URL=amqp://user:pass@localhost:5672//
+```
+
+### Локальный запуск только PostgreSQL в контейнере
 
 ```bash
 sudo docker compose -f docker-compose.local.postgres.yml up --build

@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from .models import ProjectRequest
+from .tasks import send_request_notification
 
 logger = getLogger('api')
 
@@ -13,4 +14,5 @@ def send_email_to_admin(sender, instance, created, **kwargs):
     """Отправка email администратору при создании заявки"""
 
     if created:
-        logger.info(f"Заявка на проект: {instance.name}")
+        logger.info(f"Создана заявка на проект: {instance.name}")
+        send_request_notification.delay(instance.id)

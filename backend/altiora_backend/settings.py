@@ -185,3 +185,6 @@ LOGGING = {
         },
     }
 }
+
+# Настройки Celery
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "amqp://guest:guest@localhost:5672//")
