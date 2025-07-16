@@ -7,7 +7,7 @@ POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 
 # Django
-DEBUG=1
+DEBUG=True
 DJANGO_SECRET_KEY=secret-key
 ALLOWED_HOSTS=localhost 127.0.0.1
 CORS_ORIGINS_HOSTS=http://localhost:3000 http://127.0.0.1:3000
