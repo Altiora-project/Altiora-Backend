@@ -17,11 +17,11 @@ class Technology(models.Model):
         null=True,
         verbose_name='Изображение'
     )
-    info_1 = models.TextField(
+    primary_info = models.TextField(
         max_length=constants.INFO_MAX_LENGTH,
         verbose_name='Основная информация'
     )
-    info_2 = models.TextField(
+    secondary_info = models.TextField(
         max_length=constants.INFO_MAX_LENGTH,
         blank=True,
         null=True,

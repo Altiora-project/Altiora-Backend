@@ -18,5 +18,4 @@ class TechnologyAdmin(admin.ModelAdmin):
         'secondary_info'
     )
     search_fields = ('name', )
-    list_filter = ('number', )
-    filter_vertical = ('number', )
+    list_filter = ('number', 'name')
