@@ -3,7 +3,7 @@ from typing import Optional
 from django.contrib import admin
 from django.http import HttpRequest
 
-from .models import ProjectRequest
+from .models import ProjectRequest, Technology
 
 
 @admin.register(ProjectRequest)
@@ -49,3 +49,21 @@ class ProjectRequestAdmin(admin.ModelAdmin):
     ) -> bool:
         """Запрет удаления заявок"""
         return False
+
+
+@admin.register(Technology)
+class TechnologyAdmin(admin.ModelAdmin):
+    """Модель описывает управление технологиями блока Лаборатория стартапов."""
+
+    list_display_links = (
+        'name',
+        'number'
+    )
+    list_display = (
+        'name',
+        'number',
+        'primary_info',
+        'secondary_info'
+    )
+    search_fields = ('name', )
+    list_filter = ('number', 'name')
