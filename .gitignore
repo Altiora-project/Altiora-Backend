@@ -141,3 +141,6 @@ dmypy.json
 
 # ruff
 pyproject.toml
+
+# app logs
+logs

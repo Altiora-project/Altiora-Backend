@@ -1,0 +1,47 @@
+version: "3.9"
+
+volumes:
+  pg_altiora_data:
+
+services:
+  postgres:
+    container_name: altiora_database
+    image: postgres:17.1-alpine3.20
+    env_file: .env
+    volumes:
+      - pg_altiora_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: altiora_rabbitmq
+    env_file: .env
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  celery:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.celery
+    container_name: altiora_celery
+    command: celery -A altiora_backend worker --loglevel=info
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    environment:
+      # Переопределяем для контейнера - используем имена сервисов Docker
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
+    working_dir: /app
+    depends_on:
+      - postgres
+      - rabbitmq

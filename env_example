@@ -1,13 +1,30 @@
-# Database
-POSTGRES_DB=altiora_db
-POSTGRES_USER=altiora_user
-POSTGRES_PASSWORD=altiora_password
-POSTGRES_HOST=localhost
-# POSTGRES_HOST=postgres  # Docker service name
-POSTGRES_PORT=5432
-
 # Django
 DEBUG=True
 DJANGO_SECRET_KEY=secret-key
 ALLOWED_HOSTS=localhost 127.0.0.1
 CORS_ORIGINS_HOSTS=http://localhost:3000 http://127.0.0.1:3000
+
+# Database
+POSTGRES_DB=altiora_db
+POSTGRES_USER=altiora_user
+POSTGRES_PASSWORD=altiora_password
+POSTGRES_HOST=localhost
+
+# POSTGRES_HOST=postgres  # Docker service name
+POSTGRES_PORT=5432
+
+# RabbitMQ
+RABBITMQ_DEFAULT_USER=user
+RABBITMQ_DEFAULT_PASS=pass
+
+# Celery
+CELERY_BROKER_URL=amqp://user:pass@localhost:5672//  # Для локальной разработки
+CELERY_BROKER_URL=amqp://user:pass@rabbitmq:5672//  # Для Docker
+
+# Настройки SMTP
+EMAIL_HOST=smtp.mailtrap.io  #TODO заменить на реальные настройки можно использовать https://mailtrap.io/ для тестирования
+EMAIL_HOST_USER=your_user #TODO заменить на реальные настройки
+EMAIL_HOST_PASSWORD=your_pass #TODO заменить на реальные настройки
+EMAIL_PORT=587 #TODO заменить на реальные настройки
+DEFAULT_FROM_EMAIL=noreply@altiora.local #TODO заменить на реальные настройки
+ADMIN_EMAIL=admin@example.com #TODO заменить на реальные настройки
