@@ -1,0 +1,63 @@
+version: "3.9"
+
+volumes:
+  pg_data:
+
+services:
+  django:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: altiora_backend
+    command: gunicorn altiora_backend.wsgi:application --bind 0.0.0.0:8000
+    env_file: .env
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  celery:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: altiora_celery
+    command: celery -A altiora_backend worker --loglevel=info
+    env_file: .env
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  postgres:
+    image: postgres:17.1-alpine3.20
+    container_name: altiora_postgres
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: altiora_rabbitmq
+    env_file: .env
+    ports:
+      - "5672:5672"
+      - "15672:15672"
