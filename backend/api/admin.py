@@ -2,8 +2,9 @@ from typing import Optional
 
 from django.contrib import admin
 from django.http import HttpRequest
+from django.utils.safestring import mark_safe
 
-from .models import ProjectRequest, Technology
+from .models import Partner, ProjectRequest, Technology
 
 
 @admin.register(ProjectRequest)
@@ -33,6 +34,11 @@ class ProjectRequestAdmin(admin.ModelAdmin):
     def has_add_permission(self, request: HttpRequest) -> bool:
         """Запрет добавления заявок"""
         return False
+
+
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    """Админка для модели парнёр."""
 
     def has_change_permission(
             self,
@@ -67,3 +73,9 @@ class TechnologyAdmin(admin.ModelAdmin):
     )
     search_fields = ('name', )
     list_filter = ('number', 'name')
+    list_display = ("name", "website", "get_logo")
+
+    @admin.display(description='Лого')
+    def get_logo(self, obj):
+        """Возвращает лого."""
+        return mark_safe(f"<img src={obj.image.url} width='80' height='60'>")
