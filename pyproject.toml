@@ -7,4 +7,5 @@ extend-exclude = '''
   |migrations
   |tests
 )/
+|manage.py
 '''

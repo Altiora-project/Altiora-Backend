@@ -12,24 +12,24 @@ class ProjectRequestAdmin(admin.ModelAdmin):
     """Только просмотр заявок в админке"""
 
     readonly_fields = [
-        'name',
-        'company',
-        'project_details',
-        'phone_number',
-        'email',
-        'created_at',
+        "name",
+        "company",
+        "project_details",
+        "phone_number",
+        "email",
+        "created_at",
     ]
     list_display = [
-        'id',
-        'name',
-        'company',
-        'phone_number',
-        'email',
-        'created_at',
+        "id",
+        "name",
+        "company",
+        "phone_number",
+        "email",
+        "created_at",
     ]
-    search_fields = ['name', 'company', 'phone_number', 'email']
-    list_filter = ['company', 'created_at']
-    ordering = ['-created_at']
+    search_fields = ["name", "company", "phone_number", "email"]
+    list_filter = ["company", "created_at"]
+    ordering = ["-created_at"]
 
     def has_add_permission(self, request: HttpRequest) -> bool:
         """Запрет добавления заявок"""
@@ -41,17 +41,13 @@ class PartnerAdmin(admin.ModelAdmin):
     """Админка для модели парнёр."""
 
     def has_change_permission(
-            self,
-            request: HttpRequest,
-            obj: Optional[ProjectRequest] = None
+        self, request: HttpRequest, obj: Optional[ProjectRequest] = None
     ) -> bool:
         """Запрет изменения заявок"""
         return False
 
     def has_delete_permission(
-            self,
-            request: HttpRequest,
-            obj: Optional[ProjectRequest] = None
+        self, request: HttpRequest, obj: Optional[ProjectRequest] = None
     ) -> bool:
         """Запрет удаления заявок"""
         return False
@@ -61,21 +57,13 @@ class PartnerAdmin(admin.ModelAdmin):
 class TechnologyAdmin(admin.ModelAdmin):
     """Модель описывает управление технологиями блока Лаборатория стартапов."""
 
-    list_display_links = (
-        'name',
-        'number'
-    )
-    list_display = (
-        'name',
-        'number',
-        'primary_info',
-        'secondary_info'
-    )
-    search_fields = ('name', )
-    list_filter = ('number', 'name')
+    list_display_links = ("name", "number")
+    list_display = ("name", "number", "primary_info", "secondary_info")
+    search_fields = ("name",)
+    list_filter = ("number", "name")
     list_display = ("name", "website", "get_logo")
 
-    @admin.display(description='Лого')
+    @admin.display(description="Лого")
     def get_logo(self, obj):
         """Возвращает лого."""
         return mark_safe(f"<img src={obj.image.url} width='80' height='60'>")
