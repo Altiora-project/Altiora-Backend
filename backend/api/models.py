@@ -1,7 +1,6 @@
 from django.db import models
 
 from altiora_backend import constants
-from django.db import models
 
 
 class Partner(models.Model):
@@ -22,6 +21,14 @@ class Partner(models.Model):
         verbose_name="Сайт партнёра",
         blank=True
     )
+
+    class Meta:
+        ordering = ("name",)
+        verbose_name = "Партнёр"
+        verbose_name_plural = "Партнёры"
+
+    def __str__(self):
+        return self.name[:20]
 
 
 class ProjectRequest(models.Model):
@@ -95,10 +102,3 @@ class Technology(models.Model):
 
     def __str__(self):
         return self.name
-    class Meta:
-        ordering = ("name",)
-        verbose_name = "Партнёр"
-        verbose_name_plural = "Партнёры"
-
-    def __str__(self):
-        return self.name[:20]

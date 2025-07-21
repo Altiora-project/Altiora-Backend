@@ -2,8 +2,9 @@ from typing import Optional
 
 from django.contrib import admin
 from django.http import HttpRequest
+from django.utils.safestring import mark_safe
 
-from .models import ProjectRequest, Technology
+from .models import Partner, ProjectRequest, Technology
 
 
 @admin.register(ProjectRequest)
@@ -33,10 +34,6 @@ class ProjectRequestAdmin(admin.ModelAdmin):
     def has_add_permission(self, request: HttpRequest) -> bool:
         """Запрет добавления заявок"""
         return False
-from django.contrib import admin
-from django.utils.safestring import mark_safe
-
-from .models import Partner
 
 
 @admin.register(Partner)
