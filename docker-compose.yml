@@ -1,7 +1,7 @@
 version: "3.9"
 
 volumes:
-  pg_data:
+  pg_altiora_data:
 
 services:
   django:
@@ -12,8 +12,6 @@ services:
     command: gunicorn altiora_backend.wsgi:application --bind 0.0.0.0:8000
     env_file: .env
     environment:
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: 5432
       CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
     volumes:
       - ./backend:/app
@@ -31,8 +29,6 @@ services:
     command: celery -A altiora_backend worker --loglevel=info
     env_file: .env
     environment:
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: 5432
       CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
     volumes:
       - ./backend:/app
@@ -45,7 +41,7 @@ services:
     container_name: altiora_postgres
     env_file: .env
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_altiora_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
