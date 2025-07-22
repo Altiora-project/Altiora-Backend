@@ -6,9 +6,11 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import (ProjectRequestErrorResponseSerializer,
-                          ProjectRequestResponseSerializer,
-                          ProjectRequestSerializer)
+from .serializers import (
+    ProjectRequestErrorResponseSerializer,
+    ProjectRequestResponseSerializer,
+    ProjectRequestSerializer,
+)
 
 logger = getLogger("api")
 
@@ -30,8 +32,8 @@ class ProjectRequestCreateView(APIView):
             400: OpenApiResponse(
                 description="Ошибка валидации входных данных",
                 response=ProjectRequestErrorResponseSerializer,
-            )
-        }
+            ),
+        },
     )
     def post(self, request: Request) -> Response:
         """Создание заявки на проект."""
@@ -39,14 +41,20 @@ class ProjectRequestCreateView(APIView):
         if serializer.is_valid():
             instance = serializer.save()
             logger.info(f"Новая заявка от {instance.name} — {instance.email}")
-            return Response({
-                "success": True,
-                "message": "Заявка успешно отправлена",
-                "data": serializer.data
-            }, status=status.HTTP_201_CREATED)
+            return Response(
+                {
+                    "success": True,
+                    "message": "Заявка успешно отправлена",
+                    "data": serializer.data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
 
-        return Response({
-            "success": False,
-            "message": "Ошибка валидации данных",
-            "errors": serializer.errors
-        }, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {
+                "success": False,
+                "message": "Ошибка валидации данных",
+                "errors": serializer.errors,
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )

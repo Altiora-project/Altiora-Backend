@@ -4,8 +4,8 @@ from .views import ProjectRequestCreateView
 
 urlpatterns = [
     path(
-        'project-request/',
+        "project-request/",
         ProjectRequestCreateView.as_view(),
-        name='project-request-create'
+        name="project-request-create",
     ),
 ]
