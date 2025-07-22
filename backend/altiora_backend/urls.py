@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.urls import include, path
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 from .constants import API_VERSION
 
@@ -18,5 +22,11 @@ urlpatterns = [
         f"api/{API_VERSION}/redoc/",
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
+    ),
+    # Документация Swagger
+    path(
+        f"api/{API_VERSION}/swagger/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger",
     ),
 ]
