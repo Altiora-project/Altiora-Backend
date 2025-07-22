@@ -10,25 +10,25 @@ from .serializers import (ProjectRequestErrorResponseSerializer,
                           ProjectRequestResponseSerializer,
                           ProjectRequestSerializer)
 
-logger = getLogger('api')
+logger = getLogger("api")
 
 
 class ProjectRequestCreateView(APIView):
     """API для создания заявки на проект."""
 
     @extend_schema(
-        operation_id='project_request_create',
-        summary='Создать заявку на проект',
-        description='Создание новой заявки на проект от клиента',
-        tags=['Project Request'],
+        operation_id="project_request_create",
+        summary="Создать заявку на проект",
+        description="Создание новой заявки на проект от клиента",
+        tags=["Project Request"],
         request=ProjectRequestSerializer,
         responses={
             201: OpenApiResponse(
-                description='Заявка успешно создана',
+                description="Заявка успешно создана",
                 response=ProjectRequestResponseSerializer,
             ),
             400: OpenApiResponse(
-                description='Ошибка валидации входных данных',
+                description="Ошибка валидации входных данных",
                 response=ProjectRequestErrorResponseSerializer,
             )
         }

@@ -8,14 +8,14 @@ from .models import ProjectRequest
 class BaseResponseSerializer(serializers.Serializer):
     """Базовый сериализатор для успешных ответов."""
     success = serializers.BooleanField(
-        help_text='Статус успешности операции',
+        help_text="Статус успешности операции",
         default=True
     )
     message = serializers.CharField(
-        help_text='Сообщение об операции'
+        help_text="Сообщение об операции"
     )
     data = serializers.JSONField(
-        help_text='Данные операции',
+        help_text="Данные операции",
         required=False
     )
 
@@ -23,19 +23,19 @@ class BaseResponseSerializer(serializers.Serializer):
 class ErrorResponseSerializer(serializers.Serializer):
     """Сериализатор для ответов с ошибками."""
     success = serializers.BooleanField(
-        help_text='Статус успешности операции',
+        help_text="Статус успешности операции",
         default=False
     )
     message = serializers.CharField(
-        help_text='Сообщение об ошибке'
+        help_text="Сообщение об ошибке"
     )
     errors = serializers.DictField(
         child=serializers.ListField(
             child=serializers.CharField(),
-            help_text='Список ошибок для конкретного поля'
+            help_text="Список ошибок для конкретного поля"
         ),
-        help_text='Словарь ошибок валидации, где ключ - название поля, '
-                  'значение - список ошибок',
+        help_text="Словарь ошибок валидации, где ключ - название поля, "
+                  "значение - список ошибок",
         required=False,
         allow_empty=True
     )
@@ -70,22 +70,22 @@ class ProjectRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectRequest
         fields = [
-            'name',
-            'company',
-            'project_details',
-            'phone_number',
-            'email',
-            'agreed_to_terms',
+            "name",
+            "company",
+            "project_details",
+            "phone_number",
+            "email",
+            "agreed_to_terms",
         ]
-        read_only_fields = ['created_at']
+        read_only_fields = ["created_at"]
 
     def validate_phone_number(self, value):
         """Проверка формата номера телефона."""
-        pattern = r'^\+?[1-9]\d{1,14}$'
+        pattern = r"^\+?[1-9]\d{1,14}$"
         if not re.match(pattern, value):
             raise serializers.ValidationError(
-                'Неверный формат номера телефона. '
-                'Пожалуйста, используйте формат +79991234567'
+                "Неверный формат номера телефона. "
+                "Пожалуйста, используйте формат +79991234567"
             )
         return value
 
@@ -93,8 +93,8 @@ class ProjectRequestSerializer(serializers.ModelSerializer):
         """Проверка согласия с условиями обработки персональных данных."""
         if value is not True:
             raise serializers.ValidationError(
-                'Необходимо согласиться с политикой обработки '
-                'персональных данных.'
+                "Необходимо согласиться с политикой обработки "
+                "персональных данных."
             )
         return value
 
