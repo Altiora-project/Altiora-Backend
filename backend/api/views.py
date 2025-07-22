@@ -1,7 +1,7 @@
+from http import HTTPStatus
 from logging import getLogger
 
 from drf_spectacular.utils import OpenApiResponse, extend_schema
-from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,11 +25,11 @@ class ProjectRequestCreateView(APIView):
         tags=["Project Request"],
         request=ProjectRequestSerializer,
         responses={
-            201: OpenApiResponse(
+            HTTPStatus.CREATED: OpenApiResponse(
                 description="Заявка успешно создана",
                 response=ProjectRequestResponseSerializer,
             ),
-            400: OpenApiResponse(
+            HTTPStatus.BAD_REQUEST: OpenApiResponse(
                 description="Ошибка валидации входных данных",
                 response=ProjectRequestErrorResponseSerializer,
             ),
@@ -47,7 +47,7 @@ class ProjectRequestCreateView(APIView):
                     "message": "Заявка успешно отправлена",
                     "data": serializer.data,
                 },
-                status=status.HTTP_201_CREATED,
+                status=HTTPStatus.CREATED,
             )
 
         return Response(
@@ -56,5 +56,5 @@ class ProjectRequestCreateView(APIView):
                 "message": "Ошибка валидации данных",
                 "errors": serializer.errors,
             },
-            status=status.HTTP_400_BAD_REQUEST,
+            status=HTTPStatus.BAD_REQUEST,
         )
