@@ -1,5 +1,23 @@
 # Altiora-Backend
 
+## Проверка flake8 и black
+
+Проверка PEP8
+```bash
+flake8 backend/
+```
+
+Проверка кода
+```bash
+black --check backend/
+```
+
+Форматирование кода
+```bash
+black {source_file_or_directory}
+```
+
+
 ## Структура проекта
 
 ```bash

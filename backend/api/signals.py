@@ -7,15 +7,12 @@ from django.dispatch import receiver
 from .models import ProjectRequest
 from .tasks import send_request_notification
 
-logger = getLogger('api')
+logger = getLogger("api")
 
 
 @receiver(post_save, sender=ProjectRequest)
 def send_email_to_admin(
-    sender: Any,
-    instance: ProjectRequest,
-    created: bool,
-    **kwargs: Any
+    sender: Any, instance: ProjectRequest, created: bool, **kwargs: Any
 ) -> None:
     """Отправка email администратору при создании заявки"""
     if created:
