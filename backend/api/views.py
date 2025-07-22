@@ -5,11 +5,14 @@ from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
+from .models import Technology
 from .serializers import (
     ProjectRequestErrorResponseSerializer,
     ProjectRequestResponseSerializer,
     ProjectRequestSerializer,
+    TechnologySerializer,
 )
 
 logger = getLogger("api")
@@ -58,3 +61,10 @@ class ProjectRequestCreateView(APIView):
             },
             status=HTTPStatus.BAD_REQUEST,
         )
+
+
+class TechnologyViewSet(ReadOnlyModelViewSet):
+    """Вьюсет для отображения технологий на странице Лаборатория стартапов."""
+
+    queryset = Technology.objects.all()
+    serializer_class = TechnologySerializer
