@@ -60,8 +60,7 @@ class Technology(models.Model):
         verbose_name="Название технологии",
     )
     number = models.PositiveSmallIntegerField(
-        unique=True,
-        verbose_name="Порядковый номер технологии"
+        unique=True, verbose_name="Порядковый номер технологии"
     )
     image = models.ImageField(
         upload_to="technologies/",
