@@ -1,5 +1,7 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from ckeditor.fields import RichTextField
+
 from altiora_backend import constants
 
 
@@ -86,6 +88,7 @@ class Technology(models.Model):
     def __str__(self):
         return self.name
 
+
 class ServicePostscriptum(models.Model):
     """Модель для постскриптума услуги."""
 
@@ -120,9 +123,14 @@ class ServicePostscriptum(models.Model):
 
     def clean(self):
         """Проверка, что существует только одна запись"""
-        if not self.pk:  # Если это новая запись
-            if ServicePostscriptum.objects.exists():
-                raise ValidationError("Может существовать только одна запись постскриптума услуги.")
+        # Если это новая запись
+        if not self.pk:
+            exists = ServicePostscriptum.objects.exists()
+            if exists:
+                raise ValidationError(
+                    "Может существовать только одна запись постскриптума" +
+                    " услуги."
+                )
 
     def save(self, *args, **kwargs):
         """Переопределение save для валидации"""
@@ -183,9 +191,6 @@ class Service(models.Model):
 
     def __str__(self):
         return f"{self.number}. {self.name}"
-
-
-
 
 
 class CaseStudy(models.Model):

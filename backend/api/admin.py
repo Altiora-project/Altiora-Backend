@@ -4,7 +4,10 @@ from django.contrib import admin
 from django.http import HttpRequest
 from django.utils.safestring import mark_safe
 
-from .models import Partner, ProjectRequest, Technology, ServicePostscriptum, Service, Tag, CaseStudy
+from .models import (
+    CaseStudy, Partner, ProjectRequest, Service, ServicePostscriptum, Tag,
+    Technology
+)
 
 
 @admin.register(ProjectRequest)
@@ -69,6 +72,7 @@ class TechnologyAdmin(admin.ModelAdmin):
     search_fields = ("name",)
     list_filter = ("number", "name")
 
+
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     """Админка для управления услугами"""
@@ -84,7 +88,7 @@ class ServiceAdmin(admin.ModelAdmin):
     search_fields = ['name', 'info', 'content', 'tags__name']
     list_filter = ['number', 'tags']
     ordering = ['number']
-    
+
     fieldsets = (
         ('Основная информация', {
             'fields': ('number', 'name', 'info')
@@ -122,7 +126,7 @@ class ServicePostscriptumAdmin(admin.ModelAdmin):
     search_fields = ['name', 'info']
     list_filter = ['name']
     ordering = ['name']
-    
+
     fieldsets = (
         ('Основная информация', {
             'fields': ('name', 'info')
@@ -155,7 +159,6 @@ class ServicePostscriptumAdmin(admin.ModelAdmin):
         return actions
 
 
-
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     """Админка для управления тегами"""
@@ -167,7 +170,7 @@ class TagAdmin(admin.ModelAdmin):
     list_display_links = ['id', 'name']
     search_fields = ['name']
     ordering = ['name']
-    
+
     fieldsets = (
         ('Основная информация', {
             'fields': ('name',)
@@ -190,7 +193,7 @@ class CaseStudyAdmin(admin.ModelAdmin):
     search_fields = ['name', 'info', 'service__name', 'tags__name']
     list_filter = ['service', 'tags']
     ordering = ['service', 'name']
-    
+
     fieldsets = (
         ('Основная информация', {
             'fields': ('service', 'name', 'info')
