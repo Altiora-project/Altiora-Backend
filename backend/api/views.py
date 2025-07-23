@@ -19,6 +19,7 @@ from .serializers import (
     TechnologySerializer,
     TechnologyResponseSerializer,
     TechnologyListResponseSerializer,
+    TechnologyErrorResponseSerializer,
 )
 
 logger = getLogger("api")
@@ -79,11 +80,11 @@ class ProjectRequestCreateView(APIView):
         responses={
             HTTPStatus.OK: OpenApiResponse(
                 description="Данные успешно получены",
-                response=TechnologyResponseSerializer,
+                response=TechnologyListResponseSerializer,
             ),
             HTTPStatus.BAD_REQUEST: OpenApiResponse(
                 description="Неверные параметры запроса",
-                response=ProjectRequestErrorResponseSerializer,
+                response=TechnologyErrorResponseSerializer,
             ),
         },
     ),
@@ -97,11 +98,11 @@ class ProjectRequestCreateView(APIView):
             ),
             HTTPStatus.NOT_FOUND: OpenApiResponse(
                 description="Технология не найдена",
-                response=ProjectRequestErrorResponseSerializer,
+                response=TechnologyErrorResponseSerializer,
             ),
             HTTPStatus.BAD_REQUEST: OpenApiResponse(
                 description="Неверные параметры запроса",
-                response=ProjectRequestErrorResponseSerializer,
+                response=TechnologyErrorResponseSerializer,
             ),
         },
     ),

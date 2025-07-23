@@ -126,3 +126,9 @@ class TechnologyListResponseSerializer(BaseResponseSerializer):
     """Сериализатор для получения списка технологий."""
 
     data = TechnologySerializer(many=True)
+
+
+class TechnologyErrorResponseSerializer(ErrorResponseSerializer):
+    """Сериализатор для ответа с ошибками при получении технологий."""
+
+    pass
