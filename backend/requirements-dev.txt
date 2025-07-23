@@ -12,6 +12,7 @@ django-cors-headers==4.7.0
 djangorestframework==3.16.0
 drf-spectacular==0.28.0
 flake8==7.3.0
+gunicorn==23.0.0
 kombu==5.5.4
 mccabe==0.7.0
 mypy_extensions==1.1.0
