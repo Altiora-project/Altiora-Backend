@@ -114,3 +114,15 @@ class TechnologySerializer(serializers.ModelSerializer):
             "secondary_info",
             "image",
         )
+
+
+class TechnologyResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для получения технологии."""
+
+    data = TechnologySerializer()
+
+
+class TechnologyListResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для получения списка технологий."""
+
+    data = TechnologySerializer(many=True)
