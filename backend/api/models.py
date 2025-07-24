@@ -4,6 +4,8 @@ from ckeditor.fields import RichTextField
 
 from altiora_backend import constants
 
+from .mixins import ServiceSeoMixin
+
 
 class Partner(models.Model):
     """Модель партнёра."""
@@ -91,7 +93,7 @@ class Technology(models.Model):
         return self.name
 
 
-class ServicePostscriptum(models.Model):
+class ServicePostscriptum(ServiceSeoMixin):
     """Модель для постскриптума услуги."""
 
     name = models.CharField(
@@ -153,7 +155,7 @@ class Tag(models.Model):
         return self.name
 
 
-class Service(models.Model):
+class Service(ServiceSeoMixin):
     """Модель для услуг."""
 
     name = models.CharField(
