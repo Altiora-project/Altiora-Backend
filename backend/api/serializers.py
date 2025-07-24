@@ -2,7 +2,7 @@ import re
 
 from rest_framework import serializers
 
-from .models import ProjectRequest
+from .models import ProjectRequest, Technology
 
 
 class BaseResponseSerializer(serializers.Serializer):
@@ -94,5 +94,41 @@ class ProjectRequestResponseSerializer(BaseResponseSerializer):
 
 class ProjectRequestErrorResponseSerializer(ErrorResponseSerializer):
     """Сериализатор для ответа с ошибками при создании заявки на проект."""
+
+    pass
+
+
+class TechnologySerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для отображения технологий.
+    Относится к странице Лаборатория стартапов.
+    """
+
+    class Meta:
+        model = Technology
+        fields = (
+            "id",
+            "number",
+            "name",
+            "primary_info",
+            "secondary_info",
+            "image",
+        )
+
+
+class TechnologyResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для получения технологии."""
+
+    data = TechnologySerializer()
+
+
+class TechnologyListResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для получения списка технологий."""
+
+    data = TechnologySerializer(many=True)
+
+
+class TechnologyErrorResponseSerializer(ErrorResponseSerializer):
+    """Сериализатор для ответа с ошибками при получении технологий."""
 
     pass

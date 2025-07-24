@@ -53,15 +53,17 @@ class ProjectRequest(models.Model):
 
 
 class Technology(models.Model):
+    """Модель для отображения технологий на странице Лаборатория стартапов."""
+
     name = models.CharField(
         max_length=constants.NAME_MAX_LENGTH,
         verbose_name="Название технологии",
     )
     number = models.PositiveSmallIntegerField(
-        verbose_name="Порядковый номер технологии"
+        unique=True, verbose_name="Порядковый номер технологии"
     )
     image = models.ImageField(
-        upload_to="technologies",
+        upload_to="technologies/",
         blank=True,
         null=True,
         verbose_name="Изображение",
@@ -78,7 +80,7 @@ class Technology(models.Model):
     )
 
     class Meta:
-        default_related_name = ("technology",)
+        default_related_name = "technology"
         verbose_name = "Технология"
         verbose_name_plural = "Технологии"
         ordering = ["number"]
