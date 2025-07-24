@@ -4,7 +4,15 @@ from django.contrib import admin
 from django.http import HttpRequest
 from django.utils.safestring import mark_safe
 
-from .models import Partner, ProjectRequest, Technology
+from .models import (
+    CaseStudy,
+    Partner,
+    ProjectRequest,
+    Service,
+    ServicePostscriptum,
+    Tag,
+    Technology,
+)
 
 
 @admin.register(ProjectRequest)
@@ -68,3 +76,109 @@ class TechnologyAdmin(admin.ModelAdmin):
     list_display = ("name", "number", "primary_info", "secondary_info")
     search_fields = ("name",)
     list_filter = ("number", "name")
+
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    """Админка для управления услугами"""
+
+    list_display = ["id", "number", "name", "info", "tags_display"]
+    list_display_links = ["id", "number", "name"]
+    search_fields = ["name", "info", "content", "tags__name"]
+    list_filter = ["number", "tags"]
+    ordering = ["number"]
+
+    fieldsets = (
+        ("Основная информация", {"fields": ("number", "name", "info")}),
+        ("Содержание услуги", {"fields": ("content",), "classes": ("wide",)}),
+        ("Теги", {"fields": ("tags",), "classes": ("collapse",)}),
+    )
+
+    def tags_display(self, obj):
+        """Отображение тегов в списке"""
+        return ", ".join([tag.name for tag in obj.tags.all()])
+
+    tags_display.short_description = "Теги"
+
+
+@admin.register(ServicePostscriptum)
+class ServicePostscriptumAdmin(admin.ModelAdmin):
+    """Админка для управления постскриптумами услуг"""
+
+    list_display = [
+        "id",
+        "name",
+        "info",
+        "item1",
+        "item2",
+        "item3",
+        "item4",
+    ]
+    list_display_links = ["id", "name"]
+    search_fields = ["name", "info"]
+    list_filter = ["name"]
+    ordering = ["name"]
+
+    fieldsets = (
+        ("Основная информация", {"fields": ("name", "info")}),
+        (
+            "Элементы постскриптума",
+            {
+                "fields": ("item1", "item2", "item3", "item4"),
+                "classes": ("collapse",),
+            },
+        ),
+    )
+
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        """Запрет добавления новых записей, если уже есть одна"""
+        if ServicePostscriptum.objects.exists():
+            return False
+        return True
+
+    def has_delete_permission(
+        self, request: HttpRequest, obj: Optional[ServicePostscriptum] = None
+    ) -> bool:
+        """Запрет удаления записей"""
+        return False
+
+    def get_actions(self, request):
+        """Удаляем действие удаления из списка действий"""
+        actions = super().get_actions(request)
+        if "delete_selected" in actions:
+            del actions["delete_selected"]
+        return actions
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    """Админка для управления тегами"""
+
+    list_display = ["id", "name"]
+    list_display_links = ["id", "name"]
+    search_fields = ["name"]
+    ordering = ["name"]
+
+    fieldsets = (("Основная информация", {"fields": ("name",)}),)
+
+
+@admin.register(CaseStudy)
+class CaseStudyAdmin(admin.ModelAdmin):
+    """Админка для управления реальными проектами"""
+
+    list_display = ["id", "service", "name", "info", "tags_display"]
+    list_display_links = ["id", "name"]
+    search_fields = ["name", "info", "service__name", "tags__name"]
+    list_filter = ["service", "tags"]
+    ordering = ["service", "name"]
+
+    fieldsets = (
+        ("Основная информация", {"fields": ("service", "name", "info")}),
+        ("Теги", {"fields": ("tags",), "classes": ("collapse",)}),
+    )
+
+    def tags_display(self, obj):
+        """Отображение тегов в списке"""
+        return ", ".join([tag.name for tag in obj.tags.all()])
+
+    tags_display.short_description = "Теги"
