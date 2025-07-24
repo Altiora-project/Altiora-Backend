@@ -3,7 +3,7 @@ from typing import Optional
 from django.contrib import admin
 from django.http import HttpRequest
 
-from .models import ProjectRequest, Technology
+from .models import ProjectRequest, Technology, HomePageContent
 
 
 @admin.register(ProjectRequest)
@@ -67,3 +67,27 @@ class TechnologyAdmin(admin.ModelAdmin):
     )
     search_fields = ('name', )
     list_filter = ('number', 'name')
+
+
+@admin.register(HomePageContent)
+class HomePageAdmin(admin.ModelAdmin):
+    """Редактирование контента главной страницы."""
+    list_display_links = (
+        'hero_title',
+    )
+    list_display = (
+        'hero_title',
+        'hero_subtitle'
+    )
+
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        """Запрет добавления главной страницы"""
+        return False
+
+    def has_delete_permission(
+            self,
+            request: HttpRequest,
+            obj: Optional[ProjectRequest] = None
+    ) -> bool:
+        """Запрет удаления главной страницы"""
+        return False
