@@ -18,8 +18,8 @@ RABBITMQ_DEFAULT_USER=user
 RABBITMQ_DEFAULT_PASS=pass
 
 # Celery
-CELERY_BROKER_URL=amqp://user:pass@localhost:5672//  # Для локальной разработки
-CELERY_BROKER_URL=amqp://user:pass@rabbitmq:5672//  # Для Docker
+CELERY_HOST=localhost  # Для локальной разработки
+# CELERY_HOST=rabbitmq  # Для Docker
 
 # Настройки SMTP
 EMAIL_HOST=smtp.mailtrap.io  #TODO заменить на реальные настройки можно использовать https://mailtrap.io/ для тестирования

@@ -1,0 +1,69 @@
+services:
+  django:
+    image: ${DOCKERHUB_USER}/altiora-backend:stage
+    container_name: altiora_backend
+    restart: unless-stopped
+    env_file: .env
+    command: gunicorn altiora_backend.wsgi:application --bind 0.0.0.0:8000
+    entrypoint: ["/app/entrypoint.sh"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - /opt/backend/staticfiles:/app/staticfiles
+    networks:
+      - altiora_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  celery:
+    image: ${DOCKERHUB_USER}/altiora-backend:stage
+    container_name: altiora_celery
+    restart: unless-stopped
+    command: celery -A altiora_backend worker --loglevel=info
+    entrypoint: ["/app/entrypoint.celery.sh"]
+    env_file: .env
+    volumes:
+      - /opt/backend/staticfiles:/app/staticfiles
+    networks:
+      - altiora_network
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:17.1-alpine3.20
+    container_name: altiora_postgres
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - pg_altiora_data:/var/lib/postgresql/data
+    networks:
+      - altiora_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: altiora_rabbitmq
+    restart: unless-stopped
+    env_file: .env
+    networks:
+      - altiora_network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pg_altiora_data:
+  staticfiles:
+
+networks:
+  altiora_network:
