@@ -5,8 +5,7 @@ TEXT_MAX_LENGTH = 1000
 API_VERSION = "v1"
 
 # Настройки для robots.txt
-ROBOTS_TXT_TEMPLATE = """
-User-agent: *
+ROBOTS_TXT_TEMPLATE = """User-agent: *
 Disallow: /admin/
 Disallow: /api/
 Disallow: /static/
