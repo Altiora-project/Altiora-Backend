@@ -1,6 +1,8 @@
 from http import HTTPStatus
 from logging import getLogger
 
+from altiora_backend.constants import ROBOTS_TXT_TEMPLATE
+from django.http import HttpRequest, HttpResponse
 from drf_spectacular.utils import (
     OpenApiResponse,
     extend_schema,
@@ -16,10 +18,10 @@ from .serializers import (
     ProjectRequestErrorResponseSerializer,
     ProjectRequestResponseSerializer,
     ProjectRequestSerializer,
-    TechnologySerializer,
-    TechnologyResponseSerializer,
-    TechnologyListResponseSerializer,
     TechnologyErrorResponseSerializer,
+    TechnologyListResponseSerializer,
+    TechnologyResponseSerializer,
+    TechnologySerializer,
 )
 
 logger = getLogger("api")
@@ -136,3 +138,27 @@ class TechnologyViewSet(ReadOnlyModelViewSet):
             }
         )
         return Response(response_serializer.data, status=HTTPStatus.OK)
+
+
+class RobotsTxtView(APIView):
+    """Вью для robots.txt."""
+
+    @extend_schema(
+        operation_id="robots_txt",
+        summary="Получить robots.txt",
+        description=(
+            "Возвращает содержимое файла robots.txt для поисковых роботов"
+        ),
+        tags=["SEO"],
+        responses={
+            HTTPStatus.OK: OpenApiResponse(
+                description="robots.txt успешно получен",
+            ),
+        },
+    )
+    def get(self, request: HttpRequest) -> HttpResponse:
+        """Формирует robots.txt с актуальной схемой и хостом."""
+        content = ROBOTS_TXT_TEMPLATE.format(
+            scheme=request.scheme, host=request.get_host()
+        )
+        return HttpResponse(content, content_type="text/plain")

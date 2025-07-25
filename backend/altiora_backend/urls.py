@@ -1,3 +1,4 @@
+from api.views import RobotsTxtView
 from django.contrib import admin
 from django.urls import include, path
 from drf_spectacular.views import (
@@ -9,6 +10,7 @@ from drf_spectacular.views import (
 from .constants import API_VERSION
 
 urlpatterns = [
+    path("robots.txt/", RobotsTxtView.as_view(), name="robots.txt"),
     path("admin/", admin.site.urls),
     path(f"api/{API_VERSION}/", include("api.urls")),
     # Эндпоинт схемы OpenAPI
