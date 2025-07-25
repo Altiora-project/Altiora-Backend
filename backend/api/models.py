@@ -19,6 +19,13 @@ class Partner(models.Model):
         verbose_name="Логотип", upload_to="partners", blank=True, null=True
     )
     website = models.URLField(verbose_name="Сайт партнёра", blank=True)
+    homepage = models.ForeignKey(
+        "HomePageContent",
+        on_delete=models.CASCADE,
+        related_name="partners",
+        null=True,
+        editable=False,
+    )
 
     class Meta:
         ordering = ("name",)
@@ -27,6 +34,16 @@ class Partner(models.Model):
 
     def __str__(self):
         return self.name[:20]
+
+    def save(self, *args, **kwargs):
+        if not self.pk and not self.homepage:
+            homepage = HomePageContent.objects.first()
+            if not homepage:
+                raise ValidationError(
+                    "Сперва создайте объект главной страницы."
+                )
+            self.homepage = homepage
+        super().save(*args, **kwargs)
 
 
 class ProjectRequest(models.Model):
@@ -174,6 +191,13 @@ class Service(ServiceSeoMixin):
     tags = models.ManyToManyField(
         Tag, blank=True, related_name="services", verbose_name="Теги"
     )
+    homepage = models.ForeignKey(
+        "HomePageContent",
+        on_delete=models.CASCADE,
+        related_name="services",
+        null=True,
+        editable=False,
+    )
 
     class Meta:
         verbose_name = "Услуга"
@@ -182,6 +206,16 @@ class Service(ServiceSeoMixin):
 
     def __str__(self):
         return f"{self.number}. {self.name}"
+
+    def save(self, *args, **kwargs):
+        if not self.pk and not self.homepage:
+            homepage = HomePageContent.objects.first()
+            if not homepage:
+                raise ValidationError(
+                    "Сперва создайте объект главной страницы."
+                )
+            self.homepage = homepage
+        super().save(*args, **kwargs)
 
 
 class CaseStudy(models.Model):
@@ -211,3 +245,145 @@ class CaseStudy(models.Model):
 
     def __str__(self):
         return f"{self.service.name} - {self.name}"
+
+
+class HomePageContent(models.Model):
+    """
+    Модель для хранения всего уникального контента главной страницы.
+    Использует кастомную логику в методе save, чтобы гарантировать,
+    что в базе данных будет существовать только одна запись этой модели.
+    """
+
+    # --- Обновляемая мета-информация для SEO ---
+    meta_title = models.CharField(
+        verbose_name="SEO Заголовок",
+        max_length=constants.NAME_MAX_LENGTH,
+        blank=True,
+        help_text="Заголовок страницы для поисковых систем.",
+    )
+    meta_description = models.TextField(
+        verbose_name="SEO Описание",
+        blank=True,
+        help_text="Краткое описание страницы для поисковых систем.",
+    )
+
+    # --- Блок Hero ---
+    hero_title = models.CharField(
+        verbose_name="Главный заголовок (Hero)",
+        max_length=constants.NAME_MAX_LENGTH,
+    )
+    hero_subtitle = models.TextField(verbose_name="Подзаголовок (Hero)")
+    hero_image = models.ImageField(
+        verbose_name="Изображение (Hero)",
+        upload_to="main_page/",
+        blank=True,
+        null=True,
+    )
+
+    # --- Блок "О нас" ---
+    about_title = models.CharField(
+        verbose_name="Заголовок 'О нас'", max_length=constants.NAME_MAX_LENGTH
+    )
+    about_text = RichTextField(verbose_name="Текст 'О нас'")
+    higlight_1 = models.CharField(
+        verbose_name="Хайлайт блока 'О нас' №1",
+        max_length=constants.NAME_MAX_LENGTH,
+    )
+    higlight_2 = models.CharField(
+        verbose_name="Хайлайт блока 'О нас' №2",
+        max_length=constants.NAME_MAX_LENGTH,
+    )
+
+    # --- Блок "Наши услуги" ---
+    services_section_title = models.CharField(
+        verbose_name="Заголовок секции 'Наши услуги'",
+        max_length=constants.NAME_MAX_LENGTH,
+        default="/наши услуги",
+    )
+
+    # --- Блок "Лаборатория стартапов" (описание для главной страницы) ---
+    lab_title = models.CharField(
+        verbose_name="Заголовок 'Лаборатория стартапов'",
+        max_length=constants.NAME_MAX_LENGTH,
+        default="/лаборатория стартапов",
+    )
+    lab_description = RichTextField(
+        verbose_name="Краткое описание 'Лаборатории'"
+    )
+
+    # --- Блок "digital маркетинг" (описание для главной страницы) ---
+    dig_title = models.CharField(
+        verbose_name="Заголовок 'digital маркетинг'",
+        max_length=constants.NAME_MAX_LENGTH,
+        default="/digital маркетинг",
+    )
+    dig_description = RichTextField(
+        verbose_name="Краткое описание 'digital маркетинг'"
+    )
+
+    # --- Блок "Токенизация активов и ЦФА" ---
+    tokenization_title = models.CharField(
+        verbose_name="Заголовок 'Токенизация'",
+        max_length=constants.NAME_MAX_LENGTH,
+        default="/токенизация активов и цфа",
+    )
+    tokenization_description = RichTextField(
+        verbose_name="Описание 'Токенизация'"
+    )
+    tokenization_video_url = models.URLField(
+        verbose_name="URL видео 'Токенизация'",
+        blank=True,
+        help_text="Ссылка на видео, например, с YouTube или Vimeo.",
+    )
+    tokenization_links = RichTextField(
+        verbose_name="Дополнительная информация"
+    )
+
+    # --- Блок "Партнеры" ---
+    partners_section_title = models.CharField(
+        verbose_name="Заголовок секции 'Партнеры'",
+        max_length=constants.NAME_MAX_LENGTH,
+        default="/партнеры",
+    )
+
+    # --- Блок "Заказать проект" ---
+    order_section_title = models.CharField(
+        verbose_name="Заголовок секции 'Заказать проект'",
+        max_length=constants.NAME_MAX_LENGTH,
+        default="/заказать проект",
+    )
+
+    # --- Блок "Контакты" ---
+    contacts_title = models.CharField(
+        verbose_name="Заголовок 'Контакты'",
+        max_length=constants.NAME_MAX_LENGTH,
+        default="/контакты",
+    )
+    contact_address = models.CharField(
+        verbose_name="Адрес", max_length=constants.NAME_MAX_LENGTH, blank=True
+    )
+    contact_phone = models.CharField(
+        verbose_name="Телефон",
+        max_length=constants.NAME_MAX_LENGTH,
+        blank=True,
+    )
+    contact_email = models.EmailField(verbose_name="Email", blank=True)
+
+    class Meta:
+        verbose_name = "Контент главной страницы"
+        verbose_name_plural = "Контент главной страницы"
+
+    def __str__(self):
+        return "Контент главной страницы"
+
+    def save(self, *args, **kwargs):
+        """
+        Переопределенный метод сохранения.
+        Запрещает создание нового объекта, если один уже существует.
+        """
+        if not self.pk and HomePageContent.objects.exists():
+            raise ValidationError(
+                "Может существовать только один экземпляр главной страницы."
+                "Пожалуйста, редактируйте уже существующий."
+            )
+        return super().save(*args, **kwargs)

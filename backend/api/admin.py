@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 
 from .models import (
     CaseStudy,
+    HomePageContent,
     Partner,
     ProjectRequest,
     Service,
@@ -13,6 +14,32 @@ from .models import (
     Tag,
     Technology,
 )
+
+
+class ServiceInline(admin.TabularInline):
+    """
+    Класс для просмотра в админке списка услуг,
+    отображаемых на главной странице.
+    """
+
+    model = Service
+    extra = 0
+    readonly_fields = ("name", "number", "info", "content", "tags")
+    can_delete = False
+    show_change_link = True
+
+
+class PartnerInline(admin.TabularInline):
+    """
+    Класс для просмотра в админке списка партнеров,
+    отображаемых на главной странице.
+    """
+
+    model = Partner
+    extra = 0
+    readonly_fields = ("name", "website")
+    can_delete = False
+    show_change_link = True
 
 
 @admin.register(ProjectRequest)
@@ -182,3 +209,26 @@ class CaseStudyAdmin(admin.ModelAdmin):
         return ", ".join([tag.name for tag in obj.tags.all()])
 
     tags_display.short_description = "Теги"
+
+
+@admin.register(HomePageContent)
+class HomePageAdmin(admin.ModelAdmin):
+    """
+    Админка для редактирования контента главной страницы.
+    Допускается добавлять только один объект данной модели.
+    """
+
+    list_display_links = ("hero_title",)
+    list_display = ("hero_title", "hero_subtitle")
+    inlines = [ServiceInline, PartnerInline]
+
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+    def has_delete_permission(
+        self, request: HttpRequest, obj: Optional[ProjectRequest] = None
+    ) -> bool:
+        """Запрет удаления главной страницы"""
+        return False
