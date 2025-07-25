@@ -91,7 +91,7 @@ RabbitMQ Management UI будет доступен по адресу: http://loc
 ```bash
 # для полной инфраструктуры в контейнерах
 POSTGRES_HOST=localhost
-CELERY_BROKER_URL=amqp://user:pass@localhost:5672//
+CELERY_HOST=localhost
 RABBITMQ_DEFAULT_USER=user
 RABBITMQ_DEFAULT_PASS=pass
 ```
@@ -106,6 +106,36 @@ sudo docker compose -f docker-compose.local.postgres.yml up --build
 ```bash
 # для запуска только postgres в контейнере
 POSTGRES_HOST=localhost
+```
+
+### Настройка переменных окружения
+
+Скопируйте файл `env_example` в `.env` и настройте переменные:
+
+```bash
+cp env_example .env
+```
+
+**Для локальной разработки с полной инфраструктурой (PostgreSQL + RabbitMQ + Celery):**
+```bash
+POSTGRES_HOST=localhost
+CELERY_HOST=localhost
+RABBITMQ_DEFAULT_USER=user
+RABBITMQ_DEFAULT_PASS=pass
+```
+
+**Для локальной разработки только с PostgreSQL:**
+```bash
+POSTGRES_HOST=localhost
+# Celery и RabbitMQ не используются
+```
+
+**Для Docker окружения:**
+```bash
+POSTGRES_HOST=postgres
+CELERY_HOST=rabbitmq
+RABBITMQ_DEFAULT_USER=user
+RABBITMQ_DEFAULT_PASS=pass
 ```
 
 ## Запуск Django server

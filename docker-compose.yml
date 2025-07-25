@@ -1,4 +1,3 @@
-version: "3.9"
 
 volumes:
   pg_altiora_data:
@@ -10,6 +9,7 @@ services:
       dockerfile: Dockerfile
     container_name: altiora_backend
     command: gunicorn altiora_backend.wsgi:application --bind 0.0.0.0:8000
+    entrypoint: ["/app/entrypoint.sh"]
     env_file: .env
     environment:
       CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
@@ -27,6 +27,7 @@ services:
       dockerfile: Dockerfile
     container_name: altiora_celery
     command: celery -A altiora_backend worker --loglevel=info
+    entrypoint: ["/app/entrypoint.celery.sh"]
     env_file: .env
     environment:
       CELERY_BROKER_URL: amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@rabbitmq:5672//
