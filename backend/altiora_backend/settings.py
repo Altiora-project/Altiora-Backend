@@ -8,13 +8,17 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STATIC_URL = "/static/"
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 LOGS_DIR = BASE_DIR / "logs"
 
 LOGS_DIR.mkdir(exist_ok=True)
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "secret-key")
 
-DEBUG = os.getenv("DEBUG", True)
+DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(" ")
 
@@ -108,9 +112,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-STATIC_URL = "static/"
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
@@ -122,6 +123,13 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Altiora API",
+    "DESCRIPTION": "Документация API",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ORIGINS_HOSTS", "").split(" ")
@@ -193,9 +201,10 @@ LOGGING = {
 }
 
 # Настройки Celery
-CELERY_BROKER_URL = os.getenv(
-    "CELERY_BROKER_URL", "amqp://guest:guest@localhost:5672//"
-)
+RABBITMQ_DEFAULT_USER = os.getenv("RABBITMQ_DEFAULT_USER")
+RABBITMQ_DEFAULT_PASS = os.getenv("RABBITMQ_DEFAULT_PASS")
+CELERY_BROKER_HOST = os.getenv("CELERY_HOST")
+CELERY_BROKER_URL = f"amqp://{RABBITMQ_DEFAULT_USER}:{RABBITMQ_DEFAULT_PASS}@{CELERY_BROKER_HOST}:5672//"
 
 # Настройки SMTP для отправки email
 EMAIL_HOST = os.getenv("EMAIL_HOST")
