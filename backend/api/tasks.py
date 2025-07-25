@@ -5,14 +5,14 @@ from celery import shared_task
 from django.conf import settings
 from django.core.mail import EmailMessage
 
-logger = logging.getLogger('api')
+logger = logging.getLogger("api")
 
 
 @shared_task(
     autoretry_for=(Exception,),
-    retry_kwargs={'max_retries': 5, 'countdown': 60},
+    retry_kwargs={"max_retries": 5, "countdown": 60},
     retry_backoff=True,
-    retry_jitter=True
+    retry_jitter=True,
 )
 def send_request_notification(request_id: int):
     """Задача для отправки уведомления администратору о новой заявке"""
@@ -20,13 +20,13 @@ def send_request_notification(request_id: int):
     try:
         request = ProjectRequest.objects.get(id=request_id)
 
-        subject = f'Новая заявка от {request.name}'
+        subject = f"Новая заявка от {request.name}"
         body = (
-            f'Имя: {request.name}\n'
-            f'Компания: {request.company}\n'
-            f'Телефон: {request.phone_number}\n'
-            f'Email: {request.email}\n'
-            f'Детали проекта:\n{request.project_details}'
+            f"Имя: {request.name}\n"
+            f"Компания: {request.company}\n"
+            f"Телефон: {request.phone_number}\n"
+            f"Email: {request.email}\n"
+            f"Детали проекта:\n{request.project_details}"
         )
 
         email = EmailMessage(
