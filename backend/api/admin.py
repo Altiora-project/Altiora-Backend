@@ -37,6 +37,7 @@ class ProjectRequestAdmin(admin.ModelAdmin):
         "created_at",
     ]
     search_fields = ["name", "company", "phone_number", "email"]
+    list_display_links = list_display
     list_filter = ["company", "created_at"]
     ordering = ["-created_at"]
 
