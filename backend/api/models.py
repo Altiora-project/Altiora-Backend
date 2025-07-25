@@ -1,9 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from ckeditor.fields import RichTextField
-
 from altiora_backend import constants
-
 from .mixins import ServiceSeoMixin
 
 
@@ -93,7 +91,7 @@ class Technology(models.Model):
         return self.name
 
 
-class ServicePostscriptum(ServiceSeoMixin):
+class ServicePostscriptum(models.Model):
     """Модель для постскриптума услуги."""
 
     name = models.CharField(

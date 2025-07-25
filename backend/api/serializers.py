@@ -2,7 +2,14 @@ import re
 
 from rest_framework import serializers
 
-from .models import ProjectRequest, Technology
+from .models import (
+    ProjectRequest,
+    Technology,
+    Service,
+    Tag,
+    ServicePostscriptum,
+    CaseStudy,
+)
 
 
 class BaseResponseSerializer(serializers.Serializer):
@@ -132,3 +139,172 @@ class TechnologyErrorResponseSerializer(ErrorResponseSerializer):
     """Сериализатор для ответа с ошибками при получении технологий."""
 
     pass
+
+
+class TagSerializer(serializers.ModelSerializer):
+    """Сериализатор для отображения тегов."""
+
+    class Meta:
+        model = Tag
+        fields = ("id", "name")
+
+
+class ServiceListSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для отображения услуг в списке.
+    Не включает поле content для экономии трафика.
+    """
+
+    tags = TagSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Service
+        fields = (
+            "id",
+            "number",
+            "name",
+            "info",
+            "tags",
+        )
+
+
+class ServicePostscriptumSerializer(serializers.ModelSerializer):
+    """Сериализатор для отображения постскриптума услуги."""
+
+    class Meta:
+        model = ServicePostscriptum
+        fields = (
+            "id",
+            "name",
+            "info",
+            "item1",
+            "item2",
+            "item3",
+            "item4",
+        )
+
+
+class CaseStudySerializer(serializers.ModelSerializer):
+    """Сериализатор для отображения реальных проектов."""
+
+    tags = TagSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = CaseStudy
+        fields = (
+            "id",
+            "name",
+            "info",
+            "tags",
+        )
+
+
+class ServiceDetailSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для детального отображения услуги.
+    Включает все поля, включая content, postscriptum и case_studies.
+    """
+
+    tags = TagSerializer(many=True, read_only=True)
+    postscriptum = serializers.SerializerMethodField()
+    case_studies = CaseStudySerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Service
+        fields = (
+            "id",
+            "number",
+            "name",
+            "info",
+            "content",
+            "tags",
+            "postscriptum",
+            "case_studies",
+            "seo_title",
+            "seo_description",
+        )
+
+    def get_postscriptum(self, obj):
+        """Получает данные постскриптума услуги."""
+        try:
+            postscriptum = ServicePostscriptum.objects.first()
+            if postscriptum:
+                return ServicePostscriptumSerializer(postscriptum).data
+            return None
+        except ServicePostscriptum.DoesNotExist:
+            return None
+
+
+class ServiceResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для получения услуги."""
+
+    data = ServiceDetailSerializer()
+
+
+class ServiceListResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для получения списка услуг."""
+
+    data = ServiceListSerializer(many=True)
+
+
+class ServiceListWithCaseStudiesResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для получения списка услуг с реальными проектами."""
+
+    data = serializers.DictField(
+        child=serializers.JSONField(), help_text="Данные услуг и проектов"
+    )
+
+
+class ServiceListWCSDataSerializer(serializers.Serializer):
+    """Сериализатор для данных услуг и проектов в ответе."""
+
+    services = ServiceListSerializer(many=True, help_text="Список услуг")
+    case_studies = CaseStudySerializer(many=True, help_text="Список проектов")
+
+
+class ServiceListWCSSwaggerResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для документации Swagger."""
+
+    data = ServiceListWCSDataSerializer()
+
+
+class ServiceErrorResponseSerializer(ErrorResponseSerializer):
+    """Сериализатор для ответа с ошибками при получении услуг."""
+
+    pass
+
+
+class ServiceDetailSwaggerSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для документации Swagger детального просмотра услуги.
+    Явно определяет структуру всех полей для корректного отображения в Swagger.
+    """
+
+    tags = TagSerializer(many=True, read_only=True)
+    postscriptum = ServicePostscriptumSerializer(
+        help_text="Данные постскриптума услуги"
+    )
+    case_studies = CaseStudySerializer(
+        many=True, read_only=True, help_text="Список проектов"
+    )
+
+    class Meta:
+        model = Service
+        fields = (
+            "id",
+            "number",
+            "name",
+            "info",
+            "content",
+            "tags",
+            "postscriptum",
+            "case_studies",
+            "seo_title",
+            "seo_description",
+        )
+
+
+class ServiceDetailSwaggerResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для документации Swagger детального просмотра услуги."""
+
+    data = ServiceDetailSwaggerSerializer()
