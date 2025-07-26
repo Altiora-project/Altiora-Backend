@@ -44,6 +44,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "altiora_backend.middleware.AdminHashMiddleware",
 ]
 
 ROOT_URLCONF = "altiora_backend.urls"
@@ -102,6 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 LANGUAGE_CODE = "ru-ru"
 
