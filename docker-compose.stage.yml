@@ -7,7 +7,7 @@ services:
     command: gunicorn altiora_backend.wsgi:application --bind 0.0.0.0:8000
     entrypoint: ["/app/entrypoint.sh"]
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     volumes:
       - /opt/backend/staticfiles:/app/staticfiles
     networks:
