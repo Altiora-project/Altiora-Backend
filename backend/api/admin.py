@@ -16,32 +16,6 @@ from .models import (
 )
 
 
-class ServiceInline(admin.TabularInline):
-    """
-    Класс для просмотра в админке списка услуг,
-    отображаемых на главной странице.
-    """
-
-    model = Service
-    extra = 0
-    readonly_fields = ("name", "number", "info", "content", "tags")
-    can_delete = False
-    show_change_link = True
-
-
-class PartnerInline(admin.TabularInline):
-    """
-    Класс для просмотра в админке списка партнеров,
-    отображаемых на главной странице.
-    """
-
-    model = Partner
-    extra = 0
-    readonly_fields = ("name", "website")
-    can_delete = False
-    show_change_link = True
-
-
 @admin.register(ProjectRequest)
 class ProjectRequestAdmin(admin.ModelAdmin):
     """Только просмотр заявок в админке"""
@@ -220,7 +194,6 @@ class HomePageAdmin(admin.ModelAdmin):
 
     list_display_links = ("hero_title",)
     list_display = ("hero_title", "hero_subtitle")
-    inlines = [ServiceInline, PartnerInline]
 
     def has_add_permission(self, request):
         if self.model.objects.exists():

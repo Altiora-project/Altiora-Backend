@@ -19,13 +19,6 @@ class Partner(models.Model):
         verbose_name="Логотип", upload_to="partners", blank=True, null=True
     )
     website = models.URLField(verbose_name="Сайт партнёра", blank=True)
-    homepage = models.ForeignKey(
-        "HomePageContent",
-        on_delete=models.CASCADE,
-        related_name="partners",
-        null=True,
-        editable=False,
-    )
 
     class Meta:
         ordering = ("name",)
@@ -34,16 +27,6 @@ class Partner(models.Model):
 
     def __str__(self):
         return self.name[:20]
-
-    def save(self, *args, **kwargs):
-        if not self.pk and not self.homepage:
-            homepage = HomePageContent.objects.first()
-            if not homepage:
-                raise ValidationError(
-                    "Сперва создайте объект главной страницы."
-                )
-            self.homepage = homepage
-        super().save(*args, **kwargs)
 
 
 class ProjectRequest(models.Model):
@@ -191,13 +174,6 @@ class Service(ServiceSeoMixin):
     tags = models.ManyToManyField(
         Tag, blank=True, related_name="services", verbose_name="Теги"
     )
-    homepage = models.ForeignKey(
-        "HomePageContent",
-        on_delete=models.CASCADE,
-        related_name="services",
-        null=True,
-        editable=False,
-    )
 
     class Meta:
         verbose_name = "Услуга"
@@ -206,16 +182,6 @@ class Service(ServiceSeoMixin):
 
     def __str__(self):
         return f"{self.number}. {self.name}"
-
-    def save(self, *args, **kwargs):
-        if not self.pk and not self.homepage:
-            homepage = HomePageContent.objects.first()
-            if not homepage:
-                raise ValidationError(
-                    "Сперва создайте объект главной страницы."
-                )
-            self.homepage = homepage
-        super().save(*args, **kwargs)
 
 
 class CaseStudy(models.Model):
