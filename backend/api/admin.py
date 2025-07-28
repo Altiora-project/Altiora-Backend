@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 
 from .models import (
     CaseStudy,
+    HomePageContent,
     Partner,
     ProjectRequest,
     Service,
@@ -183,3 +184,25 @@ class CaseStudyAdmin(admin.ModelAdmin):
         return ", ".join([tag.name for tag in obj.tags.all()])
 
     tags_display.short_description = "Теги"
+
+
+@admin.register(HomePageContent)
+class HomePageAdmin(admin.ModelAdmin):
+    """
+    Админка для редактирования контента главной страницы.
+    Допускается добавлять только один объект данной модели.
+    """
+
+    list_display_links = ("hero_title",)
+    list_display = ("hero_title", "hero_subtitle")
+
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+    def has_delete_permission(
+        self, request: HttpRequest, obj: Optional[ProjectRequest] = None
+    ) -> bool:
+        """Запрет удаления главной страницы"""
+        return False
