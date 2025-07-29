@@ -2,14 +2,8 @@ import re
 
 from rest_framework import serializers
 
-from .models import (
-    ProjectRequest,
-    Technology,
-    Service,
-    CaseStudy,
-    Tag,
-    ServicePostscriptum,
-)
+from .models import (CaseStudy, HomePageContent, Partner, ProjectRequest,
+                     Service, ServicePostscriptum, Tag, Technology)
 
 
 class BaseResponseSerializer(serializers.Serializer):
@@ -284,5 +278,81 @@ class ServiceDetailDocResponseSerializer(BaseResponseSerializer):
 
 class ServiceErrorResponseSerializer(ErrorResponseSerializer):
     """Сериализатор для ответа с ошибками при получении услуг."""
+    pass
+
+
+class PartnerSerializer(serializers.ModelSerializer):
+    """Сериализатор для получения партнеров."""
+
+    class Meta:
+        model = Partner
+        fields = ("id", "name", "logo", "website")
+
+
+class PartnerResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для ответа на запрос партнеров."""
+
+    data = PartnerSerializer()
+
+
+class PartnerErrorResponseSerializer(ErrorResponseSerializer):
+    """Сериализатор для ответа с ошибками при получении партнеров."""
+
+    pass
+
+
+class HomePageContentSerializer(serializers.ModelSerializer):
+    """Сериализатор для главной страницы."""
+
+    partners_data = PartnerSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = HomePageContent
+        fields = [
+            "meta_title",
+            "meta_description",
+            "hero_title",
+            "hero_subtitle",
+            "hero_image",
+            "about_title",
+            "about_text",
+            "higlight_1",
+            "higlight_2",
+            "services_section_title",
+            "lab_title",
+            "lab_description",
+            "dig_title",
+            "dig_description",
+            "tokenization_title",
+            "tokenization_description",
+            "tokenization_video_url",
+            "tokenization_links",
+            "partners_section_title",
+            "partners_data",
+            "order_section_title",
+            "contacts_title",
+            "contact_address",
+            "contact_phone",
+            "contact_email",
+        ]
+
+    def to_representation(self, instance):
+        """Переопределяем для добавления partners_data."""
+        data = super().to_representation(instance)
+        partners_data = Partner.objects.all()
+        data["partners_data"] = PartnerSerializer(
+            partners_data, many=True
+        ).data
+        return data
+
+
+class HomePageContentResponseSerializer(BaseResponseSerializer):
+    """Сериализатор для ответа главной страницы."""
+
+    data = HomePageContentSerializer()
+
+
+class HomePageContentErrorResponseSerializer(ErrorResponseSerializer):
+    """Сериализатор для ответа с ошибками главной страницы."""
 
     pass

@@ -11,11 +11,18 @@ from drf_spectacular.utils import (
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet, GenericViewSet
+from rest_framework.mixins import ListModelMixin
 from django.http import Http404
 
-from .models import Technology, Service
+from .models import HomePageContent, Partner, Technology, Service
 from .serializers import (
+    HomePageContentErrorResponseSerializer,
+    HomePageContentResponseSerializer,
+    HomePageContentSerializer,
+    PartnerErrorResponseSerializer,
+    PartnerResponseSerializer,
+    PartnerSerializer,
     ProjectRequestErrorResponseSerializer,
     ProjectRequestResponseSerializer,
     ProjectRequestSerializer,
@@ -33,6 +40,49 @@ from .serializers import (
 )
 
 logger = getLogger("api")
+
+
+class HomePageContentView(APIView):
+    """API для получения контента главной страницы."""
+
+    @extend_schema(
+        operation_id="home_page_content",
+        summary="Получить контент главной страницы",
+        description="Получение контента главной страницы",
+        tags=["Home Page Content"],
+        responses={
+            HTTPStatus.OK: OpenApiResponse(
+                description="Контент успешно получен",
+                response=HomePageContentResponseSerializer,
+            ),
+            HTTPStatus.BAD_REQUEST: OpenApiResponse(
+                description="Ошибка валидации входных данных",
+                response=HomePageContentErrorResponseSerializer,
+            ),
+        },
+    )
+    def get(self, request: Request) -> Response:
+        """Получение контента главной страницы."""
+        instance = HomePageContent.objects.first()
+        # if not instance:
+        #     return Response(
+        #         {
+        #             "success": False,
+        #             "message": "Контент главной страницы не найден",
+        #             "data": {}
+        #         },
+        #         status=HTTPStatus.NOT_FOUND
+        #     )
+        inner_data = HomePageContentSerializer(instance).data
+
+        response_data = {
+            "success": True,
+            "message": "Контент главной страницы",
+            "data": inner_data,
+        }
+        serializer = HomePageContentResponseSerializer(data=response_data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data, status=HTTPStatus.OK)
 
 
 class ProjectRequestCreateView(APIView):
@@ -146,6 +196,32 @@ class TechnologyViewSet(ReadOnlyModelViewSet):
             }
         )
         return Response(response_serializer.data, status=HTTPStatus.OK)
+
+
+@extend_schema(
+    tags=["Partners"],
+)
+@extend_schema_view(
+    list=extend_schema(
+        operation_id="partners_list",
+        summary="Получить список партнеров",
+        responses={
+            HTTPStatus.OK: OpenApiResponse(
+                description="Данные успешно получены",
+                response=PartnerResponseSerializer,
+            ),
+            HTTPStatus.BAD_REQUEST: OpenApiResponse(
+                description="Неверные параметры запроса",
+                response=PartnerErrorResponseSerializer,
+            ),
+        },
+    ),
+)
+class PartnerViewSet(ListModelMixin, GenericViewSet):
+    """Вьюсет для отображения партнеров на странице Партнеры."""
+
+    queryset = Partner.objects.all()
+    serializer_class = PartnerSerializer
 
 
 class RobotsTxtView(APIView):
