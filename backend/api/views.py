@@ -3,11 +3,7 @@ from logging import getLogger
 
 from altiora_backend.constants import ROBOTS_TXT_TEMPLATE
 from django.http import HttpRequest, HttpResponse
-from drf_spectacular.utils import (
-    OpenApiResponse,
-    extend_schema,
-    extend_schema_view,
-)
+from drf_spectacular.utils import extend_schema_view
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -17,26 +13,29 @@ from django.http import Http404
 
 from .models import HomePageContent, Partner, Technology, Service
 from .serializers import (
-    HomePageContentErrorResponseSerializer,
-    HomePageContentResponseSerializer,
     HomePageContentSerializer,
-    PartnerErrorResponseSerializer,
-    PartnerResponseSerializer,
+    HomePageContentResponseSerializer,
     PartnerSerializer,
-    ProjectRequestErrorResponseSerializer,
-    ProjectRequestResponseSerializer,
     ProjectRequestSerializer,
-    TechnologyErrorResponseSerializer,
+    TechnologySerializer,
     TechnologyListResponseSerializer,
     TechnologyResponseSerializer,
-    TechnologySerializer,
     ServiceDetailSerializer,
-    ServiceDetailDocResponseSerializer,
+    ServiceDetailResponseSerializer,
     ServiceListSimpleSerializer,
     ServiceListResponseSerializer,
-    ServiceDetailResponseSerializer,
     ServiceErrorResponseSerializer,
     CaseStudySerializer,
+)
+from .schemas import (
+    home_page_content_schema,
+    project_request_create_schema,
+    technologies_list_schema,
+    technology_retrieve_schema,
+    partners_list_schema,
+    services_list_schema,
+    service_retrieve_schema,
+    robots_txt_schema,
 )
 
 logger = getLogger("api")
@@ -45,34 +44,19 @@ logger = getLogger("api")
 class HomePageContentView(APIView):
     """API для получения контента главной страницы."""
 
-    @extend_schema(
-        operation_id="home_page_content",
-        summary="Получить контент главной страницы",
-        description="Получение контента главной страницы",
-        tags=["Home Page Content"],
-        responses={
-            HTTPStatus.OK: OpenApiResponse(
-                description="Контент успешно получен",
-                response=HomePageContentResponseSerializer,
-            ),
-            HTTPStatus.BAD_REQUEST: OpenApiResponse(
-                description="Ошибка валидации входных данных",
-                response=HomePageContentErrorResponseSerializer,
-            ),
-        },
-    )
+    @home_page_content_schema
     def get(self, request: Request) -> Response:
         """Получение контента главной страницы."""
         instance = HomePageContent.objects.first()
-        # if not instance:
-        #     return Response(
-        #         {
-        #             "success": False,
-        #             "message": "Контент главной страницы не найден",
-        #             "data": {}
-        #         },
-        #         status=HTTPStatus.NOT_FOUND
-        #     )
+        if not instance:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Контент главной страницы не найден",
+                    "data": {},
+                },
+                status=HTTPStatus.NOT_FOUND,
+            )
         inner_data = HomePageContentSerializer(instance).data
 
         response_data = {
@@ -88,23 +72,7 @@ class HomePageContentView(APIView):
 class ProjectRequestCreateView(APIView):
     """API для создания заявки на проект."""
 
-    @extend_schema(
-        operation_id="project_request_create",
-        summary="Создать заявку на проект",
-        description="Создание новой заявки на проект от клиента",
-        tags=["Project Request"],
-        request=ProjectRequestSerializer,
-        responses={
-            HTTPStatus.CREATED: OpenApiResponse(
-                description="Заявка успешно создана",
-                response=ProjectRequestResponseSerializer,
-            ),
-            HTTPStatus.BAD_REQUEST: OpenApiResponse(
-                description="Ошибка валидации входных данных",
-                response=ProjectRequestErrorResponseSerializer,
-            ),
-        },
-    )
+    @project_request_create_schema
     def post(self, request: Request) -> Response:
         """Создание заявки на проект."""
         serializer = ProjectRequestSerializer(data=request.data)
@@ -130,42 +98,9 @@ class ProjectRequestCreateView(APIView):
         )
 
 
-@extend_schema(
-    tags=["Technologies"],
-)
 @extend_schema_view(
-    list=extend_schema(
-        operation_id="technologies_list",
-        summary="Получить список технологий",
-        responses={
-            HTTPStatus.OK: OpenApiResponse(
-                description="Данные успешно получены",
-                response=TechnologyListResponseSerializer,
-            ),
-            HTTPStatus.BAD_REQUEST: OpenApiResponse(
-                description="Неверные параметры запроса",
-                response=TechnologyErrorResponseSerializer,
-            ),
-        },
-    ),
-    retrieve=extend_schema(
-        operation_id="technology_retrieve",
-        summary="Получить технологию по id",
-        responses={
-            HTTPStatus.OK: OpenApiResponse(
-                description="Данные успешно получены",
-                response=TechnologyResponseSerializer,
-            ),
-            HTTPStatus.NOT_FOUND: OpenApiResponse(
-                description="Технология не найдена",
-                response=TechnologyErrorResponseSerializer,
-            ),
-            HTTPStatus.BAD_REQUEST: OpenApiResponse(
-                description="Неверные параметры запроса",
-                response=TechnologyErrorResponseSerializer,
-            ),
-        },
-    ),
+    list=technologies_list_schema,
+    retrieve=technology_retrieve_schema,
 )
 class TechnologyViewSet(ReadOnlyModelViewSet):
     """Вьюсет для отображения технологий на странице Лаборатория стартапов."""
@@ -198,24 +133,8 @@ class TechnologyViewSet(ReadOnlyModelViewSet):
         return Response(response_serializer.data, status=HTTPStatus.OK)
 
 
-@extend_schema(
-    tags=["Partners"],
-)
 @extend_schema_view(
-    list=extend_schema(
-        operation_id="partners_list",
-        summary="Получить список партнеров",
-        responses={
-            HTTPStatus.OK: OpenApiResponse(
-                description="Данные успешно получены",
-                response=PartnerResponseSerializer,
-            ),
-            HTTPStatus.BAD_REQUEST: OpenApiResponse(
-                description="Неверные параметры запроса",
-                response=PartnerErrorResponseSerializer,
-            ),
-        },
-    ),
+    list=partners_list_schema,
 )
 class PartnerViewSet(ListModelMixin, GenericViewSet):
     """Вьюсет для отображения партнеров на странице Партнеры."""
@@ -227,19 +146,7 @@ class PartnerViewSet(ListModelMixin, GenericViewSet):
 class RobotsTxtView(APIView):
     """Вью для robots.txt."""
 
-    @extend_schema(
-        operation_id="robots_txt",
-        summary="Получить robots.txt",
-        description=(
-            "Возвращает содержимое файла robots.txt для поисковых роботов"
-        ),
-        tags=["SEO"],
-        responses={
-            HTTPStatus.OK: OpenApiResponse(
-                description="robots.txt успешно получен",
-            ),
-        },
-    )
+    @robots_txt_schema
     def get(self, request: HttpRequest) -> HttpResponse:
         """Формирует robots.txt с актуальной схемой и хостом."""
         content = ROBOTS_TXT_TEMPLATE.format(
@@ -248,42 +155,9 @@ class RobotsTxtView(APIView):
         return HttpResponse(content, content_type="text/plain")
 
 
-@extend_schema(
-    tags=["Services"],
-)
 @extend_schema_view(
-    list=extend_schema(
-        operation_id="services_list",
-        summary="Получить список услуг и проектов",
-        responses={
-            HTTPStatus.OK: OpenApiResponse(
-                description="Данные успешно получены",
-                response=ServiceListResponseSerializer,
-            ),
-            HTTPStatus.BAD_REQUEST: OpenApiResponse(
-                description="Неверные параметры запроса",
-                response=ServiceErrorResponseSerializer,
-            ),
-        },
-    ),
-    retrieve=extend_schema(
-        operation_id="service_retrieve",
-        summary="Получить услугу по id",
-        responses={
-            HTTPStatus.OK: OpenApiResponse(
-                description="Данные успешно получены",
-                response=ServiceDetailDocResponseSerializer,
-            ),
-            HTTPStatus.NOT_FOUND: OpenApiResponse(
-                description="Услуга не найдена",
-                response=ServiceErrorResponseSerializer,
-            ),
-            HTTPStatus.BAD_REQUEST: OpenApiResponse(
-                description="Неверные параметры запроса",
-                response=ServiceErrorResponseSerializer,
-            ),
-        },
-    ),
+    list=services_list_schema,
+    retrieve=service_retrieve_schema,
 )
 class ServiceViewSet(ReadOnlyModelViewSet):
     """Вьюсет для отображения услуг на странице услуг."""
