@@ -1,6 +1,7 @@
 from typing import Optional
 
 from django.contrib import admin
+from django.core.exceptions import ValidationError
 from django.http import HttpRequest
 from django.utils.safestring import mark_safe
 
@@ -92,6 +93,13 @@ class ServiceAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Основная информация", {"fields": ("number", "name", "info")}),
+        (
+            "SEO",
+            {
+                "fields": ("seo_title", "seo_description"),
+                "classes": ("collapse",),
+            },
+        ),
         ("Содержание услуги", {"fields": ("content",), "classes": ("wide",)}),
         ("Теги", {"fields": ("tags",), "classes": ("collapse",)}),
     )
@@ -101,6 +109,27 @@ class ServiceAdmin(admin.ModelAdmin):
         return ", ".join([tag.name for tag in obj.tags.all()])
 
     tags_display.short_description = "Теги"
+
+    def get_form(self, request, obj=None, **kwargs):
+        """Добавляем валидацию SEO полей"""
+        form = super().get_form(request, obj, **kwargs)
+
+        def clean_seo_title(self):
+            seo_title = self.cleaned_data.get("seo_title")
+            if seo_title:
+                # Проверяем уникальность только если поле заполнено
+                if (
+                    Service.objects.filter(seo_title=seo_title)
+                    .exclude(pk=obj.pk if obj else None)
+                    .exists()
+                ):
+                    raise ValidationError(
+                        "SEO заголовок должен быть уникальным"
+                    )
+            return seo_title
+
+        form.clean_seo_title = clean_seo_title
+        return form
 
 
 @admin.register(ServicePostscriptum)

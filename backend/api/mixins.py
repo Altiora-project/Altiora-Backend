@@ -5,7 +5,7 @@ class ServiceSeoMixin(models.Model):
     """Миксин для моделей услуг."""
 
     seo_title = models.CharField(
-        verbose_name="Заголовок", max_length=100, unique=True
+        verbose_name="Заголовок", max_length=100, blank=True, null=True
     )
     seo_description = models.TextField(
         verbose_name="Описание",

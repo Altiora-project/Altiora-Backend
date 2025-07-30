@@ -93,7 +93,7 @@ class Technology(models.Model):
         return self.name
 
 
-class ServicePostscriptum(ServiceSeoMixin):
+class ServicePostscriptum(models.Model):
     """Модель для постскриптума услуги."""
 
     name = models.CharField(
