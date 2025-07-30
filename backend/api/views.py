@@ -12,8 +12,9 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
+from django.http import Http404
 
-from .models import Technology
+from .models import Technology, Service
 from .serializers import (
     ProjectRequestErrorResponseSerializer,
     ProjectRequestResponseSerializer,
@@ -22,6 +23,13 @@ from .serializers import (
     TechnologyListResponseSerializer,
     TechnologyResponseSerializer,
     TechnologySerializer,
+    ServiceDetailSerializer,
+    ServiceDetailDocResponseSerializer,
+    ServiceListSimpleSerializer,
+    ServiceListResponseSerializer,
+    ServiceDetailResponseSerializer,
+    ServiceErrorResponseSerializer,
+    CaseStudySerializer,
 )
 
 logger = getLogger("api")
@@ -162,3 +170,101 @@ class RobotsTxtView(APIView):
             scheme=request.scheme, host=request.get_host()
         )
         return HttpResponse(content, content_type="text/plain")
+
+
+@extend_schema(
+    tags=["Services"],
+)
+@extend_schema_view(
+    list=extend_schema(
+        operation_id="services_list",
+        summary="Получить список услуг и проектов",
+        responses={
+            HTTPStatus.OK: OpenApiResponse(
+                description="Данные успешно получены",
+                response=ServiceListResponseSerializer,
+            ),
+            HTTPStatus.BAD_REQUEST: OpenApiResponse(
+                description="Неверные параметры запроса",
+                response=ServiceErrorResponseSerializer,
+            ),
+        },
+    ),
+    retrieve=extend_schema(
+        operation_id="service_retrieve",
+        summary="Получить услугу по id",
+        responses={
+            HTTPStatus.OK: OpenApiResponse(
+                description="Данные успешно получены",
+                response=ServiceDetailDocResponseSerializer,
+            ),
+            HTTPStatus.NOT_FOUND: OpenApiResponse(
+                description="Услуга не найдена",
+                response=ServiceErrorResponseSerializer,
+            ),
+            HTTPStatus.BAD_REQUEST: OpenApiResponse(
+                description="Неверные параметры запроса",
+                response=ServiceErrorResponseSerializer,
+            ),
+        },
+    ),
+)
+class ServiceViewSet(ReadOnlyModelViewSet):
+    """Вьюсет для отображения услуг на странице услуг."""
+
+    queryset = Service.objects.all()
+    serializer_class = ServiceListSimpleSerializer
+
+    def get_serializer_class(self):
+        """Возвращает сериализатор в зависимости от действия."""
+        if self.action == "retrieve":
+            return ServiceDetailSerializer
+        return ServiceListSimpleSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        services_serializer = self.get_serializer(queryset, many=True)
+
+        # Получаем все записи CaseStudy
+        from .models import CaseStudy
+
+        case_studies = CaseStudy.objects.all()
+        case_studies_serializer = CaseStudySerializer(case_studies, many=True)
+
+        response_serializer = ServiceListResponseSerializer(
+            {
+                "success": True,
+                "message": "Список услуг и проектов получен",
+                "data": {
+                    "services": services_serializer.data,
+                    "case_studies": case_studies_serializer.data,
+                },
+            }
+        )
+        return Response(response_serializer.data, status=HTTPStatus.OK)
+
+    def retrieve(self, request, *args, **kwargs):
+        try:
+            instance = self.get_object()
+            serializer = self.get_serializer(instance)
+            response_serializer = ServiceDetailResponseSerializer(
+                {
+                    "success": True,
+                    "message": "Услуга получена",
+                    "data": serializer.data,
+                }
+            )
+            return Response(response_serializer.data, status=HTTPStatus.OK)
+        except Http404:
+            response_serializer = ServiceErrorResponseSerializer(
+                {
+                    "success": False,
+                    "message": "Услуга не найдена",
+                    "errors": {
+                        "detail": ["Услуга с указанным ID не существует"]
+                    },
+                }
+            )
+            return Response(
+                response_serializer.data, status=HTTPStatus.NOT_FOUND
+            )
