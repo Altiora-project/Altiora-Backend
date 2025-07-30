@@ -5,7 +5,8 @@ from .views import (
     HomePageContentView,
     PartnerViewSet,
     ProjectRequestCreateView,
-    TechnologyViewSet, ServiceViewSet,
+    TechnologyViewSet,
+    ServiceViewSet,
 )
 
 router_v1 = DefaultRouter()

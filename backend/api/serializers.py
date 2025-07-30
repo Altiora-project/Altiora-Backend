@@ -2,8 +2,16 @@ import re
 
 from rest_framework import serializers
 
-from .models import (CaseStudy, HomePageContent, Partner, ProjectRequest,
-                     Service, ServicePostscriptum, Tag, Technology)
+from .models import (
+    CaseStudy,
+    HomePageContent,
+    Partner,
+    ProjectRequest,
+    Service,
+    ServicePostscriptum,
+    Tag,
+    Technology,
+)
 
 
 class BaseResponseSerializer(serializers.Serializer):
@@ -278,6 +286,7 @@ class ServiceDetailDocResponseSerializer(BaseResponseSerializer):
 
 class ServiceErrorResponseSerializer(ErrorResponseSerializer):
     """Сериализатор для ответа с ошибками при получении услуг."""
+
     pass
 
 
@@ -305,6 +314,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
     """Сериализатор для главной страницы."""
 
     partners_data = PartnerSerializer(many=True, read_only=True)
+    services_data = ServiceListSimpleSerializer(many=True, read_only=True)
 
     class Meta:
         model = HomePageContent
@@ -329,6 +339,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
             "tokenization_links",
             "partners_section_title",
             "partners_data",
+            "services_data",
             "order_section_title",
             "contacts_title",
             "contact_address",
@@ -340,8 +351,12 @@ class HomePageContentSerializer(serializers.ModelSerializer):
         """Переопределяем для добавления partners_data."""
         data = super().to_representation(instance)
         partners_data = Partner.objects.all()
+        services_data = Service.objects.all()
         data["partners_data"] = PartnerSerializer(
             partners_data, many=True
+        ).data
+        data["services_data"] = ServiceListSimpleSerializer(
+            services_data, many=True
         ).data
         return data
 
