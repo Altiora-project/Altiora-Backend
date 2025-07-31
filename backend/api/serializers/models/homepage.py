@@ -1,8 +1,7 @@
-from rest_framework import serializers
-
 from api.models import HomePageContent, Partner, Service
 from api.serializers.models.partners import PartnerSerializer
 from api.serializers.models.services import ServiceListSimpleSerializer
+from rest_framework import serializers
 
 
 class HomePageContentSerializer(serializers.ModelSerializer):
@@ -10,7 +9,18 @@ class HomePageContentSerializer(serializers.ModelSerializer):
 
     partners_data = PartnerSerializer(many=True, read_only=True)
     services_data = ServiceListSimpleSerializer(many=True, read_only=True)
-    hero_image = serializers.ImageField(read_only=True, allow_null=True)
+    hero_image = serializers.SerializerMethodField()
+
+    def get_hero_image(self, obj):
+        """Получаем URL изображения hero_image."""
+        if not hasattr(obj, "hero_image") or not obj.hero_image:
+            return None
+        request = self.context.get("request")
+        try:
+            url = obj.hero_image.url
+            return request.build_absolute_uri(url) if request else url
+        except Exception:
+            return None
 
     class Meta:
         model = HomePageContent
