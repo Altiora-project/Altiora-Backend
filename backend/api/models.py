@@ -251,11 +251,11 @@ class HomePageContent(SeoMixin):
         verbose_name="Заголовок 'О нас'", max_length=constants.NAME_MAX_LENGTH
     )
     about_text = RichTextField(verbose_name="Текст 'О нас'")
-    higlight_1 = models.CharField(
+    highlight_1 = models.CharField(
         verbose_name="Хайлайт блока 'О нас' №1",
         max_length=constants.NAME_MAX_LENGTH,
     )
-    higlight_2 = models.CharField(
+    highlight_2 = models.CharField(
         verbose_name="Хайлайт блока 'О нас' №2",
         max_length=constants.NAME_MAX_LENGTH,
     )
