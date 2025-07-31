@@ -1,0 +1,31 @@
+[
+  {
+    "model": "api.homepagecontent",
+    "pk": 1,
+    "fields": {
+      "meta_title": "Главная",
+      "meta_description": "Описание главной страницы",
+      "hero_title": "Altiora — умные IT-решения",
+      "hero_subtitle": "Создаём будущее уже сегодня",
+      "about_title": "О нас",
+      "about_text": "<p>Altiora — digital-команда полного цикла</p>",
+      "highlight_1": "10+ лет опыта",
+      "highlight_2": "100% завершённых проектов",
+      "services_section_title": "Наши услуги",
+      "lab_title": "Лаборатория",
+      "lab_description": "<p>Поможем запустить стартап</p>",
+      "dig_title": "Digital-маркетинг",
+      "dig_description": "<p>Комплексное продвижение</p>",
+      "tokenization_title": "Токенизация",
+      "tokenization_description": "<p>ЦФА и цифровые активы</p>",
+      "tokenization_video_url": "https://youtube.com/watch?v=123456",
+      "tokenization_links": "<p>Узнать больше</p>",
+      "partners_section_title": "Партнёры",
+      "order_section_title": "Заказать проект",
+      "contacts_title": "Контакты",
+      "contact_address": "Москва, ул. Пример",
+      "contact_phone": "+7 123 456-78-90",
+      "contact_email": "contact@altiora.tech"
+    }
+  }
+]

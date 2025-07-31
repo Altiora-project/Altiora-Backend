@@ -1,0 +1,38 @@
+[
+  {
+    "model": "api.casestudy",
+    "pk": 1,
+    "fields": {
+      "service": 1,
+      "name": "Altiora сайт",
+      "info": "Сделан на Django",
+      "tags": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "api.casestudy",
+    "pk": 2,
+    "fields": {
+      "service": 1,
+      "name": "Altiora сайт",
+      "info": "Сделан на Django",
+      "tags": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "api.casestudy",
+    "pk": 3,
+    "fields": {
+      "service": 1,
+      "name": "Altiora сайт",
+      "info": "Сделан на Django",
+      "tags": [
+        1
+      ]
+    }
+  }
+]
