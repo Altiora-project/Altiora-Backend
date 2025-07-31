@@ -10,6 +10,7 @@ services:
       - "127.0.0.1:8000:8000"
     volumes:
       - /opt/backend/staticfiles:/app/staticfiles
+      - /opt/backend/media:/app/media
     networks:
       - altiora_network
     depends_on:
@@ -27,6 +28,7 @@ services:
     env_file: .env
     volumes:
       - /opt/backend/staticfiles:/app/staticfiles
+      - /opt/backend/media:/app/media
     networks:
       - altiora_network
     depends_on:
@@ -64,6 +66,7 @@ services:
 volumes:
   pg_altiora_data:
   staticfiles:
+  media:
 
 networks:
   altiora_network:
