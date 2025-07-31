@@ -3,7 +3,7 @@
     "model": "api.partner",
     "pk": 1,
     "fields": {
-      "name": "Altiora Partner",
+      "name": "Altiora Partner 1",
       "website": "https://altiora.tech"
     }
   },
@@ -11,7 +11,7 @@
     "model": "api.partner",
     "pk": 2,
     "fields": {
-      "name": "Altiora Partner",
+      "name": "Altiora Partner 2",
       "website": "https://altiora.tech"
     }
   },
@@ -19,7 +19,7 @@
     "model": "api.partner",
     "pk": 3,
     "fields": {
-      "name": "Altiora Partner",
+      "name": "Altiora Partner 3",
       "website": "https://altiora.tech"
     }
   }
