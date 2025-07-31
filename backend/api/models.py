@@ -16,7 +16,7 @@ class Partner(models.Model):
         unique=True,
     )
     logo = models.ImageField(
-        verbose_name="Логотип", upload_to="partners", blank=True, null=True
+        verbose_name="Логотип", upload_to="partners/", blank=True, null=True
     )
     website = models.URLField(verbose_name="Сайт партнёра", blank=True)
 
