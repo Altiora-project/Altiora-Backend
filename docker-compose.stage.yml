@@ -11,6 +11,7 @@ services:
     volumes:
       - /opt/backend/staticfiles:/app/staticfiles
       - /opt/backend/media:/app/media
+      - /opt/backend/logs:/app/logs
     networks:
       - altiora_network
     depends_on:
@@ -29,6 +30,7 @@ services:
     volumes:
       - /opt/backend/staticfiles:/app/staticfiles
       - /opt/backend/media:/app/media
+      - /opt/backend/logs:/app/logs
     networks:
       - altiora_network
     depends_on:
@@ -67,6 +69,7 @@ volumes:
   pg_altiora_data:
   staticfiles:
   media:
+  logs:
 
 networks:
   altiora_network:
