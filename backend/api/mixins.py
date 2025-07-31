@@ -1,13 +1,13 @@
 from django.db import models
 
 
-class ServiceSeoMixin(models.Model):
+class SeoMixin(models.Model):
     """Миксин для моделей услуг."""
 
-    seo_title = models.CharField(
+    meta_title = models.CharField(
         verbose_name="Заголовок", max_length=100, blank=True, null=True
     )
-    seo_description = models.TextField(
+    meta_description = models.TextField(
         verbose_name="Описание",
     )
 
