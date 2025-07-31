@@ -4,7 +4,7 @@ from ckeditor.fields import RichTextField
 
 from altiora_backend import constants
 
-from .mixins import ServiceSeoMixin
+from .mixins import SeoMixin
 
 
 class Partner(models.Model):
@@ -155,7 +155,7 @@ class Tag(models.Model):
         return self.name
 
 
-class Service(ServiceSeoMixin):
+class Service(SeoMixin):
     """Модель для услуг."""
 
     name = models.CharField(
@@ -213,7 +213,7 @@ class CaseStudy(models.Model):
         return f"{self.service.name} - {self.name}"
 
 
-class HomePageContent(models.Model):
+class HomePageContent(SeoMixin):
     """
     Модель для хранения всего уникального контента главной страницы.
     Использует кастомную логику в методе save, чтобы гарантировать,
