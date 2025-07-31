@@ -61,7 +61,7 @@ class HomePageContentView(APIView):
             instance={
                 "success": True,
                 "message": "Контент главной страницы",
-                "data": instance,  # ← передаём модель, не dict!
+                "data": instance,
             },
             context={"request": request},
         )
