@@ -63,7 +63,7 @@ class ProjectRequestAdmin(admin.ModelAdmin):
 class PartnerAdmin(admin.ModelAdmin):
     """Админка для модели парнёр."""
 
-    list_display = ("name", "website", "get_logo")
+    list_display = ("name", "website", "logo")
 
     @admin.display(description="Лого")
     def get_logo(self, obj):
