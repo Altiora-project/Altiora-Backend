@@ -1,0 +1,32 @@
+[
+  {
+    "model": "api.technology",
+    "pk": 1,
+    "fields": {
+      "name": "Django",
+      "number": 1,
+      "primary_info": "Надёжный backend",
+      "secondary_info": "Используется в Altiora"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 2,
+    "fields": {
+      "name": "Django",
+      "number": 1,
+      "primary_info": "Надёжный backend",
+      "secondary_info": "Используется в Altiora"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 3,
+    "fields": {
+      "name": "Django",
+      "number": 1,
+      "primary_info": "Надёжный backend",
+      "secondary_info": "Используется в Altiora"
+    }
+  }
+]

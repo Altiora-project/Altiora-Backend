@@ -1,0 +1,41 @@
+[
+  {
+    "model": "api.service",
+    "pk": 1,
+    "fields": {
+      "name": "Разработка на Django",
+      "number": 1,
+      "info": "Создание веб-приложений",
+      "content": "<p>Полное покрытие задач</p>",
+      "tags": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "api.service",
+    "pk": 2,
+    "fields": {
+      "name": "Разработка на Django",
+      "number": 1,
+      "info": "Создание веб-приложений",
+      "content": "<p>Полное покрытие задач</p>",
+      "tags": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "api.service",
+    "pk": 3,
+    "fields": {
+      "name": "Разработка на Django",
+      "number": 1,
+      "info": "Создание веб-приложений",
+      "content": "<p>Полное покрытие задач</p>",
+      "tags": [
+        1
+      ]
+    }
+  }
+]

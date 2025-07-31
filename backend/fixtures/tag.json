@@ -1,0 +1,23 @@
+[
+  {
+    "model": "api.tag",
+    "pk": 1,
+    "fields": {
+      "name": "WEB"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 2,
+    "fields": {
+      "name": "AI"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 3,
+    "fields": {
+      "name": "TOKENIZATION"
+    }
+  }
+]

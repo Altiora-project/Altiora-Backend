@@ -1,0 +1,26 @@
+[
+  {
+    "model": "api.partner",
+    "pk": 1,
+    "fields": {
+      "name": "Altiora Partner",
+      "website": "https://altiora.tech"
+    }
+  },
+  {
+    "model": "api.partner",
+    "pk": 2,
+    "fields": {
+      "name": "Altiora Partner",
+      "website": "https://altiora.tech"
+    }
+  },
+  {
+    "model": "api.partner",
+    "pk": 3,
+    "fields": {
+      "name": "Altiora Partner",
+      "website": "https://altiora.tech"
+    }
+  }
+]
