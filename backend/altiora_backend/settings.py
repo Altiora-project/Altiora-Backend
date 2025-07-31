@@ -16,9 +16,10 @@ LOGS_DIR = BASE_DIR / "logs"
 
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = BASE_DIR / "/media"
+MEDIA_ROOT = BASE_DIR / "media"
 
 LOGS_DIR.mkdir(exist_ok=True)
+MEDIA_ROOT.mkdir(exist_ok=True)
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "secret-key")
 
