@@ -10,7 +10,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
 
     partners_data = PartnerSerializer(many=True, read_only=True)
     services_data = ServiceListSimpleSerializer(many=True, read_only=True)
-    hero_image = serializers.ImageField(read_only=True)
+    hero_image = serializers.ImageField(read_only=True, allow_null=True)
 
     class Meta:
         model = HomePageContent
