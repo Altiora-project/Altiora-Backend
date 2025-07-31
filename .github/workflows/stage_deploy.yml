@@ -3,7 +3,7 @@ name: Deploy Backend to Stage
 on:
   push:
     branches:
-      - develop
+      - fix/central-migrations-and-ci
 
 env:
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
