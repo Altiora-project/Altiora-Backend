@@ -96,7 +96,7 @@ class ServiceAdmin(admin.ModelAdmin):
         (
             "SEO",
             {
-                "fields": ("seo_title", "seo_description"),
+                "fields": ("meta_title", "meta_description"),
                 "classes": ("collapse",),
             },
         ),
@@ -114,21 +114,21 @@ class ServiceAdmin(admin.ModelAdmin):
         """Добавляем валидацию SEO полей"""
         form = super().get_form(request, obj, **kwargs)
 
-        def clean_seo_title(self):
-            seo_title = self.cleaned_data.get("seo_title")
-            if seo_title:
+        def clean_meta_title(self):
+            meta_title = self.cleaned_data.get("meta_title")
+            if meta_title:
                 # Проверяем уникальность только если поле заполнено
                 if (
-                    Service.objects.filter(seo_title=seo_title)
+                    Service.objects.filter(meta_title=meta_title)
                     .exclude(pk=obj.pk if obj else None)
                     .exists()
                 ):
                     raise ValidationError(
                         "SEO заголовок должен быть уникальным"
                     )
-            return seo_title
+            return meta_title
 
-        form.clean_seo_title = clean_seo_title
+        form.clean_meta_title = clean_meta_title
         return form
 
 
