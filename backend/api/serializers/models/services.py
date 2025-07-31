@@ -67,8 +67,8 @@ SERVICE_DETAIL_FIELDS = (
     "tags",
     "postscriptum",
     "case_studies",
-    "seo_title",
-    "seo_description",
+    "meta_title",
+    "meta_description",
 )
 
 
