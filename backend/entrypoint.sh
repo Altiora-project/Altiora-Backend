@@ -1,20 +1,6 @@
 #!/bin/bash
 set -e
 
-if [ ! -d "./api/migrations" ]; then
-  echo "Папка api/migrations не найдена. Создаём..."
-  mkdir -p ./api/migrations
-fi
-
-# Убедимся, что в ней есть __init__.py
-if [ ! -f "./api/migrations/__init__.py" ]; then
-  echo "Добавляем __init__.py в migrations..."
-  touch ./api/migrations/__init__.py
-fi
-
-echo "Создаём миграции..."
-python manage.py makemigrations --noinput
-
 echo "Применяем миграции..."
 python manage.py migrate --noinput
 
