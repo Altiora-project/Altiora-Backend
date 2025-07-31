@@ -13,7 +13,6 @@ from django.http import Http404
 
 from .models import HomePageContent, Partner, Technology, Service
 from .serializers import (
-    HomePageContentSerializer,
     HomePageContentResponseSerializer,
     PartnerSerializer,
     ProjectRequestSerializer,
