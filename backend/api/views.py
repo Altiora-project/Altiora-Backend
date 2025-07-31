@@ -57,7 +57,10 @@ class HomePageContentView(APIView):
                 },
                 status=HTTPStatus.NOT_FOUND,
             )
-        inner_data = HomePageContentSerializer(instance).data
+        inner_data = HomePageContentSerializer(
+            instance,
+            context={"request": request},
+        ).data
 
         response_data = {
             "success": True,
