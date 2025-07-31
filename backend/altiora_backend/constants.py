@@ -4,6 +4,11 @@ TEXT_MAX_LENGTH = 1000
 
 API_VERSION = "v1"
 
+# Настройки для админки
+ADMIN_SITE_TITLE = "Altiora Website Admin"
+ADMIN_SITE_HEADER = "Панель управления Altiora Website"
+ADMIN_INDEX_TITLE = "Добро пожаловать в админку Altiora Website"
+
 # Настройки для robots.txt
 ROBOTS_TXT_TEMPLATE = """User-agent: *
 Disallow: /admin/

@@ -1,5 +1,10 @@
 from typing import Optional
 
+from altiora_backend.constants import (
+    ADMIN_INDEX_TITLE,
+    ADMIN_SITE_HEADER,
+    ADMIN_SITE_TITLE,
+)
 from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.http import HttpRequest
@@ -15,6 +20,10 @@ from .models import (
     Tag,
     Technology,
 )
+
+admin.site.site_title = ADMIN_SITE_TITLE
+admin.site.site_header = ADMIN_SITE_HEADER
+admin.site.index_title = ADMIN_INDEX_TITLE
 
 
 @admin.register(ProjectRequest)
