@@ -137,7 +137,9 @@ dmypy.json
 .ruff_cache
 
 # static/
+static/
 # media/
+media/
 
 # ruff & black
 # pyproject.toml
