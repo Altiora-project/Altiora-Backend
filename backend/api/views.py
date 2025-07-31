@@ -46,7 +46,6 @@ class HomePageContentView(APIView):
 
     @home_page_content_schema
     def get(self, request: Request) -> Response:
-        """Получение контента главной страницы."""
         instance = HomePageContent.objects.first()
         if not instance:
             return Response(
@@ -57,19 +56,16 @@ class HomePageContentView(APIView):
                 },
                 status=HTTPStatus.NOT_FOUND,
             )
-        inner_data = HomePageContentSerializer(
-            instance,
-            context={"request": request},
-        ).data
 
-        response_data = {
-            "success": True,
-            "message": "Контент главной страницы",
-            "data": inner_data,
-        }
-        serializer = HomePageContentResponseSerializer(data=response_data)
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.data, status=HTTPStatus.OK)
+        response = HomePageContentResponseSerializer(
+            instance={
+                "success": True,
+                "message": "Контент главной страницы",
+                "data": instance,  # ← передаём модель, не dict!
+            },
+            context={"request": request},
+        )
+        return Response(response.data, status=HTTPStatus.OK)
 
 
 class ProjectRequestCreateView(APIView):
