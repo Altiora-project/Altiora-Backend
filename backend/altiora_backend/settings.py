@@ -14,6 +14,10 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 LOGS_DIR = BASE_DIR / "logs"
 
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = BASE_DIR / "/media"
+
 LOGS_DIR.mkdir(exist_ok=True)
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "secret-key")
@@ -66,11 +70,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "altiora_backend.wsgi.application"
-
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = "/media"
-
 
 # # Оставил для локальной разработки в SQLite - удалить перед запуском в production
 # DATABASES = {
