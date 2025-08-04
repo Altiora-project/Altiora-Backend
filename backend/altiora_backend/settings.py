@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     "rest_framework",
     "corsheaders",
     "ckeditor",
@@ -72,25 +74,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "altiora_backend.wsgi.application"
 
-# # Оставил для локальной разработки в SQLite - удалить перед запуском в production
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
+# Оставил для локальной разработки в SQLite - удалить перед запуском в production
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB", "altiora_db"),
-        "USER": os.getenv("POSTGRES_USER", "altiora_user"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
-        "HOST": os.getenv("POSTGRES_HOST", ""),
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
-    },
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.getenv("POSTGRES_DB", "altiora_db"),
+#         "USER": os.getenv("POSTGRES_USER", "altiora_user"),
+#         "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
+#         "HOST": os.getenv("POSTGRES_HOST", ""),
+#         "PORT": os.getenv("POSTGRES_PORT", "5432"),
+#     },
+# }
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -219,3 +221,6 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
+
+# Настройки для Sitemap
+SITE_ID = 1
