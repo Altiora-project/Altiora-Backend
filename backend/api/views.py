@@ -162,6 +162,7 @@ class ServiceViewSet(ReadOnlyModelViewSet):
 
     queryset = Service.objects.all()
     serializer_class = ServiceListSimpleSerializer
+    lookup_field = "slug"
 
     def get_serializer_class(self):
         """Возвращает сериализатор в зависимости от действия."""
@@ -209,7 +210,7 @@ class ServiceViewSet(ReadOnlyModelViewSet):
                     "success": False,
                     "message": "Услуга не найдена",
                     "errors": {
-                        "detail": ["Услуга с указанным ID не существует"]
+                        "detail": ["Услуга с указанным Slug не существует"]
                     },
                 }
             )

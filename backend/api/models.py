@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from ckeditor.fields import RichTextField
+from slug_model_mixin.model_mixins import SlugModelMixin
 
 from altiora_backend import constants
 
@@ -155,9 +156,15 @@ class Tag(models.Model):
         return self.name
 
 
-class Service(SeoMixin):
+class Service(SlugModelMixin, SeoMixin):
     """Модель для услуг."""
 
+    slugged_field = "name"
+    slug_unique = True
+    force_slugify = True
+    slug = models.SlugField(
+        max_length=constants.NAME_MAX_LENGTH, verbose_name="Слаг", blank=True
+    )
     name = models.CharField(
         max_length=constants.NAME_MAX_LENGTH, verbose_name="Название услуги"
     )
