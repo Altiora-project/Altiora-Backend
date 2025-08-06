@@ -1,6 +1,9 @@
-from api.models import HomePageContent, Partner, Service
+from api.models import CaseStudy, HomePageContent, Partner, Service
 from api.serializers.models.partners import PartnerSerializer
-from api.serializers.models.services import ServiceListSimpleSerializer
+from api.serializers.models.services import (
+    CaseStudySerializer,
+    ServiceListSimpleSerializer,
+)
 from rest_framework import serializers
 
 
@@ -9,6 +12,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
 
     partners_data = PartnerSerializer(many=True, read_only=True)
     services_data = ServiceListSimpleSerializer(many=True, read_only=True)
+    case_studies_data = CaseStudySerializer(many=True, read_only=True)
     hero_image = serializers.SerializerMethodField()
 
     def get_hero_image(self, obj):
@@ -46,6 +50,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
             "partners_section_title",
             "partners_data",
             "services_data",
+            "case_studies_data",
             "order_section_title",
             "contacts_title",
             "contact_address",
@@ -58,10 +63,14 @@ class HomePageContentSerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         partners_data = Partner.objects.all()
         services_data = Service.objects.all()
+        case_studies_data = CaseStudy.objects.all()
         data["partners_data"] = PartnerSerializer(
             partners_data, many=True
         ).data
         data["services_data"] = ServiceListSimpleSerializer(
             services_data, many=True
+        ).data
+        data["case_studies_data"] = CaseStudySerializer(
+            case_studies_data, many=True
         ).data
         return data
