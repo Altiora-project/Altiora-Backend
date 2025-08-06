@@ -27,6 +27,8 @@ DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(" ")
 
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -36,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
-    "ckeditor",
+    "mdeditor",
     "drf_spectacular",
     "api.apps.ApiConfig",
 ]
