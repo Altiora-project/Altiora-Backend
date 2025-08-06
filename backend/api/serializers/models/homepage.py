@@ -1,4 +1,5 @@
-from api.models import CaseStudy, HomePageContent, Partner, Service
+from api.models import CaseStudy, HomePageContent, LabCart, Partner, Service
+from api.serializers.models.labcarts import LabCartSerializer
 from api.serializers.models.partners import PartnerSerializer
 from api.serializers.models.services import (
     CaseStudySerializer,
@@ -14,6 +15,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
     services_data = ServiceListSimpleSerializer(many=True, read_only=True)
     case_studies_data = CaseStudySerializer(many=True, read_only=True)
     hero_image = serializers.SerializerMethodField()
+    labcart_data = LabCartSerializer(many=True, read_only=True)
 
     def get_hero_image(self, obj):
         """Получаем URL изображения hero_image."""
@@ -41,6 +43,8 @@ class HomePageContentSerializer(serializers.ModelSerializer):
             "services_section_title",
             "lab_title",
             "lab_description",
+            "labcart_data",
+            "lab_description_ps",
             "dig_title",
             "dig_description",
             "tokenization_title",
@@ -61,6 +65,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         """Переопределяем для добавления partners_data."""
         data = super().to_representation(instance)
+        labcart_data = LabCart.objects.all()
         partners_data = Partner.objects.all()
         services_data = Service.objects.all()
         case_studies_data = CaseStudy.objects.all()
