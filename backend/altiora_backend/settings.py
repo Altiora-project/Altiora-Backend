@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "ckeditor",
     "drf_spectacular",
     "api.apps.ApiConfig",
-    "slug_model_mixin",
 ]
 
 MIDDLEWARE = [
