@@ -141,6 +141,9 @@ class TechnologyViewSet(ReadOnlyModelViewSet):
                     },
                 }
             )
+            return Response(
+                response_serializer.data, status=HTTPStatus.NOT_FOUND
+            )
 
 
 @extend_schema_view(
