@@ -281,9 +281,9 @@ class HomePageContent(SeoMixin):
     lab_description = MDTextField(
         verbose_name="Краткое описание 'Лаборатории'"
     )
-    lab_description_ps = RichTextField(
+    lab_description_ps = MDTextField(
         verbose_name="Постскриптум 'Лаборатории'",
-        default="Постскриптум 'Лаборатория стартапов'"
+        default="Постскриптум 'Лаборатория стартапов'",
     )
 
     # --- Блок "digital маркетинг" (описание для главной страницы) ---
