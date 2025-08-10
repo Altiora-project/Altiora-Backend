@@ -46,6 +46,7 @@ class ServiceListSimpleSerializer(serializers.ModelSerializer):
             "id",
             "number",
             "name",
+            "slug",
             "info",
             "tags",
         )
@@ -62,6 +63,7 @@ SERVICE_DETAIL_FIELDS = (
     "id",
     "number",
     "name",
+    "slug",
     "info",
     "content",
     "tags",

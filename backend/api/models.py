@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from mdeditor.fields import MDTextField
 
-from .mixins import SeoMixin
+from .mixins import AutoSlugMixin, SeoMixin
 
 
 class Partner(models.Model):
@@ -154,9 +154,15 @@ class Tag(models.Model):
         return self.name
 
 
-class Service(SeoMixin):
+class Service(AutoSlugMixin, SeoMixin):
     """Модель для услуг."""
 
+    slug = models.SlugField(
+        max_length=constants.NAME_MAX_LENGTH,
+        verbose_name="Слаг",
+        unique=True,
+        blank=True,
+    )
     name = models.CharField(
         max_length=constants.NAME_MAX_LENGTH, verbose_name="Название услуги"
     )
