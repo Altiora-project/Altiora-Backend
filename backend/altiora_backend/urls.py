@@ -13,6 +13,7 @@ urlpatterns = [
     path("robots.txt/", RobotsTxtView.as_view(), name="robots.txt"),
     path("admin/", admin.site.urls),
     path(f"api/{API_VERSION}/", include("api.urls")),
+    path("mdeditor/", include("mdeditor.urls")),
     # Эндпоинт схемы OpenAPI
     path(
         f"api/{API_VERSION}/schema/",
