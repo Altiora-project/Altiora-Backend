@@ -41,6 +41,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
             "highlight_1",
             "highlight_2",
             "services_section_title",
+            "services_section_description",
             "lab_title",
             "lab_description",
             "labcart_data",
@@ -69,6 +70,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
         partners_data = Partner.objects.all()
         services_data = Service.objects.all()
         case_studies_data = CaseStudy.objects.all()
+        data["labcart_data"] = LabCartSerializer(labcart_data, many=True).data
         data["partners_data"] = PartnerSerializer(
             partners_data, many=True
         ).data

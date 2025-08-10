@@ -271,6 +271,10 @@ class HomePageContent(SeoMixin):
         max_length=constants.NAME_MAX_LENGTH,
         default="/наши услуги",
     )
+    services_section_description = models.TextField(
+        verbose_name="Описание секции 'Наши услуги'",
+        default="под ваши цифровые задачи",
+    )
 
     # --- Блок "Лаборатория стартапов" (описание для главной страницы) ---
     lab_title = models.CharField(
