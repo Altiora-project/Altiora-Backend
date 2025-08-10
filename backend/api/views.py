@@ -19,6 +19,7 @@ from .serializers import (
     TechnologySerializer,
     TechnologyListResponseSerializer,
     TechnologyResponseSerializer,
+    TechnologyErrorResponseSerializer,
     ServiceDetailSerializer,
     ServiceDetailResponseSerializer,
     ServiceListSimpleSerializer,
@@ -119,16 +120,30 @@ class TechnologyViewSet(ReadOnlyModelViewSet):
         return Response(response_serializer.data, status=HTTPStatus.OK)
 
     def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        response_serializer = TechnologyResponseSerializer(
-            {
-                "success": True,
-                "message": "Технология получена",
-                "data": serializer.data,
-            }
-        )
-        return Response(response_serializer.data, status=HTTPStatus.OK)
+        try:
+            instance = self.get_object()
+            serializer = self.get_serializer(instance)
+            response_serializer = TechnologyResponseSerializer(
+                {
+                    "success": True,
+                    "message": "Технология получена",
+                    "data": serializer.data,
+                }
+            )
+            return Response(response_serializer.data, status=HTTPStatus.OK)
+        except Http404:
+            response_serializer = TechnologyErrorResponseSerializer(
+                {
+                    "success": False,
+                    "message": "Технология не найдена",
+                    "errors": {
+                        "detail": ["Технология с указанным ID не существует"]
+                    },
+                }
+            )
+            return Response(
+                response_serializer.data, status=HTTPStatus.NOT_FOUND
+            )
 
 
 @extend_schema_view(
