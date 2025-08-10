@@ -1,10 +1,9 @@
-from django.db import models
-from django.core.exceptions import ValidationError
-from ckeditor.fields import RichTextField
-
 from altiora_backend import constants
+from django.core.exceptions import ValidationError
+from django.db import models
+from mdeditor.fields import MDTextField
 
-from .mixins import SeoMixin
+from .mixins import AutoSlugMixin, SeoMixin
 
 
 class Partner(models.Model):
@@ -155,9 +154,15 @@ class Tag(models.Model):
         return self.name
 
 
-class Service(SeoMixin):
+class Service(AutoSlugMixin, SeoMixin):
     """Модель для услуг."""
 
+    slug = models.SlugField(
+        max_length=constants.NAME_MAX_LENGTH,
+        verbose_name="Слаг",
+        unique=True,
+        blank=True,
+    )
     name = models.CharField(
         max_length=constants.NAME_MAX_LENGTH, verbose_name="Название услуги"
     )
@@ -168,7 +173,7 @@ class Service(SeoMixin):
         max_length=constants.TEXT_MAX_LENGTH,
         verbose_name="Информация об услуге",
     )
-    content = RichTextField(
+    content = MDTextField(
         verbose_name="Содержание услуги", blank=True, null=True
     )
     tags = models.ManyToManyField(
@@ -250,7 +255,7 @@ class HomePageContent(SeoMixin):
     about_title = models.CharField(
         verbose_name="Заголовок 'О нас'", max_length=constants.NAME_MAX_LENGTH
     )
-    about_text = RichTextField(verbose_name="Текст 'О нас'")
+    about_text = MDTextField(verbose_name="Текст 'О нас'")
     highlight_1 = models.CharField(
         verbose_name="Хайлайт блока 'О нас' №1",
         max_length=constants.NAME_MAX_LENGTH,
@@ -273,7 +278,7 @@ class HomePageContent(SeoMixin):
         max_length=constants.NAME_MAX_LENGTH,
         default="/лаборатория стартапов",
     )
-    lab_description = RichTextField(
+    lab_description = MDTextField(
         verbose_name="Краткое описание 'Лаборатории'"
     )
     lab_description_ps = RichTextField(
@@ -287,7 +292,7 @@ class HomePageContent(SeoMixin):
         max_length=constants.NAME_MAX_LENGTH,
         default="/digital маркетинг",
     )
-    dig_description = RichTextField(
+    dig_description = MDTextField(
         verbose_name="Краткое описание 'digital маркетинг'"
     )
 
@@ -297,7 +302,7 @@ class HomePageContent(SeoMixin):
         max_length=constants.NAME_MAX_LENGTH,
         default="/токенизация активов и цфа",
     )
-    tokenization_description = RichTextField(
+    tokenization_description = MDTextField(
         verbose_name="Описание 'Токенизация'"
     )
     tokenization_video_url = models.URLField(
@@ -305,9 +310,7 @@ class HomePageContent(SeoMixin):
         blank=True,
         help_text="Ссылка на видео, например, с YouTube или Vimeo.",
     )
-    tokenization_links = RichTextField(
-        verbose_name="Дополнительная информация"
-    )
+    tokenization_links = MDTextField(verbose_name="Дополнительная информация")
 
     # --- Блок "Партнеры" ---
     partners_section_title = models.CharField(

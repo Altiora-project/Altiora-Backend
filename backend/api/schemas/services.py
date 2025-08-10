@@ -28,7 +28,7 @@ services_list_schema = extend_schema(
 
 service_retrieve_schema = extend_schema(
     operation_id="service_retrieve",
-    summary="Получить услугу по id",
+    summary="Получить услугу по slug",
     tags=["Services"],
     responses={
         HTTPStatus.OK: OpenApiResponse(
