@@ -271,6 +271,10 @@ class HomePageContent(SeoMixin):
         max_length=constants.NAME_MAX_LENGTH,
         default="/наши услуги",
     )
+    services_section_description = models.TextField(
+        verbose_name="Описание секции 'Наши услуги'",
+        default="под ваши цифровые задачи",
+    )
 
     # --- Блок "Лаборатория стартапов" (описание для главной страницы) ---
     lab_title = models.CharField(
@@ -280,6 +284,10 @@ class HomePageContent(SeoMixin):
     )
     lab_description = MDTextField(
         verbose_name="Краткое описание 'Лаборатории'"
+    )
+    lab_description_ps = MDTextField(
+        verbose_name="Постскриптум 'Лаборатории'",
+        default="Постскриптум 'Лаборатория стартапов'",
     )
 
     # --- Блок "digital маркетинг" (описание для главной страницы) ---
@@ -356,3 +364,24 @@ class HomePageContent(SeoMixin):
                 "Пожалуйста, редактируйте уже существующий."
             )
         return super().save(*args, **kwargs)
+
+
+class LabCart(models.Model):
+    title = models.CharField(
+        verbose_name="Заголовок карточки",
+        max_length=constants.NAME_MAX_LENGTH,
+    )
+    image = models.ImageField(
+        verbose_name="Изображение карточки",
+        upload_to="main_page/",
+        blank=True,
+        null=True,
+    )
+    description = models.TextField(verbose_name="Описание карточки")
+
+    class Meta:
+        verbose_name = "Карточка лаборатории стартапов"
+        verbose_name_plural = "Карточки лаборатории стартапов"
+
+    def __str__(self):
+        return f"Карточка {self.title}"

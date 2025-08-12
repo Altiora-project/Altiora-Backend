@@ -13,6 +13,7 @@ from django.utils.safestring import mark_safe
 from .models import (
     CaseStudy,
     HomePageContent,
+    LabCart,
     Partner,
     ProjectRequest,
     Service,
@@ -248,3 +249,20 @@ class HomePageAdmin(admin.ModelAdmin):
     ) -> bool:
         """Запрет удаления главной страницы"""
         return False
+
+
+@admin.register(LabCart)
+class LabCartAdmin(admin.ModelAdmin):
+    """
+    Админка для редактирования карточек
+    лаборатории стартапов на главной странице.
+    """
+
+    list_display = ["id", "title"]
+    list_display_links = ["id", "title"]
+    search_fields = ["title"]
+    ordering = ["title"]
+
+    fieldsets = (
+        ("Основная информация", {"fields": ("title", "image", "description")}),
+    )
