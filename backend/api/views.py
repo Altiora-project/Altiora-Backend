@@ -1,6 +1,5 @@
 from http import HTTPStatus
 from logging import getLogger
-
 from altiora_backend.constants import ROBOTS_TXT_TEMPLATE
 from django.http import HttpRequest, HttpResponse
 from drf_spectacular.utils import extend_schema_view
@@ -109,13 +108,13 @@ class TechnologyViewSet(ReadOnlyModelViewSet):
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
-        serializer = self.get_serializer(queryset, many=True)
         response_serializer = TechnologyListResponseSerializer(
-            {
+            instance={
                 "success": True,
                 "message": "Список технологий получен",
-                "data": serializer.data,
-            }
+                "data": queryset,
+            },
+            context={"request": request},
         )
         return Response(response_serializer.data, status=HTTPStatus.OK)
 
