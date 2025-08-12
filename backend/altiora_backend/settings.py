@@ -193,8 +193,8 @@ LOGGING = {
             "propagate": True,
         },
         "django.request": {
-            "handlers": ["error_file"],
-            "level": "ERROR",
+            "handlers": ["console", "error_file"],
+            "level": "INFO",
             "propagate": False,
         },
         "api": {
