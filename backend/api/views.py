@@ -210,12 +210,11 @@ class ServiceViewSet(ReadOnlyModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         try:
             instance = self.get_object()
-            serializer = self.get_serializer(instance)
             response_serializer = ServiceDetailResponseSerializer(
                 {
                     "success": True,
                     "message": "Услуга получена",
-                    "data": serializer.data,
+                    "data": instance,
                 }
             )
             return Response(response_serializer.data, status=HTTPStatus.OK)

@@ -110,7 +110,9 @@ class ServiceDetailDocSerializer(serializers.ModelSerializer):
         help_text="Данные постскриптума услуги"
     )
     case_studies = CaseStudySerializer(
-        many=True, read_only=True, help_text="Список проектов"
+        many=True,
+        read_only=True,
+        help_text="Список проектов",
     )
 
     class Meta:
