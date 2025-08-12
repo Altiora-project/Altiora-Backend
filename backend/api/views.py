@@ -121,13 +121,13 @@ class TechnologyViewSet(ReadOnlyModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         try:
             instance = self.get_object()
-            serializer = self.get_serializer(instance)
             response_serializer = TechnologyResponseSerializer(
-                {
+                instance={
                     "success": True,
                     "message": "Технология получена",
-                    "data": serializer.data,
-                }
+                    "data": instance,
+                },
+                context={"request": request},
             )
             return Response(response_serializer.data, status=HTTPStatus.OK)
         except Http404:
