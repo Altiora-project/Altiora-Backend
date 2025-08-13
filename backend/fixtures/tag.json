@@ -3,21 +3,273 @@
     "model": "api.tag",
     "pk": 1,
     "fields": {
-      "name": "WEB"
+      "name": "ui/ux дизайн"
     }
   },
   {
     "model": "api.tag",
     "pk": 2,
     "fields": {
-      "name": "AI"
+      "name": "backend/api"
     }
   },
   {
     "model": "api.tag",
     "pk": 3,
     "fields": {
-      "name": "TOKENIZATION"
+      "name": "публикация в сторах"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 4,
+    "fields": {
+      "name": "тестирование"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 5,
+    "fields": {
+      "name": "интеграция с внешними сервисами"
+    }
+  },
+    {
+    "model": "api.tag",
+    "pk": 6,
+    "fields": {
+      "name": "чат-боты на python"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 7,
+    "fields": {
+      "name": "обработка платежей"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 8,
+    "fields": {
+      "name": "подключение crm"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 9,
+    "fields": {
+      "name": "аналитика"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 10,
+    "fields": {
+      "name": "spa и pwa"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 11,
+    "fields": {
+      "name": "адаптивный интерфейс"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 12,
+    "fields": {
+      "name": "интеграции"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 13,
+    "fields": {
+      "name": "авторизация, роли, аналитика"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 14,
+    "fields": {
+      "name": "ux-исследования"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 15,
+    "fields": {
+      "name": "прототипирование"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 16,
+    "fields": {
+      "name": "ui-дизайн"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 17,
+    "fields": {
+      "name": "подготовка к разработке"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 18,
+    "fields": {
+      "name": "визуальный стиль"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 19,
+    "fields": {
+      "name": "использование gpt, ml-моделей"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 20,
+    "fields": {
+      "name": "персонализация"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 21,
+    "fields": {
+      "name": "распознавание"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 22,
+    "fields": {
+      "name": "проработка структуры"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 23,
+    "fields": {
+      "name": "адаптивная вёрстка"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 24,
+    "fields": {
+      "name": "seo-оптимизация"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 25,
+    "fields": {
+      "name": "хостинг"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 26,
+    "fields": {
+      "name": "резервное копирование"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 27,
+    "fields": {
+      "name": "мониторинг"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 28,
+    "fields": {
+      "name": "исправление багов"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 29,
+    "fields": {
+      "name": "установка обновлений"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 30,
+    "fields": {
+      "name": "обновление версий"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 31,
+    "fields": {
+      "name": "интеграция новых модулей"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 32,
+    "fields": {
+      "name": "поддержка пользователей"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 33,
+    "fields": {
+      "name": "аудит"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 34,
+    "fields": {
+      "name": "ручное тестирование"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 35,
+    "fields": {
+      "name": "автотестирование"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 36,
+    "fields": {
+      "name": "отчёты"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 37,
+    "fields": {
+      "name": "рекомендации"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 38,
+    "fields": {
+      "name": "чек-листы"
+    }
+  },
+  {
+    "model": "api.tag",
+    "pk": 39,
+    "fields": {
+      "name": "ui/ux-тестирование"
     }
   }
 ]
