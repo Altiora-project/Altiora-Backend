@@ -79,7 +79,7 @@ sudo docker compose -f docker-compose.local.yml up --build
 ```
 
 Этот compose файл включает:
-- **PostgreSQL** (порт 5433) - база данных
+- **PostgreSQL** (порт 5432) - база данных
 - **RabbitMQ** (порты 5672, 15672) - брокер сообщений для Celery
 - **Celery Worker** - обработчик асинхронных задач
 
