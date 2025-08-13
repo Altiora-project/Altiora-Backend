@@ -156,6 +156,22 @@ python manage.py createsuperuser
 python manage.py runserver 8000
 ```
 
+### Добавление тестовых данных (фикстур)
+
+```bash
+python manage.py loaddata fixtures/<name_of_fixture.json>
+```
+
+Список фикстур:
+
+- `casestudy.json`
+- `homepagecontent.json`
+- `partner.json`
+- `service.json`
+- `servicepostscriptum.json`
+- `tag.json`
+- `technology.json`
+
 
 
 ## Доступ к админке Django
