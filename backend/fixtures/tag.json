@@ -271,5 +271,12 @@
     "fields": {
       "name": "ui/ux-тестирование"
     }
+  },
+  {
+    "model": "api.tag",
+    "pk": 40,
+    "fields": {
+      "name": "cms"
+    }
   }
 ]
