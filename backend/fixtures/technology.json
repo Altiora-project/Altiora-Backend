@@ -3,30 +3,140 @@
     "model": "api.technology",
     "pk": 1,
     "fields": {
-      "name": "Django",
+      "name": "Продуктовое ТЗ",
       "number": 1,
-      "primary_info": "Надёжный backend",
-      "secondary_info": "Используется в Altiora"
+      "primary_info": "МVP (Minimum Viable Product) — это рабочая версия продукта с минимальным функционалом, которая позволяет быстро проверить гипотезы на реальных пользователях с минимальными затратами.",
+      "secondary_info": "Используем гибкие методологии и современные технологии, чтобы создать работающий прототип за 2-4 недели."
     }
   },
   {
     "model": "api.technology",
     "pk": 2,
     "fields": {
-      "name": "DRF",
+      "name": "Питчи",
       "number": 2,
-      "primary_info": "Надёжный backend",
-      "secondary_info": "Используется в Altiora"
+      "primary_info": "Питчи",
+      "secondary_info": "Питчи"
     }
   },
   {
     "model": "api.technology",
     "pk": 3,
     "fields": {
-      "name": "React",
+      "name": "Бизнес-план проекта",
       "number": 3,
-      "primary_info": "Надёжный frontend",
-      "secondary_info": "Используется в Altiora"
+      "primary_info": "Бизнес-план проекта",
+      "secondary_info": "Бизнес-план проекта"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 4,
+    "fields": {
+      "name": "Разработка тех. ТЗ",
+      "number": 4,
+      "primary_info": "Разработка тех. ТЗ",
+      "secondary_info": "Разработка тех. ТЗ"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 5,
+    "fields": {
+      "name": "Сбор аналитики",
+      "number": 5,
+      "primary_info": "Сбор аналитики",
+      "secondary_info": "Сбор аналитики"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 6,
+    "fields": {
+      "name": "Бизнес-аналитика",
+      "number": 6,
+      "primary_info": "Бизнес-аналитика",
+      "secondary_info": "Бизнес-аналитика"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 7,
+    "fields": {
+      "name": "Оценка проекта",
+      "number": 7,
+      "primary_info": "Оценка проекта",
+      "secondary_info": "Оценка проекта"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 8,
+    "fields": {
+      "name": "Финансовая модель",
+      "number": 8,
+      "primary_info": "Финансовая модель",
+      "secondary_info": "Финансовая модель"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 9,
+    "fields": {
+      "name": "MVP",
+      "number": 9,
+      "primary_info": "МVP (Minimum Viable Product) — это рабочая версия продукта с минимальным функционалом, которая позволяет быстро проверить гипотезы на реальных пользователях с минимальными затратами.",
+      "secondary_info": "Используем гибкие методологии и современные технологии, чтобы создать работающий прототип за 2-4 недели."
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 10,
+    "fields": {
+      "name": "Продуктовое ТЗ",
+      "number": 10,
+      "primary_info": "Продуктовое ТЗ",
+      "secondary_info": "Продуктовое ТЗ"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 11,
+    "fields": {
+      "name": "Менеджерское сопровождение",
+      "number": 11,
+      "primary_info": "Менеджерское сопровождение",
+      "secondary_info": "Менеджерское сопровождение"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 12,
+    "fields": {
+      "name": "Custdev-ы",
+      "number": 12,
+      "primary_info": "Custdev-ы",
+      "secondary_info": "Custdev-ы"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 13,
+    "fields": {
+      "name": "Тестовый запуск",
+      "number": 13,
+      "primary_info": "Тестовый запуск",
+      "secondary_info": "Тестовый запуск"
+    }
+  },
+  {
+    "model": "api.technology",
+    "pk": 14,
+    "fields": {
+      "name": "Тестовый запуск",
+      "number": 14,
+      "primary_info": "Тестовый запуск",
+      "secondary_info": "Тестовый запуск"
     }
   }
 ]
