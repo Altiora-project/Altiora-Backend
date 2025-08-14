@@ -1,0 +1,29 @@
+[
+  {
+    "model": "api.labcart",
+    "pk": 1,
+    "fields": {
+      "title": "Техническая реализация",
+      "image": "/media/main_page/card_1.png",
+      "description": "с использованием современных технологий, архитектурных подходов и инфраструктуры"
+    }
+  },
+  {
+    "model": "api.labcart",
+    "pk": 2,
+    "fields": {
+      "title": "Акселератор продукта и роста",
+      "image": "/media/main_page/card_2.png",
+      "description": "от гипотез — к первым продажам с гарантией результата"
+    }
+  },
+  {
+    "model": "api.labcart",
+    "pk": 3,
+    "fields": {
+      "title": "Техническая реализация",
+      "image": "/media/main_page/card_3.png",
+      "description": "полный цикл управления успехом стартапа с персональным экспертом"
+    }
+  }
+]
