@@ -20,6 +20,9 @@ from api.serializers.models.services import (
     ServicePostscriptumSerializer,
 )
 
+# Model сериализатор статики сайта
+from api.serializers.models.sitesettings import SiteSettingsSerializer
+
 # Model сериализаторы тегов
 from api.serializers.models.tags import TagSerializer
 

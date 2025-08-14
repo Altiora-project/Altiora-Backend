@@ -37,5 +37,12 @@ from api.serializers.responses.services import (
     ServiceListResponseSerializer,
 )
 
+# Response сериализаторы статики
+from api.serializers.responses.sitesettings import (
+    SiteSettingsResponseSerializer,
+    SiteSettingsErrorResponseSerializer,
+)
+
+
 # flake8: noqa
 # ruff: noqa

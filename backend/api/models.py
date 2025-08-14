@@ -385,3 +385,24 @@ class LabCart(models.Model):
 
     def __str__(self):
         return f"Карточка {self.title}"
+
+
+class SiteSettings(models.Model):
+    logo = models.ImageField(
+        verbose_name="Логотип", upload_to="logos/", blank=True, null=True
+    )
+    phone = models.CharField(
+        verbose_name="Телефон",
+        max_length=constants.NAME_MAX_LENGTH,
+        blank=True,
+    )
+    email = models.EmailField(verbose_name="Email", blank=True)
+    address = models.TextField(verbose_name="Адрес", blank=True)
+    requisites = models.TextField(verbose_name="Реквизиты", blank=True)
+
+    class Meta:
+        verbose_name = "Статика сайта"
+        verbose_name_plural = "Статика сайта"
+
+    def __str__(self):
+        return "Статика сайта"

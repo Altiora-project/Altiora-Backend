@@ -17,6 +17,8 @@ from api.serializers.models import (
     ServicePostscriptumSerializer,
     # Теги
     TagSerializer,
+    # Статика
+    SiteSettingsSerializer,
 )
 
 # Response сериализаторы
@@ -42,6 +44,9 @@ from api.serializers.responses import (
     ServiceDetailResponseSerializer,
     ServiceErrorResponseSerializer,
     ServiceListResponseSerializer,
+    # Статика
+    SiteSettingsResponseSerializer,
+    SiteSettingsErrorResponseSerializer,
 )
 
 # flake8: noqa
