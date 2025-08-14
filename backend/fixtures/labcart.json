@@ -25,5 +25,59 @@
       "image": "/media/main_page/card_3.png",
       "description": "полный цикл управления успехом стартапа с персональным экспертом"
     }
+  },
+  {
+    "model": "api.labcart",
+    "pk": 4,
+    "fields": {
+      "title": "Продвижение сайтов",
+      "image": "/media/main_page/card_4.png",
+      "description": "системное привлечение клиентов через онлайн-каналы"
+    }
+  },
+  {
+    "model": "api.labcart",
+    "pk": 5,
+    "fields": {
+      "title": "Контент поддержка",
+      "image": "/media/main_page/card_5.png",
+      "description": "наполнение каналов полезными материалами для постоянного контакта с клиентом"
+    }
+  },
+  {
+    "model": "api.labcart",
+    "pk": 6,
+    "fields": {
+      "title": "Контекстная реклама",
+      "image": "/media/main_page/card_6.png",
+      "description": "точечные рекламные показы тем, кто ищет ваш продукт прямо сейчас"
+    }
+  },
+  {
+    "model": "api.labcart",
+    "pk": 7,
+    "fields": {
+      "title": "SEO - консалтинг",
+      "image": "/media/main_page/card_7.png",
+      "description": "индивидуальный план вывода сайта в ТОП поиска без переплат за рекламу"
+    }
+  },
+  {
+    "model": "api.labcart",
+    "pk": 8,
+    "fields": {
+      "title": "Аутстаф",
+      "image": "/media/main_page/card_8.png",
+      "description": "гибкие кадры под ваши задачи без бюрократии, управляйте сотрудниками напрямую"
+    }
+  },
+  {
+    "model": "api.labcart",
+    "pk": 9,
+    "fields": {
+      "title": "Полное продвижение бизнеса",
+      "image": "/media/main_page/card_9.png",
+      "description": "полный цикл digital-стратегии: от узнаваемости до повторных покупок"
+    }
   }
 ]
