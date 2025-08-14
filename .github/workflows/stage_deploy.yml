@@ -85,12 +85,12 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            docker image prune -af || true
+            docker system prune -f || true
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-
             cd /opt/backend
             docker compose -f docker-compose.stage.yml pull
             docker compose -f docker-compose.stage.yml up -d --remove-orphans
-            
             rm -f /etc/nginx/sites-enabled/altiora.conf
             mv /tmp/altiora.conf /etc/nginx/sites-available/altiora.conf
             ln -sf /etc/nginx/sites-available/altiora.conf /etc/nginx/sites-enabled/altiora.conf
