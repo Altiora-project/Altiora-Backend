@@ -30,5 +30,10 @@ from .seo import (
     robots_txt_schema,
 )
 
+# Схемы для статики
+from .sitesettings import (
+    site_settings_schema,
+)
+
 # flake8: noqa
 # ruff: noqa

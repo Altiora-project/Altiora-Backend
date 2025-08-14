@@ -7,6 +7,7 @@ from .views import (
     ProjectRequestCreateView,
     TechnologyViewSet,
     ServiceViewSet,
+    SiteSettingsViewSet,
 )
 
 router_v1 = DefaultRouter()
@@ -24,6 +25,11 @@ urlpatterns = [
         "project-request/",
         ProjectRequestCreateView.as_view(),
         name="project-request-create",
+    ),
+    path(
+        "site-settings/",
+        SiteSettingsViewSet.as_view(),
+        name="site-settings",
     ),
     path("", include(router_v1.urls)),
 ]
