@@ -166,9 +166,11 @@ python manage.py loaddata fixtures/<name_of_fixture.json>
 
 - `casestudy.json`
 - `homepagecontent.json`
+- `labcart.json`
 - `partner.json`
 - `service.json`
 - `servicepostscriptum.json`
+- `sitesettings.json`
 - `tag.json`
 - `technology.json`
 
