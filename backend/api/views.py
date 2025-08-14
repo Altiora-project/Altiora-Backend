@@ -10,7 +10,7 @@ from rest_framework.viewsets import ReadOnlyModelViewSet, GenericViewSet
 from rest_framework.mixins import ListModelMixin
 from django.http import Http404
 
-from .models import HomePageContent, Partner, Technology, Service
+from .models import HomePageContent, Partner, Technology, Service, SiteSettings
 from .serializers import (
     HomePageContentResponseSerializer,
     PartnerSerializer,
@@ -25,6 +25,7 @@ from .serializers import (
     ServiceListResponseSerializer,
     ServiceErrorResponseSerializer,
     CaseStudySerializer,
+    SiteSettingsSerializer,
 )
 from .schemas import (
     home_page_content_schema,
@@ -35,6 +36,7 @@ from .schemas import (
     services_list_schema,
     service_retrieve_schema,
     robots_txt_schema,
+    site_settings_schema,
 )
 
 logger = getLogger("api")
@@ -230,3 +232,32 @@ class ServiceViewSet(ReadOnlyModelViewSet):
             return Response(
                 response_serializer.data, status=HTTPStatus.NOT_FOUND
             )
+
+
+class SiteSettingsViewSet(APIView):
+    """API для получения контента статики сайта."""
+
+    @site_settings_schema
+    def get(self, request: Request) -> Response:
+        instance = SiteSettings.objects.first()
+        if not instance:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Контент статики не найден",
+                    "data": {},
+                },
+                status=HTTPStatus.NOT_FOUND,
+            )
+
+        serializer = SiteSettingsSerializer(
+            instance, context={"request": request}
+        )
+        return Response(
+            {
+                "success": True,
+                "message": "Контент статики",
+                "data": serializer.data,
+            },
+            status=HTTPStatus.OK,
+        )

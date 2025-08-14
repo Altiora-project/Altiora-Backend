@@ -18,6 +18,7 @@ from .models import (
     ProjectRequest,
     Service,
     ServicePostscriptum,
+    SiteSettings,
     Tag,
     Technology,
 )
@@ -266,3 +267,24 @@ class LabCartAdmin(admin.ModelAdmin):
     fieldsets = (
         ("Основная информация", {"fields": ("title", "image", "description")}),
     )
+
+
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    """
+    Админка для редактирования статика сайта.
+    """
+
+    list_display = ["phone", "email", "address", "requisites"]
+    list_display_links = ["phone", "email", "address", "requisites"]
+
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+    def has_delete_permission(
+        self, request: HttpRequest, obj: Optional[ProjectRequest] = None
+    ) -> bool:
+        """Запрет удаления статики сайта."""
+        return False
