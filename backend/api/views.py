@@ -250,7 +250,9 @@ class SiteSettingsViewSet(APIView):
                 status=HTTPStatus.NOT_FOUND,
             )
 
-        serializer = SiteSettingsSerializer(instance, context={"request": request})
+        serializer = SiteSettingsSerializer(
+            instance, context={"request": request}
+        )
         return Response(
             {
                 "success": True,
