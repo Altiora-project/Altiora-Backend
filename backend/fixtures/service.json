@@ -3,6 +3,7 @@
     "model": "api.service",
     "pk": 1,
     "fields": {
+      "meta_description": "",
       "name": "Разработка мобильных приложений",
       "slug": "mobile_app_development",
       "number": 1,
@@ -21,6 +22,7 @@
     "model": "api.service",
     "pk": 2,
     "fields": {
+      "meta_description": "",
       "name": "Разработка приложений в Telegram",
       "slug": "telegram_app_development",
       "number": 2,
@@ -39,6 +41,7 @@
     "model": "api.service",
     "pk": 3,
     "fields": {
+      "meta_description": "",
       "name": "Разработка клиентских веб-сервисов",
       "slug": "web_service_development",
       "number": 3,
@@ -56,6 +59,7 @@
     "model": "api.service",
     "pk": 4,
     "fields": {
+      "meta_description": "",
       "name": "Разработка UX/UI дизайна проекта",
       "slug": "ux_ui_design",
       "number": 4,
@@ -74,6 +78,7 @@
     "model": "api.service",
     "pk": 5,
     "fields": {
+      "meta_description": "",
       "name": "Работа с ИИ",
       "slug": "ai_work",
       "number": 5,
@@ -91,6 +96,7 @@
     "model": "api.service",
     "pk": 6,
     "fields": {
+      "meta_description": "",
       "name": "Разработка сайтов",
       "slug": "websites_development",
       "number": 6,
@@ -109,6 +115,7 @@
     "model": "api.service",
     "pk": 7,
     "fields": {
+      "meta_description": "",
       "name": "Техническая поддержка сайтов",
       "slug": "websites_support",
       "number": 7,
@@ -127,6 +134,7 @@
     "model": "api.service",
     "pk": 8,
     "fields": {
+      "meta_description": "",
       "name": "Сопровождение продуктов",
       "slug": "product_support",
       "number": 8,
@@ -144,6 +152,7 @@
     "model": "api.service",
     "pk": 9,
     "fields": {
+      "meta_description": "",
       "name": "Тестирование",
       "slug": "testing",
       "number": 9,
