@@ -430,6 +430,7 @@ class LegalPage(models.Model):
         default_related_name = "legal"
         verbose_name = "Юридическая страница"
         verbose_name_plural = "Юридические страница"
+        ordering = ["slug"]
 
     def __str__(self):
         return self.header
