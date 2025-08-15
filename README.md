@@ -79,7 +79,7 @@ sudo docker compose -f docker-compose.local.yml up --build
 ```
 
 Этот compose файл включает:
-- **PostgreSQL** (порт 5433) - база данных
+- **PostgreSQL** (порт 5432) - база данных
 - **RabbitMQ** (порты 5672, 15672) - брокер сообщений для Celery
 - **Celery Worker** - обработчик асинхронных задач
 
@@ -155,6 +155,30 @@ python manage.py createsuperuser
 ```bash
 python manage.py runserver 8000
 ```
+
+### Добавление всех тестовых данных (фикстур) сразу
+
+```bash
+python manage.py loaddata fixtures/tag.json fixtures/service.json fixtures/technology.json fixtures/partner.json fixtures/homepagecontent.json fixtures/labcart.json fixtures/sitesettings.json fixtures/servicepostscriptum.json fixtures/casestudy.json
+```
+
+### Добавление тестовых данных (фикстур) по одной
+
+```bash
+python manage.py loaddata fixtures/<name_of_fixture.json>
+```
+
+Список фикстур:
+
+- `casestudy.json`
+- `homepagecontent.json`
+- `labcart.json`
+- `partner.json`
+- `service.json`
+- `servicepostscriptum.json`
+- `sitesettings.json`
+- `tag.json`
+- `technology.json`
 
 
 

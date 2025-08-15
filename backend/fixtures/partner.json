@@ -3,24 +3,32 @@
     "model": "api.partner",
     "pk": 1,
     "fields": {
-      "name": "Altiora Partner 1",
-      "website": "https://altiora.tech"
+      "name": "РУСБЕЙС",
+      "website": "https://rb.ru"
     }
   },
   {
     "model": "api.partner",
     "pk": 2,
     "fields": {
-      "name": "Altiora Partner 2",
-      "website": "https://altiora.tech"
+      "name": "ENTSPACE",
+      "website": "https://ru.entspace.com/"
     }
   },
   {
     "model": "api.partner",
     "pk": 3,
     "fields": {
-      "name": "Altiora Partner 3",
-      "website": "https://altiora.tech"
+      "name": "КУБ",
+      "website": "https://spcube.ru/"
+    }
+  },
+  {
+    "model": "api.partner",
+    "pk": 4,
+    "fields": {
+      "name": "ИКТИН группа компаний",
+      "website": "https://www.iktingroupp.ru/"
     }
   }
 ]

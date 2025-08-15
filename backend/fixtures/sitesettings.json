@@ -1,0 +1,13 @@
+[
+  {
+    "model": "api.sitesettings",
+    "pk": 1,
+    "fields": {
+      "logo": "/logos/altiora_logo.png",
+      "phone": "+7 (989) 624-34-61",
+      "email": "ceo@altiora.tech",
+      "address": "г Ростов-на-Дону Будённовский пр-т 33",
+      "requisites": "ИНН 6164143256 ОГРН 1236100034708 ОКВЭД2 62.02"
+    }
+  }
+]
