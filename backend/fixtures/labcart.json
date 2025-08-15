@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "title": "Техническая реализация",
-      "image": "/media/main_page/card_1.png",
+      "image": "/main_page/card_1.png",
       "description": "с использованием современных технологий, архитектурных подходов и инфраструктуры"
     }
   },
@@ -13,7 +13,7 @@
     "pk": 2,
     "fields": {
       "title": "Акселератор продукта и роста",
-      "image": "/media/main_page/card_2.png",
+      "image": "/main_page/card_2.png",
       "description": "от гипотез — к первым продажам с гарантией результата"
     }
   },
@@ -22,7 +22,7 @@
     "pk": 3,
     "fields": {
       "title": "Техническая реализация",
-      "image": "/media/main_page/card_3.png",
+      "image": "/main_page/card_3.png",
       "description": "полный цикл управления успехом стартапа с персональным экспертом"
     }
   },
@@ -31,7 +31,7 @@
     "pk": 4,
     "fields": {
       "title": "Продвижение сайтов",
-      "image": "/media/main_page/card_4.png",
+      "image": "/main_page/card_4.png",
       "description": "системное привлечение клиентов через онлайн-каналы"
     }
   },
@@ -40,7 +40,7 @@
     "pk": 5,
     "fields": {
       "title": "Контент поддержка",
-      "image": "/media/main_page/card_5.png",
+      "image": "/main_page/card_5.png",
       "description": "наполнение каналов полезными материалами для постоянного контакта с клиентом"
     }
   },
@@ -49,7 +49,7 @@
     "pk": 6,
     "fields": {
       "title": "Контекстная реклама",
-      "image": "/media/main_page/card_6.png",
+      "image": "/main_page/card_6.png",
       "description": "точечные рекламные показы тем, кто ищет ваш продукт прямо сейчас"
     }
   },
@@ -58,7 +58,7 @@
     "pk": 7,
     "fields": {
       "title": "SEO - консалтинг",
-      "image": "/media/main_page/card_7.png",
+      "image": "/main_page/card_7.png",
       "description": "индивидуальный план вывода сайта в ТОП поиска без переплат за рекламу"
     }
   },
@@ -67,7 +67,7 @@
     "pk": 8,
     "fields": {
       "title": "Аутстаф",
-      "image": "/media/main_page/card_8.png",
+      "image": "/main_page/card_8.png",
       "description": "гибкие кадры под ваши задачи без бюрократии, управляйте сотрудниками напрямую"
     }
   },
@@ -76,7 +76,7 @@
     "pk": 9,
     "fields": {
       "title": "Полное продвижение бизнеса",
-      "image": "/media/main_page/card_9.png",
+      "image": "/main_page/card_9.png",
       "description": "полный цикл digital-стратегии: от узнаваемости до повторных покупок"
     }
   }
