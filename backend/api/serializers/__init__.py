@@ -20,7 +20,7 @@ from api.serializers.models import (
     # Статика
     SiteSettingsSerializer,
     # Юридические страницы
-    PolicySerializer
+    PolicySerializer,
 )
 
 # Response сериализаторы
@@ -52,7 +52,7 @@ from api.serializers.responses import (
     # Юридические страницы
     PolicyResponseSerializer,
     PolicyListResponseSerializer,
-    PolicyErrorResponseSerializer
+    PolicyErrorResponseSerializer,
 )
 
 # flake8: noqa
