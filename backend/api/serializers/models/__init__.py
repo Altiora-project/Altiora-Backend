@@ -26,5 +26,8 @@ from api.serializers.models.sitesettings import SiteSettingsSerializer
 # Model сериализаторы тегов
 from api.serializers.models.tags import TagSerializer
 
+# Model сериализатор юридических страниц
+from backend.api.serializers.models.policy import PolicySerializer
+
 # flake8: noqa
 # ruff: noqa

@@ -35,5 +35,8 @@ from .sitesettings import (
     site_settings_schema,
 )
 
+# Схемы юридических страниц
+from .policy import policy_list_schema, policy_retrieve_schema
+
 # flake8: noqa
 # ruff: noqa

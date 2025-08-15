@@ -3,45 +3,45 @@ from http import HTTPStatus
 from drf_spectacular.utils import OpenApiResponse, extend_schema
 
 from api.serializers import (
-    LegalPageResponseSerialize,
-    LegalPageListResponseSerializer,
-    LegalPageErrorResponseSerializer,
+    PolicyResponseSerializer,
+    PolicyListResponseSerializer,
+    PolicyErrorResponseSerializer,
 )
 
 
-legal_page_list_schema = extend_schema(
-    operation_id="legal_page_list",
-    summary="Получить список технологий",
-    tags=["Technologies"],
+policy_list_schema = extend_schema(
+    operation_id="policy_list",
+    summary="Получить список юридических страниц",
+    tags=["Policy"],
     responses={
         HTTPStatus.OK: OpenApiResponse(
             description="Данные успешно получены",
-            response=LegalPageListResponseSerializer,
+            response=PolicyListResponseSerializer,
         ),
         HTTPStatus.BAD_REQUEST: OpenApiResponse(
             description="Неверные параметры запроса",
-            response=LegalPageErrorResponseSerializer,
+            response=PolicyErrorResponseSerializer,
         ),
     },
 )
 
 
-legal_page_retrieve_schema = extend_schema(
-    operation_id="legal_page_retrieve",
-    summary="Получить технологию по slug",
-    tags=["LegalPage"],
+policy_retrieve_schema = extend_schema(
+    operation_id="policy_retrieve",
+    summary="Получить юридическую страницу по slug",
+    tags=["Policy"],
     responses={
         HTTPStatus.OK: OpenApiResponse(
             description="Данные успешно получены",
-            response=LegalPageResponseSerialize,
+            response=PolicyResponseSerializer,
         ),
         HTTPStatus.NOT_FOUND: OpenApiResponse(
             description="Страница не найдена",
-            response=LegalPageErrorResponseSerializer,
+            response=PolicyErrorResponseSerializer,
         ),
         HTTPStatus.BAD_REQUEST: OpenApiResponse(
             description="Неверные параметры запроса",
-            response=LegalPageErrorResponseSerializer,
+            response=PolicyErrorResponseSerializer,
         ),
     },
 )

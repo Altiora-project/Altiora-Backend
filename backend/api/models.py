@@ -408,7 +408,7 @@ class SiteSettings(models.Model):
         return "Статика сайта"
 
 
-class LegalPage(models.Model):
+class Policy(models.Model):
     """Модель юридических страниц(политика конфиденциальности и тд.)."""
 
     header = models.CharField(
@@ -427,7 +427,7 @@ class LegalPage(models.Model):
     )
 
     class Meta:
-        default_related_name = "legal"
+        default_related_name = "policy"
         verbose_name = "Юридическая страница"
         verbose_name_plural = "Юридические страница"
         ordering = ["slug"]

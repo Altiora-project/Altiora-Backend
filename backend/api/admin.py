@@ -21,7 +21,7 @@ from .models import (
     SiteSettings,
     Tag,
     Technology,
-    LegalPage,
+    Policy,
 )
 
 admin.site.site_title = ADMIN_SITE_TITLE
@@ -291,8 +291,8 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         return False
 
 
-@admin.register(LegalPage)
-class LegalPageAdmin(admin.ModelAdmin):
+@admin.register(Policy)
+class PolicyAdmin(admin.ModelAdmin):
     """Модель описывает управление юридическими страницами."""
 
     list_display_links = ("header", "slug")
