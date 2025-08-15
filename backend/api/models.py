@@ -406,3 +406,30 @@ class SiteSettings(models.Model):
 
     def __str__(self):
         return "Статика сайта"
+
+
+class LegalPage(models.Model):
+    """Модель юридических страниц(политика конфиденциальности и тд.)."""
+
+    header = models.CharField(
+        max_length=constants.NAME_MAX_LENGTH,
+        verbose_name="Заголовок",
+    )
+    text = models.TextField(
+        max_length=constants.TEXT_MAX_LENGTH,
+        verbose_name="Основная информация",
+    )
+    slug = models.SlugField(
+        max_length=constants.NAME_MAX_LENGTH,
+        verbose_name="Слаг",
+        unique=True,
+        blank=True,
+    )
+
+    class Meta:
+        default_related_name = "legal"
+        verbose_name = "Юридическая страница"
+        verbose_name_plural = "Юридические страница"
+
+    def __str__(self):
+        return self.header
