@@ -156,7 +156,13 @@ python manage.py createsuperuser
 python manage.py runserver 8000
 ```
 
-### Добавление тестовых данных (фикстур)
+### Добавление всех тестовых данных (фикстур) сразу
+
+```bash
+python manage.py loaddata fixtures/tag.json fixtures/service.json fixtures/technology.json fixtures/partner.json fixtures/homepagecontent.json fixtures/labcart.json fixtures/sitesettings.json fixtures/servicepostscriptum.json fixtures/casestudy.json
+```
+
+### Добавление тестовых данных (фикстур) по одной
 
 ```bash
 python manage.py loaddata fixtures/<name_of_fixture.json>
