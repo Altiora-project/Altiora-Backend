@@ -1,4 +1,4 @@
-from backend.api.serializers.models.policy import Policy
+from api.serializers import PolicySerializer
 from api.serializers.responses.base import (
     BaseResponseSerializer,
     ErrorResponseSerializer,
@@ -8,13 +8,13 @@ from api.serializers.responses.base import (
 class PolicyResponseSerializer(BaseResponseSerializer):
     """Сериализатор для получения юридической страницы."""
 
-    data = Policy()
+    data = PolicySerializer()
 
 
 class PolicyListResponseSerializer(BaseResponseSerializer):
     """Сериализатор для получения списка юридических страниц."""
 
-    data = Policy(many=True)
+    data = PolicySerializer(many=True)
 
 
 class PolicyErrorResponseSerializer(ErrorResponseSerializer):

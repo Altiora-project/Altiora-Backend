@@ -298,4 +298,4 @@ class PolicyAdmin(admin.ModelAdmin):
     list_display_links = ("header", "slug")
     list_display = ("header", "text", "slug")
     search_fields = ("header",)
-    list_filter = ("header", "name")
+    list_filter = ("header", "slug")

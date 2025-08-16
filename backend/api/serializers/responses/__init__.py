@@ -44,7 +44,7 @@ from api.serializers.responses.sitesettings import (
 )
 
 # Response сериализаторы юридических страниц
-from backend.api.serializers.responses.policy import (
+from api.serializers.responses.policy import (
     PolicyResponseSerializer,
     PolicyListResponseSerializer,
     PolicyErrorResponseSerializer,
