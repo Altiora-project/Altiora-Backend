@@ -8,4 +8,4 @@ class PolicySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Policy
-        fields = ("id", "header", "text", "slug")
+        fields = ("id", "title", "text", "slug")

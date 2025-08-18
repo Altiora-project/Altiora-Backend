@@ -295,7 +295,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
 class PolicyAdmin(admin.ModelAdmin):
     """Модель описывает управление юридическими страницами."""
 
-    list_display_links = ("header", "slug")
-    list_display = ("header", "text", "slug")
-    search_fields = ("header",)
-    list_filter = ("header", "slug")
+    list_display_links = ("title", "slug")
+    list_display = ("title", "text", "slug")
+    search_fields = ("title",)
+    list_filter = ("title", "slug")

@@ -411,11 +411,11 @@ class SiteSettings(models.Model):
 class Policy(models.Model):
     """Модель юридических страниц(политика конфиденциальности и тд.)."""
 
-    header = models.CharField(
+    title = models.CharField(
         max_length=constants.NAME_MAX_LENGTH,
         verbose_name="Заголовок",
     )
-    text = models.TextField(
+    text = MDTextField(
         max_length=constants.TEXT_MAX_LENGTH,
         verbose_name="Основная информация",
     )
