@@ -21,7 +21,6 @@ from .models import (
     SiteSettings,
     Tag,
     Technology,
-    Policy,
 )
 
 admin.site.site_title = ADMIN_SITE_TITLE
@@ -289,13 +288,3 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     ) -> bool:
         """Запрет удаления статики сайта."""
         return False
-
-
-@admin.register(Policy)
-class PolicyAdmin(admin.ModelAdmin):
-    """Модель описывает управление юридическими страницами."""
-
-    list_display_links = ("title", "slug")
-    list_display = ("title", "text", "slug")
-    search_fields = ("title",)
-    list_filter = ("title", "slug")

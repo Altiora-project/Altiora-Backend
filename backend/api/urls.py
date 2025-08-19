@@ -8,15 +8,12 @@ from .views import (
     TechnologyViewSet,
     ServiceViewSet,
     SiteSettingsViewSet,
-    PolicyViewSet,
 )
 
 router_v1 = DefaultRouter()
 router_v1.register(r"technologies", TechnologyViewSet, basename="technologies")
 router_v1.register(r"services", ServiceViewSet, basename="services")
 router_v1.register(r"partners", PartnerViewSet, basename="partners")
-router_v1.register(r"policies", PolicyViewSet, basename="policy")
-
 
 urlpatterns = [
     path(
