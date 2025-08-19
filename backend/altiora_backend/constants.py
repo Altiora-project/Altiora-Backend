@@ -9,6 +9,7 @@ ADMIN_SITE_TITLE = "Altiora Website Admin"
 ADMIN_SITE_HEADER = "Панель управления Altiora Website"
 ADMIN_INDEX_TITLE = "Добро пожаловать в админку Altiora Website"
 
+
 # Настройки для robots.txt
 ROBOTS_TXT_TEMPLATE = """User-agent: *
 Disallow: /admin/
@@ -18,4 +19,16 @@ Disallow: /media/
 Disallow: /auth/
 Disallow: /accounts/
 Sitemap: {scheme}://{host}/sitemap.xml
+"""
+
+# Настройки для Telegram
+API_URL = "https://api.telegram.org/bot{BOT_TOKEN}"
+
+TELEGRAM_NOTIFICATION_TEMPLATE = """
+‼️<b><u>Новая заявка от {name}</u></b>\n
+<b>👤 Имя:</b> {name}
+<b>🏢 Компания:</b> {company}
+<b>📞 Телефон:</b> {phone_number}
+<b>📧 Email:</b> {email}
+<b>📝 Детали проекта:</b> {project_details}
 """
