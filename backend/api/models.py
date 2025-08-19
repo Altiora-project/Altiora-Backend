@@ -429,8 +429,8 @@ class Policy(models.Model):
     class Meta:
         default_related_name = "policy"
         verbose_name = "Юридическая страница"
-        verbose_name_plural = "Юридические страница"
+        verbose_name_plural = "Юридические страницы"
         ordering = ["slug"]
 
     def __str__(self):
-        return self.header
+        return self.title
