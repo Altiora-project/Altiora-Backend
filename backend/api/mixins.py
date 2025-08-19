@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from unidecode import unidecode
 
 
 class SeoMixin(models.Model):
@@ -17,17 +18,21 @@ class SeoMixin(models.Model):
 
 
 class AutoSlugMixin(models.Model):
-    """Миксин для генерации слага на основе имени модели."""
+    """
+    Миксин для генерации слага на основе имени модели.
+    Необходимо в модели задать:
+    slug_source_field_name = "название поля", например, "name" или "title".
+    """
 
     slug_field_name = "slug"
-    slug_source_field_name = "name"
+    slug_source_field_name: str | None = None
 
     class Meta:
         abstract = True
 
     def generate_unique_slug(self):
         source = getattr(self, self.slug_source_field_name)
-        base_slug = slugify(source)
+        base_slug = slugify(unidecode(source))
         slug = base_slug
         counter = 1
 
