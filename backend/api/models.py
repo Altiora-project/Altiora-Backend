@@ -408,7 +408,7 @@ class SiteSettings(models.Model):
         return "Статика сайта"
 
 
-class Policy(models.Model):
+class Policy(AutoSlugMixin, models.Model):
     """Модель юридических страниц(политика конфиденциальности и тд.)."""
 
     title = models.CharField(
