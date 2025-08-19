@@ -408,7 +408,7 @@ class SiteSettings(models.Model):
 
     def __str__(self):
         return "Статика сайта"
-      
+
 
 class Policy(AutoSlugMixin, models.Model):
     """Модель юридических страниц(политика конфиденциальности и тд.)."""
@@ -438,4 +438,3 @@ class Policy(AutoSlugMixin, models.Model):
 
     def __str__(self):
         return self.title
-
