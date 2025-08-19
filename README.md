@@ -236,3 +236,31 @@ ADMIN_HASH=a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456
 # Доступ к админке:
 # http://localhost:8000/admin/a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456/
 ```
+
+## Telegram уведомления
+
+Для работы Telegram уведомлений о новых заявках необходимо настроить следующие переменные окружения:
+
+```bash
+# Telegram Bot настройки
+TG_BOT_TOKEN=your_bot_token_here  # Токен бота от @BotFather
+MAIN_CHAT_ID=your_chat_id_here    # ID чата или группы для уведомлений
+THREAD_ID=your_thread_id_here     # ID треда (опционально, для групп с темами)
+```
+
+### Настройка Telegram бота
+
+1. Создайте бота через [@BotFather](https://t.me/botfather)
+2. Получите токен бота
+3. Добавьте бота в нужный чат/группу
+4. Получите ID чата (можно использовать [@userinfobot](https://t.me/userinfobot))
+5. Для групп с темами (threads) получите ID треда
+
+### Пример использования
+
+```bash
+# В .env файле:
+TG_BOT_TOKEN=1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+MAIN_CHAT_ID=-1001234567890
+THREAD_ID=123  # Опционально
+```
