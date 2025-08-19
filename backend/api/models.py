@@ -157,7 +157,7 @@ class Tag(models.Model):
 class Service(AutoSlugMixin, SeoMixin):
     """Модель для услуг."""
 
-    slug_source_field_name = 'name'
+    slug_source_field_name = "name"
 
     slug = models.SlugField(
         max_length=constants.NAME_MAX_LENGTH,
@@ -413,7 +413,7 @@ class SiteSettings(models.Model):
 class Policy(AutoSlugMixin, models.Model):
     """Модель юридических страниц(политика конфиденциальности и тд.)."""
 
-    slug_source_field_name = 'title'
+    slug_source_field_name = "title"
 
     title = models.CharField(
         max_length=constants.NAME_MAX_LENGTH,
