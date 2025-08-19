@@ -10,14 +10,7 @@ from rest_framework.viewsets import ReadOnlyModelViewSet, GenericViewSet
 from rest_framework.mixins import ListModelMixin
 from django.http import Http404
 
-from .models import (
-    HomePageContent,
-    Partner,
-    Technology,
-    Service,
-    SiteSettings,
-    Policy,
-)
+from .models import HomePageContent, Partner, Technology, Service, SiteSettings
 from .serializers import (
     HomePageContentResponseSerializer,
     PartnerSerializer,
@@ -33,10 +26,6 @@ from .serializers import (
     ServiceErrorResponseSerializer,
     CaseStudySerializer,
     SiteSettingsSerializer,
-    PolicySerializer,
-    PolicyResponseSerializer,
-    PolicyListResponseSerializer,
-    PolicyErrorResponseSerializer,
 )
 from .schemas import (
     home_page_content_schema,
@@ -48,8 +37,6 @@ from .schemas import (
     service_retrieve_schema,
     robots_txt_schema,
     site_settings_schema,
-    policy_list_schema,
-    policy_retrieve_schema,
 )
 
 logger = getLogger("api")
@@ -274,53 +261,3 @@ class SiteSettingsViewSet(APIView):
             },
             status=HTTPStatus.OK,
         )
-
-
-@extend_schema_view(
-    list=policy_list_schema,
-    retrieve=policy_retrieve_schema,
-)
-class PolicyViewSet(ReadOnlyModelViewSet):
-    """Вьюсет для отображения юридических страниц."""
-
-    queryset = Policy.objects.all()
-    serializer_class = PolicySerializer
-    lookup_field = "slug"
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        response_serializer = PolicyListResponseSerializer(
-            instance={
-                "success": True,
-                "message": "Список юридических страниц получен",
-                "data": queryset,
-            },
-            context={"request": request},
-        )
-        return Response(response_serializer.data, status=HTTPStatus.OK)
-
-    def retrieve(self, request, *args, **kwargs):
-        try:
-            instance = self.get_object()
-            response_serializer = PolicyResponseSerializer(
-                instance={
-                    "success": True,
-                    "message": "Страница получена",
-                    "data": instance,
-                },
-                context={"request": request},
-            )
-            return Response(response_serializer.data, status=HTTPStatus.OK)
-        except Http404:
-            response_serializer = PolicyErrorResponseSerializer(
-                {
-                    "success": False,
-                    "message": "Страница не найдена",
-                    "errors": {
-                        "detail": ["Страница с указанным slug не существует"]
-                    },
-                }
-            )
-            return Response(
-                response_serializer.data, status=HTTPStatus.NOT_FOUND
-            )

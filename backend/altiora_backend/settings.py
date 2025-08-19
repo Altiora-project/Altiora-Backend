@@ -76,7 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "altiora_backend.wsgi.application"
 
-# # Оставил для локальной разработки в SQLite - удалить перед запуском в production
+# Оставил для локальной разработки в SQLite - удалить перед запуском в production
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
@@ -223,6 +223,11 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
+
+# Настройки для Telegram
+TG_BOT_TOKEN = os.getenv("TG_BOT_TOKEN")
+MAIN_CHAT_ID = os.getenv("MAIN_CHAT_ID")
+THREAD_ID = os.getenv("THREAD_ID")
 
 # Настройки для Sitemap
 SITE_ID = 1
