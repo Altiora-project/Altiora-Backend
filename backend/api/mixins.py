@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from unidecode import unidecode
 
 
 class SeoMixin(models.Model):
@@ -31,7 +32,7 @@ class AutoSlugMixin(models.Model):
 
     def generate_unique_slug(self):
         source = getattr(self, self.slug_source_field_name)
-        base_slug = slugify(source)
+        base_slug = slugify(unidecode(source))
         slug = base_slug
         counter = 1
 
