@@ -107,7 +107,15 @@ class ServiceAdmin(admin.ModelAdmin):
     fieldsets = (
         (
             "Основная информация",
-            {"fields": ("number", "name", "slug", "info")},
+            {
+                "fields": (
+                    "number",
+                    "name",
+                    "name_running_line",
+                    "slug",
+                    "info",
+                )
+            },
         ),
         (
             "SEO",
@@ -146,6 +154,14 @@ class ServiceAdmin(admin.ModelAdmin):
 
         form.clean_meta_title = clean_meta_title
         return form
+
+    def save_model(self, request, obj, form, change):
+        """
+        Автоматическое заполнение name_running_line на основе name.
+        """
+        if not obj.name_running_line:
+            obj.name_running_line = obj.name
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(ServicePostscriptum)
@@ -240,6 +256,7 @@ class HomePageAdmin(admin.ModelAdmin):
 
     list_display_links = ("hero_title",)
     list_display = ("hero_title", "hero_subtitle")
+    filter_horizontal = ("services_running_line",)
 
     def has_add_permission(self, request):
         if self.model.objects.exists():

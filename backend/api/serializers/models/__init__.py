@@ -18,6 +18,7 @@ from api.serializers.models.services import (
     ServiceListSerializer,
     ServiceListSimpleSerializer,
     ServicePostscriptumSerializer,
+    ServicesRunningLineSerializer,
 )
 
 # Model сериализатор статики сайта
