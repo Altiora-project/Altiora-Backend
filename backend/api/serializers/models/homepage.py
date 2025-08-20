@@ -12,6 +12,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
     """Сериализатор для главной страницы."""
 
     partners_data = PartnerSerializer(many=True, read_only=True)
+    services_running_line = serializers.SerializerMethodField()
     services_data = ServiceListSimpleSerializer(many=True, read_only=True)
     case_studies_data = CaseStudySerializer(many=True, read_only=True)
     hero_image = serializers.SerializerMethodField()
@@ -28,6 +29,10 @@ class HomePageContentSerializer(serializers.ModelSerializer):
         except Exception:
             return None
 
+    def get_services_running_line(self, obj):
+        """Возвращаем список названий всех услуг."""
+        return list(Service.objects.values_list("name", flat=True))
+
     class Meta:
         model = HomePageContent
         fields = [
@@ -36,6 +41,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
             "hero_title",
             "hero_subtitle",
             "hero_image",
+            "services_running_line",
             "about_title",
             "about_text",
             "highlight_1",
