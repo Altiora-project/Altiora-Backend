@@ -43,6 +43,13 @@ from api.serializers.responses.sitesettings import (
     SiteSettingsErrorResponseSerializer,
 )
 
+# Response сериализаторы юридических страниц
+from api.serializers.responses.policy import (
+    PolicyResponseSerializer,
+    PolicyListResponseSerializer,
+    PolicyErrorResponseSerializer,
+)
+
 
 # flake8: noqa
 # ruff: noqa
