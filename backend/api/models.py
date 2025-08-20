@@ -420,7 +420,6 @@ class Policy(AutoSlugMixin, models.Model):
         verbose_name="Заголовок",
     )
     text = MDTextField(
-        max_length=constants.TEXT_MAX_LENGTH,
         verbose_name="Основная информация",
     )
     slug = models.SlugField(
