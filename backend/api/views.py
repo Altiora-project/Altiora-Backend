@@ -170,7 +170,6 @@ class PartnerViewSet(ListModelMixin, GenericViewSet):
         return Response(response_serializer.data, status=HTTPStatus.OK)
 
 
-
 class RobotsTxtView(APIView):
     """Вью для robots.txt."""
 
