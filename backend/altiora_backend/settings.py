@@ -76,7 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "altiora_backend.wsgi.application"
 
-# Оставил для локальной разработки в SQLite - удалить перед запуском в production
+# # Оставил для локальной разработки в SQLite - удалить перед запуском в production
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.sqlite3",
