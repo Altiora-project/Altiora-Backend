@@ -14,6 +14,7 @@ from .models import HomePageContent, Partner, Technology, Service, SiteSettings
 from .serializers import (
     HomePageContentResponseSerializer,
     PartnerSerializer,
+    PartnerResponseSerializer,
     ProjectRequestSerializer,
     TechnologySerializer,
     TechnologyListResponseSerializer,
@@ -155,6 +156,19 @@ class PartnerViewSet(ListModelMixin, GenericViewSet):
 
     queryset = Partner.objects.all()
     serializer_class = PartnerSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        response_serializer = PartnerResponseSerializer(
+            instance={
+                "success": True,
+                "message": "Список партнеров получен",
+                "data": queryset,
+            },
+            context={"request": request},
+        )
+        return Response(response_serializer.data, status=HTTPStatus.OK)
+
 
 
 class RobotsTxtView(APIView):
