@@ -238,8 +238,24 @@ class HomePageAdmin(admin.ModelAdmin):
     Допускается добавлять только один объект данной модели.
     """
 
-    list_display_links = ("hero_title",)
-    list_display = ("hero_title", "hero_subtitle")
+    list_display_links = (
+        "hero_title",
+        "about_title",
+        "services_section_title",
+        "lab_title",
+        "dig_title",
+        "tokenization_title",
+        "order_section_title",
+    )
+    list_display = (
+        "hero_title",
+        "about_title",
+        "services_section_title",
+        "lab_title",
+        "dig_title",
+        "tokenization_title",
+        "order_section_title",
+    )
 
     def has_add_permission(self, request):
         if self.model.objects.exists():

@@ -241,11 +241,10 @@ class HomePageContent(SeoMixin):
     )
 
     # --- Блок Hero ---
-    hero_title = models.CharField(
+    hero_title = MDTextField(
         verbose_name="Главный заголовок (Hero)",
         max_length=constants.NAME_MAX_LENGTH,
     )
-    hero_subtitle = models.TextField(verbose_name="Подзаголовок (Hero)")
     hero_image = models.ImageField(
         verbose_name="Изображение (Hero)",
         upload_to="main_page/",
@@ -254,17 +253,34 @@ class HomePageContent(SeoMixin):
     )
 
     # --- Блок "О нас" ---
-    about_title = models.CharField(
-        verbose_name="Заголовок 'О нас'", max_length=constants.NAME_MAX_LENGTH
+    about_title = MDTextField(
+        verbose_name="Заголовок 'О нас'",
+        max_length=constants.NAME_MAX_LENGTH,
+        blank=True,
     )
-    about_text = MDTextField(verbose_name="Текст 'О нас'")
-    highlight_1 = models.CharField(
+    about_subtitle = MDTextField(
+        verbose_name="Подзаголовок 'О нас'",
+        max_length=constants.NAME_MAX_LENGTH,
+        blank=True,
+    )
+    about_highlight_1 = models.CharField(
         verbose_name="Хайлайт блока 'О нас' №1",
         max_length=constants.NAME_MAX_LENGTH,
+        default="5+ лет",
     )
-    highlight_2 = models.CharField(
+    about_highlight_text_1 = MDTextField(
+        verbose_name="Текст в хайлайте №1", blank=True
+    )
+    about_highlight_2 = models.CharField(
         verbose_name="Хайлайт блока 'О нас' №2",
         max_length=constants.NAME_MAX_LENGTH,
+        default="100%",
+    )
+    about_highlight_text_2 = MDTextField(
+        verbose_name="Текст в хайлайте №2", blank=True
+    )
+    about_highlight_subtext = MDTextField(
+        verbose_name="Текст под хайлайтами", blank=True
     )
 
     # --- Блок "Наши услуги" ---
@@ -337,9 +353,6 @@ class HomePageContent(SeoMixin):
         verbose_name="Заголовок 'Контакты'",
         max_length=constants.NAME_MAX_LENGTH,
         default="/контакты",
-    )
-    contact_address = models.CharField(
-        verbose_name="Адрес", max_length=constants.NAME_MAX_LENGTH, blank=True
     )
     contact_phone = models.CharField(
         verbose_name="Телефон",
