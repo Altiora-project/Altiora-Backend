@@ -7,6 +7,8 @@ from api.serializers.models.services import (
 )
 from rest_framework import serializers
 
+from altiora_backend import constants
+
 
 class HomePageContentSerializer(serializers.ModelSerializer):
     """Сериализатор для главной страницы."""
@@ -73,11 +75,23 @@ class HomePageContentSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         """Переопределяем для добавления partners_data."""
         data = super().to_representation(instance)
-        labcart_data = LabCart.objects.all()
+
+        startup_laboratory = LabCart.objects.filter(
+            card_type=constants.CARD_CHOICES["startup_laboratory"]
+        )
+        digital_marketing = LabCart.objects.filter(
+            card_type=constants.CARD_CHOICES["digital_marketing"]
+        )
         partners_data = Partner.objects.all()
         services_data = Service.objects.all()
         case_studies_data = CaseStudy.objects.all()
-        data["labcart_data"] = LabCartSerializer(labcart_data, many=True).data
+
+        data["startup_laboratory_data"] = LabCartSerializer(
+            startup_laboratory, many=True
+        ).data
+        data["digital_marketing_data"] = LabCartSerializer(
+            digital_marketing, many=True
+        ).data
         data["partners_data"] = PartnerSerializer(
             partners_data, many=True
         ).data

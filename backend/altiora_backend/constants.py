@@ -2,6 +2,14 @@ NAME_MAX_LENGTH = 255
 INFO_MAX_LENGTH = 2000
 TEXT_MAX_LENGTH = 1000
 
+CARD_CHOICES_MAX_LENGTH = 25
+CARD_CHOICES = {
+    "startup_laboratory": "startup",
+    "startup_laboratory_text": "Лаборатория стартапов",
+    "digital_marketing": "digital",
+    "digital_marketing_text": "Digital маркетинг",
+}
+
 API_VERSION = "v1"
 
 # Настройки для админки

@@ -1,8 +1,8 @@
-from altiora_backend import constants
 from django.core.exceptions import ValidationError
 from django.db import models
 from mdeditor.fields import MDTextField
 
+from altiora_backend import constants
 from .mixins import AutoSlugMixin, SeoMixin
 
 
@@ -382,6 +382,26 @@ class HomePageContent(SeoMixin):
 
 
 class LabCart(models.Model):
+    """Общая модель карточек лаборатории стартапов и digital маркетинг."""
+
+    CARD_TYPE_CHOICES = [
+        (
+            constants.CARD_CHOICES["startup_laboratory"],
+            constants.CARD_CHOICES["startup_laboratory_text"],
+        ),
+        (
+            constants.CARD_CHOICES["digital_marketing"],
+            constants.CARD_CHOICES["digital_marketing_text"],
+        ),
+    ]
+
+    card_type = models.CharField(
+        verbose_name="Тип карточки",
+        max_length=constants.CARD_CHOICES_MAX_LENGTH,
+        choices=CARD_TYPE_CHOICES,
+        default=constants.CARD_CHOICES["startup_laboratory"],
+    )
+
     title = models.CharField(
         verbose_name="Заголовок карточки",
         max_length=constants.NAME_MAX_LENGTH,
@@ -395,8 +415,10 @@ class LabCart(models.Model):
     description = models.TextField(verbose_name="Описание карточки")
 
     class Meta:
-        verbose_name = "Карточка лаборатории стартапов"
-        verbose_name_plural = "Карточки лаборатории стартапов"
+        verbose_name = "Стартап или Digital маркетинг"
+        verbose_name_plural = (
+            "Карточки лаборатории стартапов и digital маркетинга"
+        )
 
     def __str__(self):
         return f"Карточка {self.title}"

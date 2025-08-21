@@ -276,13 +276,16 @@ class LabCartAdmin(admin.ModelAdmin):
     лаборатории стартапов на главной странице.
     """
 
-    list_display = ["id", "title"]
+    list_display = ["id", "title", "card_type"]
     list_display_links = ["id", "title"]
     search_fields = ["title"]
     ordering = ["title"]
 
     fieldsets = (
-        ("Основная информация", {"fields": ("title", "image", "description")}),
+        (
+            "Основная информация",
+            {"fields": ("card_type", "title", "image", "description")},
+        ),
     )
 
 
