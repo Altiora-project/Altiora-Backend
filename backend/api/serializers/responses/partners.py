@@ -8,7 +8,7 @@ from api.serializers.responses.base import (
 class PartnerResponseSerializer(BaseResponseSerializer):
     """Сериализатор для ответа на запрос партнеров."""
 
-    data = PartnerSerializer()
+    data = PartnerSerializer(many=True)
 
 
 class PartnerErrorResponseSerializer(ErrorResponseSerializer):
