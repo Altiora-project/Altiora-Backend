@@ -22,6 +22,7 @@
 
 - `ServiceListSimpleSerializer` - Сериализатор для отображения услуг в простом формате в списке.
 - `ServiceListSerializer` - Сериализатор для отображения услуг в полном формате в списке
+- `ServicesRunningLineSerializer` - Сериализатор для отображения бегущей строки с услугами
 - `ServiceListResponseSerializer` - Сериализатор для ответа с данными о списке услуг и проектов. Используется в т.ч. для Swagger.
 
 - `ServiceDetailSerializer` - Сериализатор для детального отображения услуги.

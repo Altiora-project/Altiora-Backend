@@ -118,3 +118,14 @@ class ServiceDetailDocSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
         fields = SERVICE_DETAIL_FIELDS
+
+
+class ServicesRunningLineSerializer(serializers.ModelSerializer):
+    """Сериализатор для отображения бегущей строки с услугами."""
+
+    class Meta:
+        model = Service
+        fields = (
+            "id",
+            "name_running_line",
+        )

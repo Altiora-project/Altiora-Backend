@@ -15,6 +15,7 @@ from api.serializers.models import (
     ServiceListSerializer,
     ServiceListSimpleSerializer,
     ServicePostscriptumSerializer,
+    ServicesRunningLineSerializer,
     # Теги
     TagSerializer,
     # Статика
