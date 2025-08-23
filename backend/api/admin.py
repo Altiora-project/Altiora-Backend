@@ -97,24 +97,24 @@ class TechnologyAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     """Админка для управления услугами"""
 
-    list_display = ["id", "number", "name", "slug", "info", "tags_display"]
+    list_display = ["id", "number", "name", "slug", "tags_display"]
     list_display_links = ["id", "number", "name"]
-    search_fields = ["name", "slug", "info", "content", "tags__name"]
+    search_fields = ["name", "slug", "content", "tags__name"]
     list_filter = ["number", "tags"]
     ordering = ["number"]
     prepopulated_fields = {"slug": ("name",)}
 
     fieldsets = (
         (
-            "Основная информация",
-            {"fields": ("number", "name", "slug", "info")},
-        ),
-        (
             "SEO",
             {
                 "fields": ("meta_title", "meta_description"),
                 "classes": ("collapse",),
             },
+        ),
+        (
+            "Основная информация",
+            {"fields": ("number", "name", "slug")},
         ),
         ("Содержание услуги", {"fields": ("content",), "classes": ("wide",)}),
         ("Теги", {"fields": ("tags",), "classes": ("collapse",)}),

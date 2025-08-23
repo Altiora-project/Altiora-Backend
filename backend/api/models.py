@@ -171,10 +171,6 @@ class Service(AutoSlugMixin, SeoMixin):
     number = models.PositiveSmallIntegerField(
         verbose_name="№ п/п в списке услуг"
     )
-    info = models.TextField(
-        max_length=constants.TEXT_MAX_LENGTH,
-        verbose_name="Информация об услуге",
-    )
     content = MDTextField(
         verbose_name="Содержание услуги", blank=True, null=True
     )
@@ -354,12 +350,6 @@ class HomePageContent(SeoMixin):
         max_length=constants.NAME_MAX_LENGTH,
         default="/контакты",
     )
-    contact_phone = models.CharField(
-        verbose_name="Телефон",
-        max_length=constants.NAME_MAX_LENGTH,
-        blank=True,
-    )
-    contact_email = models.EmailField(verbose_name="Email", blank=True)
 
     class Meta:
         verbose_name = "Контент главной страницы"

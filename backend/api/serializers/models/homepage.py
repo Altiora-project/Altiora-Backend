@@ -68,8 +68,6 @@ class HomePageContentSerializer(serializers.ModelSerializer):
             "case_studies_data",
             "order_section_title",
             "contacts_title",
-            "contact_phone",
-            "contact_email",
         ]
 
     def to_representation(self, instance):
