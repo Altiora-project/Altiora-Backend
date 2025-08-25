@@ -12,10 +12,10 @@ class ProjectRequestSerializer(serializers.ModelSerializer):
     """
 
     name = serializers.CharField(
-        help_text="Имя клиента, отправившего заявку.", max_length=256
+        help_text="Имя клиента, отправившего заявку.", max_length=255
     )
     company = serializers.CharField(
-        help_text="Название компании клиента.", max_length=256
+        help_text="Название компании клиента.", max_length=255
     )
     project_details = serializers.CharField(
         help_text="Описание проекта или задачи, которую нужно реализовать."
@@ -24,7 +24,7 @@ class ProjectRequestSerializer(serializers.ModelSerializer):
         help_text="Контактный номер телефона в формате +79991234567."
     )
     email = serializers.EmailField(
-        help_text="Электронная почта для связи.", max_length=256
+        help_text="Электронная почта для связи.", max_length=255
     )
     agreed_to_terms = serializers.BooleanField(
         help_text="Флаг подтверждения согласия с политикой обработки "
