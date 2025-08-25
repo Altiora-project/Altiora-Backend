@@ -261,10 +261,6 @@ class HomePageContent(SeoMixin):
         blank=True,
         null=True,
     )
-    # --- Бегущая строка с наименованиями услуг ---
-    # services_running_line = models.ManyToManyField(
-    #     Service, blank=True, verbose_name="Список услуг для бегущей строки"
-    # )
 
     # --- Блок "О нас" ---
     about_title = models.CharField(
