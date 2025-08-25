@@ -114,7 +114,15 @@ class ServiceAdmin(admin.ModelAdmin):
         ),
         (
             "Основная информация",
-            {"fields": ("number", "name", "slug")},
+            {
+                "fields": (
+                    "number",
+                    "name",
+                    "slug",
+                    "name_running_line",
+                    "in_running_line",
+                )
+            },
         ),
         ("Содержание услуги", {"fields": ("content",), "classes": ("wide",)}),
         ("Теги", {"fields": ("tags",), "classes": ("collapse",)}),
