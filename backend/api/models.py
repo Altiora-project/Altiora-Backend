@@ -186,6 +186,10 @@ class Service(AutoSlugMixin, SeoMixin):
         verbose_name="Наименования для бегущей строки",
         blank=True,
     )
+    in_running_line = models.BooleanField(
+        verbose_name="Наличие услуги на бегущей строке",
+        default=True,
+    )
 
     class Meta:
         verbose_name = "Услуга"
@@ -258,9 +262,9 @@ class HomePageContent(SeoMixin):
         null=True,
     )
     # --- Бегущая строка с наименованиями услуг ---
-    services_running_line = models.ManyToManyField(
-        Service, blank=True, verbose_name="Список услуг для бегущей строки"
-    )
+    # services_running_line = models.ManyToManyField(
+    #     Service, blank=True, verbose_name="Список услуг для бегущей строки"
+    # )
 
     # --- Блок "О нас" ---
     about_title = models.CharField(

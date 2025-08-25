@@ -4,7 +4,6 @@ from api.serializers.models.partners import PartnerSerializer
 from api.serializers.models.services import (
     CaseStudySerializer,
     ServiceListSimpleSerializer,
-    ServicesRunningLineSerializer,
 )
 from rest_framework import serializers
 
@@ -13,9 +12,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
     """Сериализатор для главной страницы."""
 
     partners_data = PartnerSerializer(many=True, read_only=True)
-    services_running_line = ServicesRunningLineSerializer(
-        many=True, read_only=True
-    )
+    services_running_line = serializers.SerializerMethodField()
     services_data = ServiceListSimpleSerializer(many=True, read_only=True)
     case_studies_data = CaseStudySerializer(many=True, read_only=True)
     hero_image = serializers.SerializerMethodField()
@@ -31,6 +28,14 @@ class HomePageContentSerializer(serializers.ModelSerializer):
             return request.build_absolute_uri(url) if request else url
         except Exception:
             return None
+
+    def get_services_running_line(self, obj):
+        """Возвращаем список названий всех услуг."""
+        return list(
+            Service.objects.filter(in_running_line=True).values_list(
+                "name_running_line", flat=True
+            )
+        )
 
     class Meta:
         model = HomePageContent

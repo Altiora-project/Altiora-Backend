@@ -114,6 +114,7 @@ class ServiceAdmin(admin.ModelAdmin):
                     "name_running_line",
                     "slug",
                     "info",
+                    "in_running_line",
                 )
             },
         ),
@@ -256,7 +257,6 @@ class HomePageAdmin(admin.ModelAdmin):
 
     list_display_links = ("hero_title",)
     list_display = ("hero_title", "hero_subtitle")
-    filter_horizontal = ("services_running_line",)
 
     def has_add_permission(self, request):
         if self.model.objects.exists():
