@@ -33,7 +33,11 @@ class HomePageContentSerializer(serializers.ModelSerializer):
 
     def get_services_running_line(self, obj):
         """Возвращаем список названий всех услуг."""
-        return list(Service.objects.values_list("name", flat=True))
+        return list(
+            Service.objects.filter(in_running_line=True).values_list(
+                "name_running_line", flat=True
+            )
+        )
 
     class Meta:
         model = HomePageContent

@@ -11,15 +11,21 @@ class ProjectRequestSerializer(serializers.ModelSerializer):
     Валидация телефона и согласия с условиями.
     """
 
-    name = serializers.CharField(help_text="Имя клиента, отправившего заявку.")
-    company = serializers.CharField(help_text="Название компании клиента.")
+    name = serializers.CharField(
+        help_text="Имя клиента, отправившего заявку.", max_length=255
+    )
+    company = serializers.CharField(
+        help_text="Название компании клиента.", max_length=255
+    )
     project_details = serializers.CharField(
         help_text="Описание проекта или задачи, которую нужно реализовать."
     )
     phone_number = serializers.CharField(
         help_text="Контактный номер телефона в формате +79991234567."
     )
-    email = serializers.EmailField(help_text="Электронная почта для связи.")
+    email = serializers.EmailField(
+        help_text="Электронная почта для связи.", max_length=255
+    )
     agreed_to_terms = serializers.BooleanField(
         help_text="Флаг подтверждения согласия с политикой обработки "
         "персональных данных."

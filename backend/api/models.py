@@ -177,6 +177,15 @@ class Service(AutoSlugMixin, SeoMixin):
     tags = models.ManyToManyField(
         Tag, blank=True, related_name="services", verbose_name="Теги"
     )
+    name_running_line = models.CharField(
+        max_length=constants.NAME_MAX_LENGTH,
+        verbose_name="Наименования для бегущей строки",
+        blank=True,
+    )
+    in_running_line = models.BooleanField(
+        verbose_name="Наличие услуги на бегущей строке",
+        default=True,
+    )
 
     class Meta:
         verbose_name = "Услуга"
@@ -184,7 +193,7 @@ class Service(AutoSlugMixin, SeoMixin):
         ordering = ["number"]
 
     def __str__(self):
-        return f"{self.number}. {self.name}"
+        return f"{self.number}. {self.name_running_line}"
 
 
 class CaseStudy(models.Model):

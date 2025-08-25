@@ -147,6 +147,14 @@ class ServiceAdmin(admin.ModelAdmin):
         form.clean_meta_title = clean_meta_title
         return form
 
+    def save_model(self, request, obj, form, change):
+        """
+        Автоматическое заполнение name_running_line на основе name.
+        """
+        if not obj.name_running_line:
+            obj.name_running_line = obj.name
+        super().save_model(request, obj, form, change)
+
 
 @admin.register(ServicePostscriptum)
 class ServicePostscriptumAdmin(admin.ModelAdmin):
