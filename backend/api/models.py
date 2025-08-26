@@ -179,6 +179,11 @@ class Service(AutoSlugMixin, SeoMixin):
     number = models.PositiveSmallIntegerField(
         verbose_name="№ п/п в списке услуг"
     )
+    info = models.TextField(
+        max_length=constants.TEXT_MAX_LENGTH,
+        verbose_name="Информация об услуге",
+        default="Краткое описание услуги.",
+    )
     content = MDTextField(
         verbose_name="Содержание услуги", blank=True, null=True
     )
