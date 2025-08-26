@@ -76,8 +76,8 @@ class HomePageContentSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         """Переопределяем для добавления partners_data."""
+        request = self.context.get("request")
         data = super().to_representation(instance)
-
         startup_laboratory = LabCart.objects.filter(
             card_type=constants.CARD_CHOICES["startup_laboratory"]
         )
@@ -95,7 +95,7 @@ class HomePageContentSerializer(serializers.ModelSerializer):
             digital_marketing, many=True
         ).data
         data["partners_data"] = PartnerSerializer(
-            partners_data, many=True
+            partners_data, many=True, context={"request": request}
         ).data
         data["services_data"] = ServiceListSimpleSerializer(
             services_data, many=True
