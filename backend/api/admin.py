@@ -97,32 +97,31 @@ class TechnologyAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     """Админка для управления услугами"""
 
-    list_display = ["id", "number", "name", "slug", "info", "tags_display"]
+    list_display = ["id", "number", "name", "slug", "tags_display"]
     list_display_links = ["id", "number", "name"]
-    search_fields = ["name", "slug", "info", "content", "tags__name"]
+    search_fields = ["name", "slug", "content", "tags__name"]
     list_filter = ["number", "tags"]
     ordering = ["number"]
     prepopulated_fields = {"slug": ("name",)}
 
     fieldsets = (
         (
+            "SEO",
+            {
+                "fields": ("meta_title", "meta_description"),
+                "classes": ("collapse",),
+            },
+        ),
+        (
             "Основная информация",
             {
                 "fields": (
                     "number",
                     "name",
-                    "name_running_line",
                     "slug",
-                    "info",
+                    "name_running_line",
                     "in_running_line",
                 )
-            },
-        ),
-        (
-            "SEO",
-            {
-                "fields": ("meta_title", "meta_description"),
-                "classes": ("collapse",),
             },
         ),
         ("Содержание услуги", {"fields": ("content",), "classes": ("wide",)}),
@@ -255,8 +254,24 @@ class HomePageAdmin(admin.ModelAdmin):
     Допускается добавлять только один объект данной модели.
     """
 
-    list_display_links = ("hero_title",)
-    list_display = ("hero_title", "hero_subtitle")
+    list_display_links = (
+        "hero_title",
+        "about_title",
+        "services_section_title",
+        "lab_title",
+        "dig_title",
+        "tokenization_title",
+        "order_section_title",
+    )
+    list_display = (
+        "hero_title",
+        "about_title",
+        "services_section_title",
+        "lab_title",
+        "dig_title",
+        "tokenization_title",
+        "order_section_title",
+    )
 
     def has_add_permission(self, request):
         if self.model.objects.exists():
@@ -277,13 +292,16 @@ class LabCartAdmin(admin.ModelAdmin):
     лаборатории стартапов на главной странице.
     """
 
-    list_display = ["id", "title"]
+    list_display = ["id", "title", "card_type"]
     list_display_links = ["id", "title"]
     search_fields = ["title"]
     ordering = ["title"]
 
     fieldsets = (
-        ("Основная информация", {"fields": ("title", "image", "description")}),
+        (
+            "Основная информация",
+            {"fields": ("card_type", "title", "image", "description")},
+        ),
     )
 
 

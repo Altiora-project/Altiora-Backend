@@ -159,7 +159,7 @@ python manage.py runserver 8000
 ### Добавление всех тестовых данных (фикстур) сразу
 
 ```bash
-python manage.py loaddata fixtures/tag.json fixtures/service.json fixtures/technology.json fixtures/partner.json fixtures/homepagecontent.json fixtures/labcart.json fixtures/sitesettings.json fixtures/servicepostscriptum.json fixtures/casestudy.json
+python manage.py loaddata fixtures/tag.json fixtures/service.json fixtures/technology.json fixtures/partner.json fixtures/homepagecontent.json fixtures/labcart.json fixtures/sitesettings.json fixtures/servicepostscriptum.json fixtures/casestudy.json fixtures/policy.json 
 ```
 
 ### Добавление тестовых данных (фикстур) по одной
@@ -174,6 +174,7 @@ python manage.py loaddata fixtures/<name_of_fixture.json>
 - `homepagecontent.json`
 - `labcart.json`
 - `partner.json`
+- `policy.json`
 - `service.json`
 - `servicepostscriptum.json`
 - `sitesettings.json`

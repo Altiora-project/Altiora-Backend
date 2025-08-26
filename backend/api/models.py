@@ -1,8 +1,8 @@
-from altiora_backend import constants
 from django.core.exceptions import ValidationError
 from django.db import models
 from mdeditor.fields import MDTextField
 
+from altiora_backend import constants
 from .mixins import AutoSlugMixin, SeoMixin
 
 
@@ -171,10 +171,6 @@ class Service(AutoSlugMixin, SeoMixin):
     number = models.PositiveSmallIntegerField(
         verbose_name="№ п/п в списке услуг"
     )
-    info = models.TextField(
-        max_length=constants.TEXT_MAX_LENGTH,
-        verbose_name="Информация об услуге",
-    )
     content = MDTextField(
         verbose_name="Содержание услуги", blank=True, null=True
     )
@@ -250,11 +246,10 @@ class HomePageContent(SeoMixin):
     )
 
     # --- Блок Hero ---
-    hero_title = models.CharField(
+    hero_title = MDTextField(
         verbose_name="Главный заголовок (Hero)",
         max_length=constants.NAME_MAX_LENGTH,
     )
-    hero_subtitle = models.TextField(verbose_name="Подзаголовок (Hero)")
     hero_image = models.ImageField(
         verbose_name="Изображение (Hero)",
         upload_to="main_page/",
@@ -263,17 +258,34 @@ class HomePageContent(SeoMixin):
     )
 
     # --- Блок "О нас" ---
-    about_title = models.CharField(
-        verbose_name="Заголовок 'О нас'", max_length=constants.NAME_MAX_LENGTH
+    about_title = MDTextField(
+        verbose_name="Заголовок 'О нас'",
+        max_length=constants.NAME_MAX_LENGTH,
+        blank=True,
     )
-    about_text = MDTextField(verbose_name="Текст 'О нас'")
-    highlight_1 = models.CharField(
+    about_subtitle = MDTextField(
+        verbose_name="Подзаголовок 'О нас'",
+        max_length=constants.NAME_MAX_LENGTH,
+        blank=True,
+    )
+    about_highlight_1 = models.CharField(
         verbose_name="Хайлайт блока 'О нас' №1",
         max_length=constants.NAME_MAX_LENGTH,
+        default="5+ лет",
     )
-    highlight_2 = models.CharField(
+    about_highlight_text_1 = MDTextField(
+        verbose_name="Текст в хайлайте №1", blank=True
+    )
+    about_highlight_2 = models.CharField(
         verbose_name="Хайлайт блока 'О нас' №2",
         max_length=constants.NAME_MAX_LENGTH,
+        default="100%",
+    )
+    about_highlight_text_2 = MDTextField(
+        verbose_name="Текст в хайлайте №2", blank=True
+    )
+    about_highlight_subtext = MDTextField(
+        verbose_name="Текст под хайлайтами", blank=True
     )
 
     # --- Блок "Наши услуги" ---
@@ -347,15 +359,6 @@ class HomePageContent(SeoMixin):
         max_length=constants.NAME_MAX_LENGTH,
         default="/контакты",
     )
-    contact_address = models.CharField(
-        verbose_name="Адрес", max_length=constants.NAME_MAX_LENGTH, blank=True
-    )
-    contact_phone = models.CharField(
-        verbose_name="Телефон",
-        max_length=constants.NAME_MAX_LENGTH,
-        blank=True,
-    )
-    contact_email = models.EmailField(verbose_name="Email", blank=True)
 
     class Meta:
         verbose_name = "Контент главной страницы"
@@ -378,6 +381,26 @@ class HomePageContent(SeoMixin):
 
 
 class LabCart(models.Model):
+    """Общая модель карточек лаборатории стартапов и digital маркетинг."""
+
+    CARD_TYPE_CHOICES = [
+        (
+            constants.CARD_CHOICES["startup_laboratory"],
+            constants.CARD_CHOICES["startup_laboratory_text"],
+        ),
+        (
+            constants.CARD_CHOICES["digital_marketing"],
+            constants.CARD_CHOICES["digital_marketing_text"],
+        ),
+    ]
+
+    card_type = models.CharField(
+        verbose_name="Тип карточки",
+        max_length=constants.CARD_CHOICES_MAX_LENGTH,
+        choices=CARD_TYPE_CHOICES,
+        default=constants.CARD_CHOICES["startup_laboratory"],
+    )
+
     title = models.CharField(
         verbose_name="Заголовок карточки",
         max_length=constants.NAME_MAX_LENGTH,
@@ -391,8 +414,10 @@ class LabCart(models.Model):
     description = models.TextField(verbose_name="Описание карточки")
 
     class Meta:
-        verbose_name = "Карточка лаборатории стартапов"
-        verbose_name_plural = "Карточки лаборатории стартапов"
+        verbose_name = "Стартап или Digital маркетинг"
+        verbose_name_plural = (
+            "Карточки лаборатории стартапов и digital маркетинга"
+        )
 
     def __str__(self):
         return f"Карточка {self.title}"
