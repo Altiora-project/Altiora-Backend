@@ -31,15 +31,23 @@ class Partner(models.Model):
 class ProjectRequest(models.Model):
     """Модель для заявки на проект"""
 
-    name = models.CharField(max_length=255, verbose_name="Имя")
+    name = models.CharField(
+        max_length=constants.NAME_MAX_LENGTH, verbose_name="Имя"
+    )
     company = models.CharField(
-        max_length=255, verbose_name="Название компании"
+        max_length=constants.NAME_MAX_LENGTH, verbose_name="Название компании"
     )
-    project_details = models.TextField(verbose_name="Детали проекта")
+    project_details = models.TextField(
+        verbose_name="Детали проекта",
+        max_length=constants.PROJECT_DETAILS_MAX_LENGTH,
+    )
     phone_number = models.CharField(
-        max_length=20, verbose_name="Номер телефона"
+        max_length=constants.PHONE_NUMBER_MAX_LENGTH,
+        verbose_name="Номер телефона",
     )
-    email = models.EmailField(max_length=255, verbose_name="Email")
+    email = models.EmailField(
+        max_length=constants.EMAIL_MAX_LENGTH, verbose_name="Email"
+    )
     agreed_to_terms = models.BooleanField(
         verbose_name="Согласие с условиями", default=False
     )

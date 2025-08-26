@@ -3,6 +3,7 @@ import re
 from rest_framework import serializers
 
 from api.models import ProjectRequest
+from altiora_backend import constants
 
 
 class ProjectRequestSerializer(serializers.ModelSerializer):
@@ -12,19 +13,24 @@ class ProjectRequestSerializer(serializers.ModelSerializer):
     """
 
     name = serializers.CharField(
-        help_text="Имя клиента, отправившего заявку.", max_length=255
+        help_text="Имя клиента, отправившего заявку.",
+        max_length=constants.NAME_MAX_LENGTH,
     )
     company = serializers.CharField(
-        help_text="Название компании клиента.", max_length=255
+        help_text="Название компании клиента.",
+        max_length=constants.NAME_MAX_LENGTH,
     )
     project_details = serializers.CharField(
-        help_text="Описание проекта или задачи, которую нужно реализовать."
+        help_text="Описание проекта или задачи, которую нужно реализовать.",
+        max_length=constants.PROJECT_DETAILS_MAX_LENGTH,
     )
     phone_number = serializers.CharField(
-        help_text="Контактный номер телефона в формате +79991234567."
+        help_text="Контактный номер телефона в формате +79991234567.",
+        max_length=constants.PHONE_NUMBER_MAX_LENGTH,
     )
     email = serializers.EmailField(
-        help_text="Электронная почта для связи.", max_length=255
+        help_text="Электронная почта для связи.",
+        max_length=constants.EMAIL_MAX_LENGTH,
     )
     agreed_to_terms = serializers.BooleanField(
         help_text="Флаг подтверждения согласия с политикой обработки "
