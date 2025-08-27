@@ -121,6 +121,7 @@ class ServiceAdmin(admin.ModelAdmin):
                     "slug",
                     "name_running_line",
                     "in_running_line",
+                    "info",
                 )
             },
         ),
